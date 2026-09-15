@@ -1,0 +1,280 @@
+<!-- 1. Tetapan Dokumen Asas HTML5 dan Bahasa Melayu -->
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <!-- 2. Pengekodan aksara dan tetapan responsif peranti mudah alih -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Utama | PreBites</title>
+    <!-- 3. Pautan Font Awesome dan Fail CSS Utama Halaman -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="homepage.css">
+    <link rel="stylesheet" href="validation.css">
+</head>
+<body class="homepage-body">
+
+    <!-- 4. Elemen Kesan Cahaya Latar Belakang (Glow Kiri) -->
+    <div class="homepage-body-glow-left"></div>
+
+    <!-- 5. Bahagian Bar Navigasi Atas (Navbar) -->
+    <header class="navbar">
+        <div class="nav-container">
+            <!-- 6. Logo Jenama PreBites dan Lencana PSP -->
+            <div class="brand">
+                <h1>Pre<span>Bites</span></h1>
+                <span class="badge-psp">YES PSP</span>
+            </div>
+            <!-- 7. Menu Pantas Navigasi Kanan (Butang Pesanan & Hamburger) -->
+            <nav class="nav-menu">
+                <a href="#pesanan" id="nav-orders" class="nav-order-btn">
+                    <i class="fa-solid fa-clock-rotate-left"></i> <span>Pesanan</span>
+                </a>
+                <button class="menu-hamburger-btn" id="menuHamburgerBtn" aria-label="Menu Navigasi">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 8. Lapisan Pelindung Gelap (Overlay) dan Laci Menu Sampingan (Sidebar) -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <aside class="sidebar-drawer" id="sidebarDrawer">
+        <!-- 9. Pengepala Sampingan dengan Butang Tutup -->
+        <div class="sidebar-header">
+            <h3>Menu Utama</h3>
+            <button class="close-sidebar-btn" id="closeSidebarBtn"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <!-- 10. Senarai Pautan Navigasi Dalaman Sidebar -->
+        <div class="sidebar-links">
+            <a href="#" class="sidebar-panel-link" data-panel="account"><i class="fa-solid fa-user-circle"></i> Akaun Saya</a>
+            <a href="#" class="sidebar-panel-link" data-panel="settings"><i class="fa-solid fa-gear"></i> Tetapan</a>
+            <a href="#" class="sidebar-panel-link" data-panel="about"><i class="fa-solid fa-circle-info"></i> Mengenai (About)</a>
+            <a href="#" class="sidebar-panel-link" data-panel="history"><i class="fa-solid fa-box-archive"></i> Sejarah Pesanan (History)</a>
+            <div class="sidebar-divider"></div>
+            <a href="login.html" class="sidebar-logout"><i class="fa-solid fa-right-from-bracket"></i> Log Keluar</a>
+        </div>
+    </aside>
+
+    <!-- Frame dalaman untuk paparan menu sidebar tanpa halaman tambahan -->
+    <div class="account-panel-overlay" id="accountPanelOverlay" aria-hidden="true">
+        <section class="account-panel" role="dialog" aria-modal="true" aria-labelledby="accountPanelTitle">
+            <div class="account-panel-header">
+                <div>
+                    <span class="panel-kicker" id="accountPanelKicker">PREBITES</span>
+                    <h3 id="accountPanelTitle">Akaun Saya</h3>
+                </div>
+                <button class="close-account-panel" id="closeAccountPanel" aria-label="Tutup panel">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="account-panel-body" id="accountPanelBody"></div>
+        </section>
+    </div>
+
+    <!-- 11. Bahagian Utama Banner Pengenalan (Hero Section) -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="live-badge">
+                <span class="live-dot"></span> LIVE PRE-ORDER
+            </div>
+            <h2>Selamat Datang ke <span>PreBites</span> 👋</h2>
+            <p>Pesan makanan kegemaran anda dari premis YES PSP tanpa perlu beratur panjang.</p>
+            <a href="#menu" class="btn-primary">Lihat Menu Sekarang</a>
+        </div>
+    </section>
+
+    <!-- 12. Seksyen Senarai Premis Makanan Utama (Dimuatkan Dinamik dari LocalStorage) -->
+    <section class="shops-section">
+        <h3 class="section-title">Premis Makanan Utama</h3>
+        <div class="shops-grid">
+            <!-- Kad kedai akan dijana secara dinamik di sini -->
+        </div>
+    </section>
+
+    <!-- 13. Seksyen Kapsul Kategori Makanan -->
+    <section class="categories-section">
+        <h3 class="section-title">Kategori Makanan</h3>
+        <div class="category-list">
+            <div class="category-item active" data-category="semua">🍔 Semua</div>
+            <div class="category-item" data-category="nasi">🍚 Nasi & Lauk</div>
+            <div class="category-item" data-category="mie">🍜 Mie & Sup</div>
+            <div class="category-item" data-category="snek">🍩 Kuih & Snek</div>
+            <div class="category-item" data-category="minuman">🥤 Minuman</div>
+        </div>
+    </section>
+
+    <!-- 14. Seksyen Utama Senarai Menu Popular Makanan -->
+    <main id="menu" class="menu-section">
+        <h3 class="section-title">Menu Popular Hari Ini</h3>
+        <div class="menu-grid">
+            <!-- Menu dari kedai peniaga akan dimuatkan secara automatik di sini -->
+        </div>
+    </main>
+
+    <!-- 15. Paparan Kotak Modal Perincian Premis Kedai (Shop Modal Overlay) -->
+    <div class="shop-modal-overlay" id="shopModalOverlay">
+        <div class="shop-modal-content">
+            <div class="shop-modal-header-img">
+                <img id="shopModalBanner" src="" alt="Banner Kedai">
+                <button class="close-shop-modal" id="closeShopModal">✕</button>
+            </div>
+            <div class="shop-modal-body-container">
+                <h3 id="shopModalTitle">Nama Kedai</h3>
+                <p id="shopModalDesc" style="color: #9c8e84; font-size: 13px; margin-bottom: 12px;"></p>
+                
+                <!-- 16. Sistem Navigasi 2 Tab Sahaja (Menu & Info) -->
+                <div class="shop-tabs">
+                    <button class="shop-tab-btn active" data-tab="menu">🍔 Tab Menu</button>
+                    <button class="shop-tab-btn" data-tab="info">ℹ️ Tab Info</button>
+                </div>
+
+                <!-- 17. Kandungan Tab Menu Kedai -->
+                <div class="shop-tab-content active" id="tab-menu">
+                    <div class="shop-menu-list">
+                        <!-- Menu kedai dalam modal -->
+                    </div>
+                </div>
+
+                <!-- 18. Kandungan Tab Maklumat Info Kedai (Tersusun Mengikut Kehendak) -->
+                <div class="shop-tab-content" id="tab-info">
+                    <div class="shop-info-box">
+                        <p>👤 <strong>Nama Pemilik:</strong> <span id="infoOwner">-</span></p>
+                        <p>📍 <strong>Stall No:</strong> <span id="infoStall">-</span></p>
+                        <p>📝 <strong>About:</strong> <span id="infoAbout">-</span></p>
+                        <p>⏰ <strong>Waktu Operasi:</strong> <span id="infoTime">-</span></p>
+                        <p>📞 <strong>No. Telefon:</strong> <span id="infoPhone">-</span></p>
+                        <p>🌐 <strong>Social Media:</strong> <span id="infoSocial">-</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 21. Bar Ringkasan Troli Terapung Di Bahagian Bawah Skrin (Floating Cart) -->
+    <div class="floating-cart" id="cartModalTrigger">
+        <div class="cart-details">
+            <span id="cart-count">🛒 0 Item Terpilih</span>
+            <strong id="cart-total">RM 0.00</strong>
+        </div>
+        <a href="payment.html" class="btn-checkout" id="checkoutBtn">Bayar</a>
+    </div>
+
+    <!-- 22. Lapisan Pelindung Popup Modal Perincian Senarai Troli -->
+    <div class="cart-overlay" id="cartOverlay">
+        <div class="cart-modal">
+            <div class="modal-header">
+                <h4>
+                    <i class="fa-solid fa-basket-shopping" style="color:#ff9f43;margin-right:8px;"></i>
+                    Perincian Troli Anda
+                </h4>
+                <button class="close-modal" id="closeModal">✕</button>
+            </div>
+            <div class="modal-body" id="cartItemsList">
+                <p class="empty-cart-text">Troli anda masih kosong. Sila tambah makanan!</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-clear" id="clearCartBtn">Kosongkan</button>
+                <a href="payment.html" class="btn-checkout-modal" id="checkoutBtnModal">Sahkan & Bayar</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 23. Popup Modal Senarai Pesanan Saya (Orders Overlay) -->
+    <div class="cart-overlay" id="ordersOverlay">
+        <div class="cart-modal orders-modal">
+            <div class="modal-header">
+                <h4>
+                    <i class="fa-solid fa-clock-rotate-left" style="color:#ff9f43;margin-right:8px;"></i>
+                    Pesanan Saya
+                </h4>
+                <button class="close-modal" id="closeOrdersModal">✕</button>
+            </div>
+            <div class="modal-body" id="ordersItemsList">
+                <p class="empty-cart-text">Tiada pesanan aktif buat masa sekarang.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-checkout-modal" id="closeOrdersBtn" style="width:100%;">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 24. Bingkai Khas Kaca Pengesahan Pembatalan Pesanan -->
+    <div class="cancel-order-overlay" id="cancelOrderOverlay">
+        <div class="cancel-order-modal">
+            <div class="cancel-modal-icon-box">
+                <i class="fa-solid fa-triangle-exclamation" style="color: #ff4d4d;"></i>
+            </div>
+            <h3>Batal Pesanan Ini?</h3>
+            <p>Tindakan ini tidak boleh ditarik balik. Pesanan anda untuk <span id="cancelOrderName" style="color:#ffffff; font-weight:700;"></span> akan dibatalkan serta-merta.</p>
+            
+            <div class="cancel-modal-actions">
+                <button class="btn-cancel-action btn-back" id="closeCancelModal">Kekalkan</button>
+                <button class="btn-cancel-action btn-proceed-cancel" id="confirmCancelOrderBtn">Ya, Batal</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 25. Kotak Modal Khas Pengesahan Pembayaran -->
+    <div id="customModal" class="custom-modal">
+        <div class="modal-content">
+            <div class="modal-icon-box">
+                <span class="modal-icon" id="modalIcon">🛒</span>
+            </div>
+            
+            <h3 class="modal-title" id="customModalTitle">Sahkan Pembayaran</h3>
+            <p class="modal-body" id="customModalBody">Adakah anda pasti ingin meneruskan pembayaran?</p>
+            
+            <div class="modal-info-container" id="modalInfoContainer">
+                <div class="info-row">
+                    <span>Jumlah Kuantiti</span>
+                    <strong id="modalItem">0</strong>
+                </div>
+                <div class="info-row total-row">
+                    <span>Total Bayaran</span>
+                    <strong id="modalHarga">RM 0.00</strong>
+                </div>
+            </div>
+            
+            <div class="modal-actions">
+                <button id="modalCancelBtn" class="btn-modal btn-cancel">Cancel</button>
+                <button id="modalConfirmBtn" class="btn-modal btn-confirm">Teruskan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 26. Pautan Fail Skrip Logik JavaScript Utama -->
+    <script src="validation.js"></script>
+    <script src="homepage.js"></script>
+    <script type="module" src="./homepage-firebase.js"></script>
+    <script type="module">
+        import { logout, updateCustomerName, watchRoleSession } from './auth.js';
+
+        window.prebitesUpdateCustomerName = updateCustomerName;
+
+        watchRoleSession('customer', null, () => {
+            window.location.href = 'login.html';
+        });
+
+        document.querySelector('.sidebar-logout')?.addEventListener('click', async (event) => {
+            event.preventDefault();
+            await logout();
+            window.location.href = 'login.html';
+        });
+    </script>
+    <script>
+        const hamburgerBtn = document.getElementById('menuHamburgerBtn');
+        const sidebarDrawer = document.getElementById('sidebarDrawer');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const closeSidebarBtn = document.getElementById('closeSidebarBtn');
+
+        function toggleSidebar() {
+            sidebarDrawer.classList.toggle('active');
+            sidebarOverlay.classList.toggle('active');
+        }
+
+        hamburgerBtn.addEventListener('click', toggleSidebar);
+        closeSidebarBtn.addEventListener('click', toggleSidebar);
+        sidebarOverlay.addEventListener('click', toggleSidebar);
+    </script>
+</body>
+</html>

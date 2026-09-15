@@ -1,0 +1,93 @@
+/* Shared validation and feedback UI */
+.validation-dialog-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 20000;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    background: rgba(3, 3, 5, 0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.22s ease, visibility 0.22s ease;
+}
+
+.validation-dialog-overlay.is-visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.validation-dialog {
+    width: min(100%, 420px);
+    padding: 26px;
+    color: #f8f5f2;
+    background: linear-gradient(145deg, rgba(34, 29, 26, 0.98), rgba(17, 15, 14, 0.98));
+    border: 1px solid rgba(255, 159, 67, 0.34);
+    border-radius: 22px;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.7), inset 0 1px rgba(255, 255, 255, 0.1);
+    transform: translateY(12px) scale(0.96);
+    transition: transform 0.22s ease;
+}
+
+.validation-dialog-overlay.is-visible .validation-dialog {
+    transform: translateY(0) scale(1);
+}
+
+.validation-dialog-icon {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    margin-bottom: 14px;
+    border-radius: 14px;
+    color: #ffb366;
+    background: rgba(255, 159, 67, 0.14);
+    font-size: 21px;
+}
+
+.validation-dialog h3 { margin: 0 0 8px; font-size: 19px; }
+.validation-dialog p { margin: 0; color: #c8bdb5; font-size: 13px; line-height: 1.6; overflow-wrap: anywhere; }
+.validation-dialog button {
+    width: 100%;
+    min-height: 44px;
+    margin-top: 20px;
+    border: 0;
+    border-radius: 12px;
+    color: #21130a;
+    background: #ff9f43;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+}
+.validation-dialog button:hover { background: #ffbe76; }
+
+.status-message.error {
+    color: #ffb4ad;
+    background: rgba(255, 69, 58, 0.1);
+    border: 1px solid rgba(255, 69, 58, 0.28);
+    text-shadow: 0 0 10px rgba(255, 69, 58, 0.18);
+}
+
+.error-msg.show {
+    display: block;
+    margin-top: 8px;
+    padding: 9px 11px;
+    color: #ffb4ad;
+    background: rgba(255, 69, 58, 0.1);
+    border: 1px solid rgba(255, 69, 58, 0.28);
+    border-radius: 10px;
+    line-height: 1.45;
+}
+
+.input-invalid {
+    border-color: #ff453a !important;
+    box-shadow: 0 0 0 3px rgba(255, 69, 58, 0.12) !important;
+}
+
+@media (max-width: 480px) {
+    .validation-dialog-overlay { padding: 14px; }
+    .validation-dialog { padding: 22px; border-radius: 18px; }
+}

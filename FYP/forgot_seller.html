@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <!-- 1. Tetapan asas pengekodan aksara dan paparan responsif peranti -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lupa Kata Laluan | PreBites</title>
+    
+    <!-- 2. Pautan fail lembaran gaya CSS khusus untuk halaman ini -->
+    <link rel="stylesheet" href="forgot_seller.css">
+    <link rel="stylesheet" href="validation.css">
+</head>
+<body>
+
+    <!-- 3. Elemen hiasan ikon makanan terapung di latar belakang -->
+    <div class="food-decor food-1">🍔</div>
+    <div class="food-decor food-2">🍕</div>
+    <div class="food-decor food-3">🍟</div>
+    <div class="food-decor food-4">🥤</div>
+
+    <!-- 4. Kontena utama kotak borang pemulihan kata laluan -->
+    <div class="login-container">
+        
+        <!-- 5. Bahagian tajuk logo dan penerangan ringkas -->
+        <div class="logo-section">
+            <h2>PreBites</h2>
+            <p>Masukkan emel anda untuk menetapkan semula kata laluan</p>
+        </div>
+
+        <!-- 6. Kotak mesej status maklum balas (kejayaan/ralat) yang disembunyikan pada awal -->
+        <div id="statusMessage" class="status-message success hidden"></div>
+
+        <!-- 7. Borang utama pemulihan kata laluan dengan fungsi hantar (onsubmit) -->
+        <form id="forgotPasswordForm" novalidate>
+            
+            <!-- 8. Kumpulan medan input alamat emel -->
+            <div class="input-group">
+                <label for="email">Alamat Emel</label>
+                <div class="input-wrapper">
+                    <!-- Medan input jenis emel berserta atribut wajib isi (required) -->
+                    <input type="email" id="email" placeholder="Contoh: nama@staff.psp.edu.my" required>
+                    
+                    <!-- 9. Grafik ikon SVG melambangkan emel pada ruang input -->
+                    <svg width="18" height="18" viewBox="0 0 24 24">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- 10. Butang tindakan menghantar pautan pemulihan -->
+            <button type="submit" class="btn-login">Hantar Pautan</button>
+        </form>
+
+        <!-- 11. Bahagian pautan pintasan kembali ke halaman log masuk -->
+        <div class="footer-text">
+            Sudah ingat kata laluan? <a href="login_seller.html">Log Masuk</a>
+        </div>
+    </div>
+
+    <!-- 12. Blok skrip JavaScript untuk pengendalian tindakan borang -->
+    <script type="text/plain" id="legacy-seller-reset">
+        // 13. Fungsi simulasi hantar emel tetapan semula kata laluan
+        function handleReset(event) {
+            // Menghalang tindakan lalai pelayar web daripada muat semula halaman
+            event.preventDefault();
+            
+            // Mengambil nilai nilai teks dari input emel
+            const emailInput = document.getElementById('email').value;
+            
+            // Mendapatkan elemen kotak status mesej maklum balas
+            const statusBox = document.getElementById('statusMessage');
+
+            // 14. Syarat pengesahan jika input emel tidak kosong
+            if(emailInput) {
+                // Membuang kelas 'hidden' untuk memaparkan kotak mesej kejayaan
+                statusBox.classList.remove('hidden');
+                
+                // Memasukkan teks maklum balas berjaya ke dalam kotak status
+                statusBox.innerText = `Pautan tetapan semula telah dihantar ke emel anda!`;
+                
+                // Mengosongkan nilai input emel selepas berjaya dihantar
+                document.getElementById('email').value = '';
+            }
+        }
+    </script>
+    <script src="validation.js"></script>
+    <script type="module">
+        import { initializePasswordReset } from './password-reset.js';
+
+        initializePasswordReset('forgotPasswordForm', 'email', 'statusMessage');
+    </script>
+</body>
+</html>

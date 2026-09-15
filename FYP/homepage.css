@@ -1,0 +1,1556 @@
+/* ==========================================================================
+   PREBITES HOMEPAGE - THE INTEGRATED LIQUID GLASS & TECH-MATRIC (2026)
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+/* 1. Tetapan Asas Pengaturan Wildcard (Global Reset) */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    letter-spacing: -0.03em;
+}
+
+/* 2. Tetapan Bingkai Utama HTML (Smooth Scrolling & Batasan Lebar) */
+html {
+    scroll-behavior: smooth;
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+/* 3. Gaya Asas Badan Laman (Background & Warna Teks Utama) */
+body.homepage-body {
+    background-color: #060505;
+    color: #f5f2f0;
+    padding-top: 90px;
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* 4. Kesan Cahaya Latar Belakang Bahagian Kanan (Liquid Glow 1) */
+body.homepage-body::before {
+    content: "";
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(230, 126, 34, 0.22) 0%, rgba(243, 156, 18, 0.05) 40%, transparent 70%);
+    top: -150px;
+    right: -150px;
+    filter: blur(100px);
+    pointer-events: none;
+    z-index: 1;
+    animation: liquidFloatOne 25s infinite alternate ease-in-out;
+}
+
+/* 5. Kesan Cahaya Latar Belakang Bahagian Kiri (Glow Kiri) */
+.homepage-body-glow-left {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(255, 77, 77, 0.12) 0%, rgba(230, 126, 34, 0.02) 50%, transparent 70%);
+    top: 600px;
+    left: -200px;
+    filter: blur(120px);
+    pointer-events: none;
+    z-index: 1;
+    animation: liquidFloatTwo 30s infinite alternate ease-in-out;
+}
+
+/* 6. Tekstur Latar Belakang Grid Halus (Tech Matrix Overlay) */
+body.homepage-body::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.45;
+    background-image: 
+        radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+    background-size: 24px 24px, 48px 48px, 48px 48px;
+    mask-image: radial-gradient(circle at 50% 50%, black 70%, transparent 100%);
+    -webkit-mask-image: radial-gradient(circle at 50% 50%, black 70%, transparent 100%);
+}
+
+/* 7. Animasi Pergerakan Cecair Latar 1 */
+@keyframes liquidFloatOne {
+    0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+    100% { transform: translate(-150px, 120px) scale(1.2) rotate(90deg); }
+}
+
+/* 8. Animasi Pergerakan Cecair Latar 2 */
+@keyframes liquidFloatTwo {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(100px, -80px) scale(1.1); }
+}
+
+/* 9. Animasi Peralihan Masuk Lembut (Fade In Slide) */
+@keyframes fadeInSlide {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 10. Pelaksanaan Animasi Kandungan Tab Aktif */
+.shop-tab-content.active {
+    animation: fadeInSlide 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 11. Kesan Transisi Umum untuk Semua Butang Interaktif */
+button, .btn-primary, .btn-checkout, .btn-add, .btn-add-shop, .category-item {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+button:active, .btn-primary:active, .btn-checkout:active, .btn-add:active, .btn-add-shop:active {
+    transform: scale(0.92) !important;
+}
+
+/* 12. Pengaturan Jarak Baris Teks Penerangan */
+p, .description, .shop-info p {
+    line-height: 1.6;
+    letter-spacing: -0.01em;
+}
+
+/* 13. Bar Navigasi Atas (Fixed Glassmorphism Navbar) */
+.navbar {
+    background: rgba(10, 8, 8, 0.9);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    backdrop-filter: blur(30px) saturate(210%);
+    -webkit-backdrop-filter: blur(30px) saturate(210%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* 14. Bekas Pengatur Kandungan Navbar */
+.nav-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 14px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 15. Jenama / Logo Utama */
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* 16. Gaya Judul Tajuk Logo Jenama */
+.brand h1 {
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* 17. Penekanan Warna pada Huruf Akhir Logo */
+.brand h1 span {
+    color: #ff9f43; 
+    font-weight: 800;
+    margin-left: 2px;
+}
+
+/* 18. Lencana Maklumat Jabatan/Institusi (Badge PSP) */
+.brand .badge-psp {
+    font-size: 9px;
+    font-weight: 700;
+    color: #ff9f43;
+    background: rgba(255, 159, 67, 0.1);
+    padding: 3px 8px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 159, 67, 0.2);
+    letter-spacing: 0.06em;
+}
+
+/* 19. Kumpulan Menu Bahagian Kanan Navigasi */
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* 20. Butang Pintasan Pesanan Saya */
+.nav-order-btn {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 10px 16px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* 21. Ikon Dalam Butang Pesanan */
+.nav-order-btn i {
+    color: #ff9f43;
+    font-size: 14px;
+}
+
+/* 22. Kesan Tindak Balas Hover Butang Pesanan */
+.nav-order-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 159, 67, 0.4);
+}
+
+/* 23. Butang Menu Hamburger Sampingan */
+.menu-hamburger-btn {
+    background: rgba(255, 159, 67, 0.15);
+    border: 1px solid rgba(255, 159, 67, 0.3);
+    color: #ff9f43;
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+/* 24. Kesan Hover Butang Hamburger */
+.menu-hamburger-btn:hover {
+    background: linear-gradient(180deg, #ff9f43 0%, #e67e22 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(230, 126, 34, 0.4);
+}
+
+/* 25. Lapisan Pelindung Latar Belakang Sidebar (Overlay) */
+.sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    z-index: 9998;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+/* 26. Keadaan Aktif Lapisan Pelindung Sidebar */
+.sidebar-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* 27. Laci Menu Sampingan (Sidebar Drawer) */
+.sidebar-drawer {
+    position: fixed;
+    top: 0;
+    right: -320px;
+    width: 300px;
+    height: 100%;
+    background: rgba(18, 15, 14, 0.95);
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(30px);
+    z-index: 9999;
+    box-shadow: -20px 0 50px rgba(0, 0, 0, 0.7);
+    transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+}
+
+/* 28. Keadaan Aktif Laci Sampingan */
+.sidebar-drawer.active {
+    right: 0;
+}
+
+/* 29. Header Bahagian Atas Sidebar */
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding-bottom: 18px;
+    margin-bottom: 20px;
+}
+
+/* 30. Tajuk Judul Dalam Header Sidebar */
+.sidebar-header h3 {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+/* 31. Butang Tutup Sidebar */
+.close-sidebar-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: none;
+    color: #a89e96;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+/* 32. Kesan Hover Butang Tutup Sidebar */
+.close-sidebar-btn:hover {
+    background: rgba(255, 77, 77, 0.2);
+    color: #ffffff;
+}
+
+/* 33. Senarai Pautan Navigasi Dalam Sidebar */
+.sidebar-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* 34. Gaya Setiap Pautan Teks Sidebar */
+.sidebar-links a {
+    text-decoration: none;
+    color: #b5a89e;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 12px 16px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.25s ease;
+}
+
+/* 35. Ikon Pautan Dalam Sidebar */
+.sidebar-links a i {
+    font-size: 16px;
+    color: #ff9f43;
+    width: 20px;
+    text-align: center;
+}
+
+/* 36. Kesan Interaksi Hover Pautan Sidebar */
+.sidebar-links a:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: #ffffff;
+    border-color: rgba(255, 159, 67, 0.2);
+    transform: translateX(4px);
+}
+
+/* 37. Garisan Pembahagi Pemisah Menu Sidebar */
+.sidebar-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.06);
+    margin: 12px 0;
+}
+
+/* 38. Gaya Khusus Pautan Log Keluar Sidebar */
+.sidebar-logout {
+    color: #ff6b6b !important;
+    background: rgba(255, 107, 107, 0.06) !important;
+    border-color: rgba(255, 107, 107, 0.15) !important;
+}
+
+/* 39. Warna Ikon Log Keluar */
+.sidebar-logout i {
+    color: #ff6b6b !important;
+}
+
+/* 40. Kesan Hover Butang Log Keluar */
+.sidebar-logout:hover {
+    background: rgba(255, 107, 107, 0.2) !important;
+    color: #ffffff !important;
+}
+
+/* Frame dalaman untuk menu sidebar */
+.account-panel-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 10001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.78);
+    backdrop-filter: blur(14px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+.account-panel-overlay.active { opacity: 1; pointer-events: auto; }
+.account-panel { width: min(100%, 500px); max-height: min(680px, 90vh); overflow: auto; color: #f5f2f0; background: rgba(24, 20, 18, 0.98); border: 1px solid rgba(255, 159, 67, 0.25); border-radius: 24px; box-shadow: 0 30px 70px rgba(0, 0, 0, 0.75), inset 0 1px rgba(255, 255, 255, 0.08); transform: translateY(18px) scale(0.96); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
+.account-panel-overlay.active .account-panel { transform: translateY(0) scale(1); }
+.account-panel-header { display: flex; justify-content: space-between; align-items: flex-start; padding: 24px 24px 18px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.panel-kicker { color: #ff9f43; font-size: 10px; font-weight: 800; letter-spacing: 0.12em; }
+.account-panel-header h3 { margin-top: 6px; font-size: 24px; letter-spacing: -0.04em; }
+.close-account-panel { width: 36px; height: 36px; border: 1px solid rgba(255,255,255,0.1); border-radius: 50%; background: rgba(255,255,255,0.05); color: #c8bdb5; cursor: pointer; }
+.close-account-panel:hover { color: #fff; background: rgba(255,77,77,0.2); }
+.account-panel-body { padding: 24px; }
+.profile-summary { display: flex; align-items: center; gap: 14px; padding: 18px; border-radius: 16px; background: linear-gradient(135deg, rgba(255,159,67,0.16), rgba(255,255,255,0.03)); border: 1px solid rgba(255,159,67,0.2); }
+.profile-avatar { width: 52px; height: 52px; display: grid; place-items: center; border-radius: 16px; background: #ff9f43; color: #21130a; font-size: 22px; font-weight: 800; }
+.profile-summary h4, .account-panel-body h4 { color: #fff; font-size: 17px; }
+.profile-summary p, .panel-note, .account-panel-body small { color: #a6988e; font-size: 12px; }
+.account-name-editor { margin-top: 16px; padding: 16px; border-radius: 16px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); }
+.account-name-editor label { display: block; margin-bottom: 8px; color: #a6988e; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; }
+.account-name-input { width: 100%; padding: 12px 13px; border: 1px solid rgba(255,255,255,0.12); border-radius: 11px; color: #fff; background: rgba(0,0,0,0.2); font: inherit; outline: none; }
+.account-name-input:focus { border-color: #ff9f43; box-shadow: 0 0 0 3px rgba(255,159,67,0.12); }
+.panel-detail-list, .settings-list { margin-top: 14px; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; overflow: hidden; }
+.panel-detail-list > div, .setting-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 15px 16px; border-bottom: 1px solid rgba(255,255,255,0.07); }
+.panel-detail-list > div:last-child, .setting-row:last-child { border-bottom: 0; }
+.panel-detail-list span { color: #a6988e; font-size: 13px; }.panel-detail-list strong { color: #fff; font-size: 13px; }.status-text { color: #2ecc71 !important; }
+.panel-note { margin: 16px 2px 0; line-height: 1.7; }
+.setting-row { cursor: pointer; }.setting-row span { display: grid; gap: 4px; }.setting-row strong { color: #fff; font-size: 13px; }.setting-row input { width: 18px; height: 18px; accent-color: #ff9f43; }
+.panel-action { width: 100%; margin-top: 18px; padding: 13px; border: 0; border-radius: 12px; background: #ff9f43; color: #21130a; font-weight: 800; cursor: pointer; }.panel-action:hover { background: #ffbe76; }
+.panel-feedback { min-height: 18px; margin-top: 10px; color: #2ecc71; text-align: center; font-size: 12px; }
+.about-mark { width: 58px; height: 58px; display: grid; place-items: center; margin-bottom: 16px; border-radius: 18px; background: rgba(255,159,67,0.14); color: #ff9f43; font-size: 25px; }.about-facts { display: flex; gap: 10px; margin-top: 20px; }.about-facts span { flex: 1; padding: 14px; border-radius: 12px; background: rgba(255,255,255,0.04); color: #a6988e; font-size: 12px; }.about-facts strong { display: block; color: #fff; margin-bottom: 4px; }
+.panel-empty { padding: 28px 8px; text-align: center; }.panel-empty i { margin-bottom: 14px; color: #ff9f43; font-size: 30px; }.panel-empty p { margin-top: 8px; color: #a6988e; font-size: 13px; }.history-list { display: grid; gap: 10px; }.history-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 15px; border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; background: rgba(255,255,255,0.03); }.history-row div { display: grid; gap: 5px; }.history-row strong { color: #fff; font-size: 13px; }.history-row small { color: #a6988e; }.history-row b { color: #ff9f43; font-size: 14px; white-space: nowrap; }
+
+/* 41. Bahagian Utama Banner Pengenalan (Hero Section) */
+.hero-section {
+    padding: 120px 20px 50px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+/* 42. Lencana Status Langsung (Live Badge) */
+.live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    font-weight: 800;
+    color: #2ecc71;
+    background: rgba(46, 204, 113, 0.08);
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+    letter-spacing: 0.1em;
+    border: 1px solid rgba(46, 204, 113, 0.15);
+}
+
+/* 43. Titik Lampu Status Hidup (Live Dot) */
+.live-dot {
+    width: 6px;
+    height: 6px;
+    background-color: #2ecc71;
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+}
+
+/* 44. Animasi Denyutan Titik Status */
+@keyframes pulse {
+    0% { opacity: 0.4; transform: scale(0.9); }
+    50% { opacity: 1; transform: scale(1.2); }
+    100% { opacity: 0.4; transform: scale(0.9); }
+}
+
+/* 45. Gaya Tajuk Utama Hero */
+.hero-content h2 {
+    color: #ffffff;
+    font-size: 44px;
+    font-weight: 800;
+    letter-spacing: -0.06em;
+    line-height: 1.1;
+    margin-bottom: 16px;
+}
+
+/* 46. Penekanan Gradien Teks Nama Jenama */
+.hero-content h2 span {
+    background: linear-gradient(180deg, #ffbe76 0%, #ff9f43 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text; 
+    color: transparent; 
+}
+
+/* 47. Paragraf Deskripsi Penerangan Hero */
+.hero-content p {
+    color: #9e9288;
+    font-size: 15px;
+    max-width: 550px;
+    margin: 0 auto 30px;
+    padding: 0 10px;
+}
+
+/* 48. Butang Tindakan Utama (Primary CTA Button) */
+.btn-primary {
+    display: inline-block;
+    background: linear-gradient(180deg, #ffffff 0%, #ededed 100%);
+    color: #0b0908;
+    text-decoration: none;
+    padding: 14px 36px;
+    border-radius: 16px;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* 49. Kesan Hover Butang Tindakan Utama */
+.btn-primary:hover {
+    transform: translateY(-4px);
+    background: linear-gradient(180deg, #ff9f43 0%, #e67e22 100%);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 40px rgba(230, 126, 34, 0.4);
+}
+
+/* 50. Kontena Seksyen Senarai Premis Kedai */
+.shops-section {
+    max-width: 1300px;
+    margin: 10px auto 20px;
+    padding: 0 20px;
+    position: relative;
+    z-index: 2;
+}
+
+/* 51. Grid Paparan Susun Atur Kad Kedai */
+.shops-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+/* 52. Komponen Kad Kedai Individu */
+.shop-card {
+    background: rgba(20, 18, 17, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* 53. Kesan Hover Kad Kedai */
+.shop-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 159, 67, 0.4);
+}
+
+/* 54. Bekas Gambar Banner Kedai */
+.shop-img {
+    height: 140px;
+    position: relative;
+    width: 100%;
+}
+
+/* 55. Imej Penyesuaian Foto Kedai */
+.shop-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 56. Lencana Status Keadaan Operasi Kedai */
+.shop-status {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* 57. Animasi Kedip Lampu Hijau Status Buka */
+@keyframes blink-green {
+    0% { background: rgba(46, 204, 113, 0.9); box-shadow: 0 0 0 rgba(46, 204, 113, 0.3); }
+    50% { background: rgba(46, 204, 113, 1); box-shadow: 0 0 15px rgba(46, 204, 113, 0.9); }
+    100% { background: rgba(46, 204, 113, 0.9); box-shadow: 0 0 0 rgba(46, 204, 113, 0.3); }
+}
+
+/* 58. Kelas Status Kedai Buka (Open Indicator) */
+.status-open { 
+    color: white; 
+    animation: blink-green 1.5s infinite ease-in-out;
+    border: 1px solid rgba(46, 204, 113, 0.5);
+}
+
+/* 59. Maklumat Teks Perincian Kedai */
+.shop-info {
+    padding: 16px;
+}
+
+/* 60. Tajuk Nama Kedai */
+.shop-info h4 {
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+/* 61. Keterangan Waktu & Lokasi Kedai */
+.shop-info p {
+    color: #9e9288;
+    font-size: 12px;
+}
+
+/* 62. Lapisan Pelindung Modal Paparan Kedai */
+.shop-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(15px);
+    z-index: 10000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+}
+
+/* 63. Keadaan Aktif Lapisan Pelindung Modal Kedai */
+.shop-modal-overlay.active {
+    display: flex;
+}
+
+/* 64. Kontena Kandungan Kotak Modal Kedai */
+.shop-modal-content {
+    background: rgba(22, 19, 18, 0.98);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    max-width: 480px;
+    border-radius: 24px;
+    overflow: hidden;
+    color: #fff;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+}
+
+/* 65. Bahagian Gambar Header Banner Modal Kedai */
+.shop-modal-header-img {
+    height: 160px;
+    position: relative;
+    width: 100%;
+}
+
+/* 66. Penyesuaian Imej Header Banner Modal */
+.shop-modal-header-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 67. Butang Tutup Kotak Modal Kedai */
+.close-shop-modal {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: rgba(0, 0, 0, 0.6);
+    border: none;
+    color: #fff;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* 68. Kontena Badan Dalaman Modal Kedai */
+.shop-modal-body-container {
+    padding: 20px;
+}
+
+/* 69. Tajuk Nama Di Dalam Modal Kedai */
+.shop-modal-body-container h3 {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 4px;
+    word-break: break-word;
+}
+
+/* 70. Sistem Navigasi Tab Di Dalam Modal Kedai (2 Tab Sahaja) */
+.shop-tabs {
+    display: flex;
+    gap: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+}
+
+/* 71. Butang Pilihan Tab Premis Kedai */
+.shop-tab-btn {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #a39387;
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* 72. Keadaan Aktif Butang Tab Kedai */
+.shop-tab-btn.active {
+    background: #ff9f43;
+    color: white;
+    border-color: #ff9f43;
+}
+
+/* 73. Kandungan Panel Paparan Tab Kedai */
+.shop-tab-content {
+    display: none;
+    max-height: 42vh;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+/* 74. Keadaan Aktif Paparan Panel Kandungan Tab */
+.shop-tab-content.active {
+    display: block;
+}
+
+/* 75. Senarai Susunan Menu Di Dalam Modal Kedai */
+.shop-menu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* 76. Komponen Item Makanan Individu Di Dalam Modal */
+.shop-menu-item {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 16px;
+    padding: 12px 14px;
+    gap: 14px;
+    position: relative;
+    transition: all 0.25s ease;
+}
+
+/* 77. Kesan Hover Item Menu Dalam Modal */
+.shop-menu-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 159, 67, 0.25);
+}
+
+/* 78. Gambar Miniatur Makanan Menu Modal */
+.shop-menu-item img {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+/* 79. Kumpulan Teks Perincian Menu Modal */
+.shop-menu-details {
+    flex-grow: 1;
+}
+
+/* 80. Tajuk Nama Makanan Dalam Modal */
+.shop-menu-details h5 {
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 3px;
+}
+
+/* 81. Paparan Harga Makanan Dalam Modal */
+.shop-menu-details span {
+    font-size: 13px;
+    color: #ff9f43;
+    font-weight: 800;
+}
+
+/* 82. Butang Tambah Makanan Terus Dari Modal Kedai */
+.btn-add-shop {
+    background: #ff9f43;
+    color: white;
+    border: none;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn-add-shop:hover:not(:disabled) {
+    background: #e67e22;
+    transform: scale(1.1);
+}
+
+/* 83. Kotak Maklumat Perincian Premis Kedai (Tab Info Tersusun & Kemas) */
+.shop-info-box {
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 18px;
+    border-radius: 16px;
+    font-size: 13.5px;
+    color: #e2d9d2;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    line-height: 1.5;
+}
+
+.shop-info-box p {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 0;
+    letter-spacing: -0.01em;
+}
+
+.shop-info-box strong {
+    color: #ffffff;
+    font-weight: 600;
+    min-width: 120px;
+}
+
+/* 84. Seksyen Kategori Makanan Kapsul */
+.categories-section {
+    max-width: 1300px;
+    margin: 20px auto 0;
+    padding: 0 20px;
+    position: relative;
+    z-index: 2;
+}
+
+/* 85. Gaya Tajuk Seksyen Umum */
+.section-title {
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 18px;
+    letter-spacing: -0.04em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* 86. Senarai Susun Atur Kapsul Kategori Menegak Meluncur */
+.category-list {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 4px 4px 12px 4px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* 87. Sembunyikan Scrollbar Senarai Kategori */
+.category-list::-webkit-scrollbar { display: none; }
+
+/* 88. Butang Item Kapsul Kategori Individu */
+.category-item {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 10px 20px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #a39387;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    white-space: nowrap;
+}
+
+/* 89. Keadaan Hover & Aktif Item Kategori Kapsul */
+.category-item:hover, .category-item.active {
+    background: linear-gradient(180deg, #ffffff 0%, #e6e6e6 100%);
+    color: #0b0908;
+    border-color: #ffffff;
+    box-shadow: 0 8px 24px rgba(255, 255, 255, 0.12);
+    transform: translateY(-2px);
+}
+
+/* 90. Seksyen Utama Paparan Senarai Menu Makanan */
+.menu-section {
+    max-width: 1300px;
+    margin: 40px auto 140px;
+    padding: 0 20px;
+    position: relative;
+    z-index: 2;
+}
+
+/* 91. Grid Paparan Susun Atur Kad Menu Makanan */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+/* 92. Komponen Kad Menu Makanan Asas */
+.menu-card {
+    background: rgba(20, 18, 17, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.05);
+}
+
+/* 93. Kesan Interaksi Hover Kad Menu */
+.menu-card:hover {
+    transform: translateY(-6px);
+    background: rgba(28, 26, 25, 0.6);
+    border-color: rgba(255, 159, 67, 0.3);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 159, 67, 0.1);
+}
+
+/* 94. Gaya Susun Atur Istimewa Bento Highlight (Span 2 Columns) */
+.menu-card.bento-highlight {
+    grid-column: span 2;
+    flex-direction: row;
+    background: rgba(255, 255, 255, 0.02);
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* 95. Penyesuaian Imej Ruang Placeholder Bento Highlight */
+.menu-card.bento-highlight .menu-image-placeholder {
+    width: 45%;
+    height: 100%;
+    border-bottom: none;
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    background: radial-gradient(circle at 50% 50%, rgba(255,159,67,0.08) 0%, transparent 75%);
+}
+
+/* 96. Penyesuaian Lebar Maklumat Kotak Bento Highlight */
+.menu-card.bento-highlight .menu-info {
+    width: 55%;
+    padding: 28px;
+}
+
+/* 97. Lencana Penanda Istimewa Pada Kad Menu (Badge Laris) */
+.menu-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background: linear-gradient(180deg, #ff4d4d 0%, #ff3b30 100%);
+    color: white;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 5px 12px;
+    border-radius: 8px;
+    z-index: 2;
+    box-shadow: 0 6px 16px rgba(255, 59, 48, 0.3);
+    letter-spacing: 0.02em;
+}
+
+/* 98. Bekas Pemegang Gambar Foto Menu */
+.menu-image-placeholder {
+    background-color: rgba(255,255,255,0.02);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* 99. Penyesuaian Objek Imej Foto Menu Kad */
+.menu-image-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 100. Kesan Zum Masuk Gambar Apabila Kad Dihover */
+.menu-card:hover .menu-image-placeholder img {
+    transform: scale(1.08) rotate(1deg);
+}
+
+/* 101. Kotak Kandungan Maklumat Menu (Menu Info) */
+.menu-info {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+/* 102. Tajuk Nama Hidangan Makanan */
+.menu-info h4 {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.04em;
+}
+
+/* 103. Penerangan Keterangan Ringkas Makanan */
+.menu-info .description {
+    color: #9c8e84;
+    font-size: 13px;
+    margin-bottom: 18px;
+}
+
+/* 104. Pemotongan Baris Teks Penerangan Kad Biasa (Clamp Lines) */
+.menu-grid .menu-card:not(.bento-highlight) .menu-info .description {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* 105. Bahagian Bawah Kad Menu (Footer Harga & Butang Tambah) */
+.menu-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 14px;
+    margin-top: auto;
+}
+
+/* 106. Paparan Nilai Harga Makanan */
+.menu-footer .price {
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: -0.02em;
+}
+
+/* 107. Butang Tambah Item Makanan Bulat (+) */
+.btn-add {
+    background: linear-gradient(180deg, #ffffff 0%, #e6e6e6 100%);
+    color: #0b0908;
+    border: 1px solid #ffffff;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* 108. Kesan Interaksi Hover Butang Tambah Item */
+.menu-card:hover .btn-add {
+    background: linear-gradient(180deg, #ff9f43 0%, #e67e22 100%);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 24px rgba(230, 126, 34, 0.45);
+    transform: scale(1.08) rotate(90deg);
+}
+
+/* 109. Bar Troli Terapung Di Bawah Skrin (Floating Cart) */
+.floating-cart {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(20, 18, 17, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(35px) saturate(200%);
+    -webkit-backdrop-filter: blur(35px) saturate(200%);
+    color: white;
+    width: calc(100% - 32px);
+    max-width: 480px;
+    padding: 14px 20px;
+    border-radius: 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255,255,255,0.15);
+    z-index: 999;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 110. Kesan Hover Bar Troli Terapung */
+.floating-cart:hover {
+    transform: translateX(-50%) translateY(-3px);
+    border-color: rgba(255, 159, 67, 0.4);
+}
+
+/* 111. Teks Keterangan Bilangan Item Dalam Troli */
+.cart-details span {
+    font-size: 11px;
+    color: #b0a49c;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* 112. Teks Nilai Harga Total Dalam Troli */
+.cart-details strong {
+    font-size: 20px;
+    font-weight: 800;
+    display: block;
+}
+
+/* 113. Butang Bayar Troli Terapung */
+.btn-checkout {
+    background: linear-gradient(180deg, #ff9f43 0%, #e67e22 100%);
+    color: white;
+    text-decoration: none;
+    padding: 12px 28px;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 13px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 6px 16px rgba(230, 126, 34, 0.3);
+}
+
+/* 114. Kesan Hover Butang Bayar */
+.btn-checkout:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(230, 126, 34, 0.45);
+}
+
+/* 115. Lapisan Pelindung Overlay Modal Perincian Troli */
+.cart-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(15px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    padding: 16px;
+}
+
+/* 116. Keadaan Aktif Lapisan Pelindung Modal Troli */
+.cart-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* 117. Kotak Rangka Modal Perincian Troli */
+.cart-modal {
+    background: rgba(23, 20, 19, 0.98);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+    width: 100%;
+    max-width: 460px;
+    border-radius: 24px;
+    overflow: hidden;
+    transform: scale(0.9) translateY(20px);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* 118. Animasi Skala Masuk Kotak Modal Troli Aktif */
+.cart-overlay.active .cart-modal {
+    transform: scale(1) translateY(0);
+}
+
+/* 119. Bahagian Header Atas Modal Troli */
+.modal-header {
+    padding: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 120. Tajuk Judul Header Modal Troli */
+.modal-header h4 {
+    font-size: 18px;
+    font-weight: 800;
+    color: #ffffff;
+}
+
+/* 121. Butang Keluar (Close) Modal Troli */
+.close-modal {
+    background: rgba(255, 255, 255, 0.05);
+    border: none;
+    color: #a89e96;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    transition: all 0.2s;
+}
+
+/* 122. Kesan Hover Butang Tutup Modal Troli */
+.close-modal:hover {
+    background: rgba(255, 67, 67, 0.2);
+    color: #ffffff;
+}
+
+/* 123. Bahagian Badan Kandungan Senarai Item Modal */
+.modal-body {
+    padding: 20px;
+    max-height: 55vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* 124. Teks Amaran Apabila Troli Masih Kosong */
+.empty-cart-text {
+    color: #8c7e74;
+    text-align: center;
+    padding: 30px 0;
+    font-size: 14px;
+}
+
+/* 125. Bahagian Bawah Footer Modal Troli */
+.modal-footer {
+    padding: 18px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+/* 126. Gaya Butang Tindakan Dalam Footer Modal */
+.btn-checkout-modal, .btn-clear {
+    padding: 12px 18px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    border: none;
+}
+
+/* 127. Butang Kosongkan Troli (Clear Cart Button) */
+.btn-clear {
+    background: rgba(255, 255, 255, 0.05);
+    color: #a89e96;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* 128. Kesan Hover Butang Kosongkan Troli */
+.btn-clear:hover {
+    background: rgba(255, 77, 77, 0.15);
+    color: #ff4d4d;
+}
+
+/* 129. Butang Sahkan Bayaran Di Dalam Modal */
+.btn-checkout-modal {
+    flex-grow: 1;
+    background: linear-gradient(180deg, #ff9f43 0%, #e67e22 100%);
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    box-shadow: 0 6px 16px rgba(230, 126, 34, 0.25);
+}
+
+/* 130. Kesan Hover Butang Sahkan Bayaran Modal */
+.btn-checkout-modal:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(230, 126, 34, 0.45);
+}
+
+/* 131. Pengaturan Saiz Lebar Khas Modal Senarai Pesanan */
+.orders-modal { max-width: 480px !important; }
+
+/* 132. Lapisan Pelindung Overlay Pengesahan Pembatalan Pesanan */
+.cancel-order-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    padding: 16px;
+}
+
+/* 133. Keadaan Aktif Overlay Pembatalan Pesanan */
+.cancel-order-overlay.active { opacity: 1; pointer-events: auto; }
+
+/* 134. Kotak Rangka Modal Pembatalan Pesanan */
+.cancel-order-modal {
+    background: rgba(22, 19, 18, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(35px) saturate(200%);
+    -webkit-backdrop-filter: blur(35px) saturate(200%);
+    width: 100%;
+    max-width: 380px;
+    border-radius: 24px;
+    padding: 28px 24px;
+    text-align: center;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    transform: scale(0.85) translateY(20px);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* 135. Animasi Paparan Aktif Modal Pembatalan */
+.cancel-order-overlay.active .cancel-order-modal { transform: scale(1) translateY(0); }
+
+/* 136. Kotak Ikon Amaran Pembatalan Pesanan */
+.cancel-modal-icon-box {
+    width: 56px;
+    height: 56px;
+    background: rgba(255, 77, 77, 0.1);
+    border: 1px solid rgba(255, 77, 77, 0.25);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    font-size: 22px;
+    box-shadow: 0 8px 24px rgba(255, 77, 77, 0.2);
+}
+
+/* 137. Tajuk Judul Modal Pembatalan Pesanan */
+.cancel-order-modal h3 {
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    margin-bottom: 10px;
+}
+
+/* 138. Teks Keterangan Amaran Pembatalan Pesanan */
+.cancel-order-modal p {
+    color: #a09287;
+    font-size: 13px;
+    margin-bottom: 22px;
+}
+
+/* 139. Kumpulan Tindakan Butang Modal Pembatalan */
+.cancel-modal-actions { display: flex; gap: 10px; }
+
+/* 140. Gaya Asas Butang Tindakan Pembatalan */
+.btn-cancel-action {
+    flex: 1;
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+}
+
+/* 141. Butang Kembali / Kekalkan Pesanan */
+.btn-back { background: rgba(255, 255, 255, 0.05); color: #a89e96; border: 1px solid rgba(255, 255, 255, 0.08); }
+.btn-back:hover { background: rgba(255, 255, 255, 0.1); color: #ffffff; }
+
+/* 142. Butang Teruskan Pembatalan Pesanan */
+.btn-proceed-cancel {
+    background: linear-gradient(180deg, #ff4d4d 0%, #d93838 100%);
+    color: #ffffff;
+    box-shadow: 0 8px 20px rgba(255, 77, 77, 0.3);
+}
+
+/* 143. Kesan Hover Butang Teruskan Pembatalan */
+.btn-proceed-cancel:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(255, 77, 77, 0.45);
+}
+
+/* 144. Lapisan Pelindung Modal Tersuai Umum (Custom Modal) */
+.custom-modal {
+    display: none; 
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(12px); 
+    z-index: 100000;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    padding: 16px;
+}
+
+/* 145. Keadaan Pamer Aktif Modal Tersuai */
+.custom-modal.show {
+    display: flex;
+    opacity: 1;
+}
+
+/* 146. Kotak Kandungan Kandang Modal Tersuai */
+.modal-content {
+    background: rgba(22, 20, 19, 0.98); 
+    color: #ffffff;
+    padding: 28px 24px;
+    border-radius: 24px; 
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255,255,255,0.08);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transform: scale(0.9) translateY(10px);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    text-align: center;
+}
+
+/* 147. Animasi Skala Paparan Modal Tersuai Aktif */
+.custom-modal.show .modal-content { transform: scale(1) translateY(0); }
+
+/* 148. Kotak Ikon Visual Modal Tersuai */
+.modal-icon-box {
+    width: 56px;
+    height: 56px;
+    background: rgba(255, 159, 67, 0.1);
+    border: 1px solid rgba(255, 159, 67, 0.25);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    font-size: 22px;
+    box-shadow: 0 8px 24px rgba(255, 159, 67, 0.15);
+}
+
+/* 149. Tajuk Judul Modal Tersuai */
+.modal-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+}
+
+/* 150. Paragraf Keterangan Badan Modal Tersuai */
+.modal-body {
+    color: #a6988e;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+/* 151. Bekas Kontena Maklumat Ringkasan Modal */
+.modal-info-container {
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 16px;
+    padding: 14px 16px;
+    margin-bottom: 22px;
+    text-align: left;
+}
+
+/* 152. Barisan Garisan Maklumat Di Dalam Kontena Ringkasan */
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #9c8e84;
+    padding: 5px 0;
+}
+
+/* 153. Teks Penekanan Nilai Barisan Maklumat */
+.info-row strong { color: #ffffff; }
+
+/* 154. Barisan Khas Nilai Harga Keseluruhan (Total Row) */
+.info-row.total-row {
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    margin-top: 6px;
+    padding-top: 10px;
+    font-size: 15px;
+    color: #ffffff;
+}
+
+/* 155. Teks Penekanan Harga Total Yang Menonjol */
+.info-row.total-row strong {
+    color: #ff9f43;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+/* 156. Kumpulan Tindakan Butang Di Dalam Modal Tersuai */
+.modal-actions { display: flex; gap: 10px; }
+
+/* 157. Gaya Asas Butang Tindakan Modal */
+.btn-modal {
+    flex: 1;
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+}
+
+/* 158. Butang Batal / Tutup Modal Tersuai */
+.btn-cancel { background: rgba(255, 255, 255, 0.05); color: #a89e96; border: 1px solid rgba(255, 255, 255, 0.05); }
+.btn-cancel:hover { background: rgba(255, 255, 255, 0.1); color: #ffffff; }
+
+/* 159. Butang Sahkan / Teruskan Tindakan Modal */
+.btn-confirm {
+    background: linear-gradient(180deg, #ff9f43 0%, #e67e22 100%);
+    color: #ffffff;
+    box-shadow: 0 8px 20px rgba(230, 126, 34, 0.3);
+}
+.btn-confirm:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(230, 126, 34, 0.45);
+}
+
+/* 160. Tetapan Responsif Skrin Peranti Mudah Alih (Max-width 768px) */
+@media (max-width: 768px) {
+    html, body { overflow-x: hidden; width: 100%; }
+    body.homepage-body { padding-top: 85px; }
+    .nav-container { padding: 12px 16px; width: 100%; }
+    .brand h1 { font-size: 20px; }
+    .brand .badge-psp { font-size: 8px; padding: 3px 6px; }
+    .nav-menu { gap: 12px; }
+    .nav-order-btn { font-size: 13px; padding: 10px 14px; border-radius: 12px; min-height: 44px; display: flex; align-items: center; }
+    .menu-hamburger-btn { width: 44px; height: 44px; font-size: 18px; border-radius: 12px; }
+    .hero-section { padding: 85px 16px 40px; width: 100%; overflow-wrap: break-word; }
+    .hero-content h2 { font-size: 30px; }
+    .categories-section { margin-top: 10px; padding: 0 16px; width: 100%; }
+    .menu-section { margin: 30px auto 120px; padding: 0 16px; width: 100%; }
+    .menu-grid { grid-template-columns: 1fr; gap: 16px; width: 100%; }
+    .menu-card { width: 100%; max-width: 100%; }
+    .menu-card.bento-highlight { grid-column: auto; flex-direction: column; }
+    .menu-card.bento-highlight .menu-image-placeholder { width: 100%; height: 200px; border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+    .menu-card.bento-highlight .menu-info { width: 100%; padding: 20px; }
+    .btn-add { width: 44px; height: 44px; }
+    .floating-cart { bottom: 20px; width: calc(100% - 32px); padding: 16px 20px; border-radius: 20px; min-height: 64px; }
+    .btn-checkout { padding: 12px 20px; font-size: 14px; min-height: 44px; display: flex; align-items: center; }
+}
+
+@media (max-width: 480px) {
+    .nav-container { padding: 10px 12px; }
+    .brand { min-width: 0; }
+    .brand h1 { font-size: 18px; white-space: nowrap; }
+    .brand .badge-psp { display: none; }
+    .nav-menu { gap: 6px; }
+    .nav-order-btn { padding: 9px 10px; font-size: 0; gap: 0; }
+    .nav-order-btn i { font-size: 15px; }
+    .menu-hamburger-btn { width: 40px; height: 40px; }
+    .hero-section { padding-top: 68px; }
+    .hero-content h2 { font-size: 26px; }
+    .hero-content p { font-size: 13px; }
+    .shops-grid { grid-template-columns: 1fr; gap: 14px; }
+    .shop-modal-overlay, .cart-overlay { padding: 10px; }
+    .shop-modal-content, .cart-modal { max-height: 92vh; border-radius: 18px; }
+    .shop-modal-body-container, .modal-body { padding: 16px; }
+    .shop-tabs { overflow-x: auto; }
+    .shop-tab-btn { flex: 0 0 auto; }
+    .shop-menu-item { padding: 10px; gap: 9px; }
+    .shop-menu-item img { width: 48px; height: 48px; }
+    .shop-info-box p { flex-direction: column; gap: 2px; }
+    .shop-info-box strong { min-width: 0; }
+    .floating-cart { bottom: 12px; width: calc(100% - 20px); padding: 12px 14px; gap: 10px; }
+    .cart-details strong { font-size: 17px; }
+    .btn-checkout { padding: 10px 14px; font-size: 12px; }
+    .modal-footer { padding: 14px 16px; }
+    .btn-checkout-modal, .btn-clear { flex: 1; min-height: 44px; }
+}

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <!-- 1. Tetapan asas pengekodan dan paparan peranti -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peniaga Side - Sistem Pengurusan</title>
+    <link rel="stylesheet" href="kedai.css">
+    <link rel="stylesheet" href="validation.css">
+</head>
+<body>
+
+    <!-- 2. SVG Filters untuk Kesan Glass Distortion & Gooey -->
+    <svg width="0" height="0" style="position: absolute;">
+      <defs>
+        <filter id="glass-distortion" x="0%" y="0%" width="100%" height="100%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.008 0.008" numOctaves="2" seed="92" result="noise" />
+          <feGaussianBlur in="noise" stdDeviation="2" result="blurred" />
+          <feDisplacementMap in="SourceGraphic" in2="blurred" scale="150" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+        <filter id="goo">
+          <feGaussianBlur id="SvgjsFeGaussianBlur1000" result="SvgjsFeGaussianBlur1000" in="SourceGraphic" stdDeviation="13"></feGaussianBlur>
+          <feColorMatrix id="SvgjsFeColorMatrix1001" result="SvgjsFeColorMatrix1001" in="SvgjsFeGaussianBlur1000" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 16 -10" type="matrix"></feColorMatrix>
+          <feComposite id="SvgjsFeComposite1002" result="SvgjsFeComposite1002" in="SvgjsFeColorMatrix1001" operator="atop"></feComposite>
+        </filter>
+        <filter id="knockout" color-interpolation-filters="sRGB">
+          <feColorMatrix result="knocked" type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 -1 -1 -1 1 0" />
+          <feComponentTransfer><feFuncR type="linear" slope="3" intercept="-1" /><feFuncG type="linear" slope="3" intercept="-1" /><feFuncB type="linear" slope="3" intercept="-1" /></feComponentTransfer>
+          <feComponentTransfer><feFuncR type="table" tableValues="0 0 0 0 0 1 1 1 1 1" /><feFuncG type="table" tableValues="0 0 0 0 0 1 1 1 1 1" /><feFuncB type="table" tableValues="0 0 0 0 0 1 1 1 1 1" /></feComponentTransfer>
+        </filter>
+        <filter id="remove-black" color-interpolation-filters="sRGB">
+          <feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 -255 -255 -255 0 1" result="black-pixels" />
+          <feMorphology in="black-pixels" operator="dilate" radius="0.5" result="smoothed" />
+          <feComposite in="SourceGraphic" in2="smoothed" operator="out" />
+        </filter>
+      </defs>
+    </svg>
+
+    <!-- 3. Backdrop overlay untuk menu sisi kanan -->
+    <div class="nav-overlay" id="navOverlay" onclick="toggleRightPanel()"></div>
+
+    <!-- 4. Header utama portal peniaga (Design Gambar 1 + Susunan Gambar 2) -->
+    <header class="web-header">
+        <div class="header-left-group">
+            <!-- Logo PreBites (Design Gambar 1) -->
+            <div class="brand-logo">
+                Pre<span>Bites</span>
+            </div>
+
+            <!-- Badge Nama Kedai (No Kedai) (Ikut Gambar 2) -->
+            <div class="shop-pill-badge">
+                <span id="shop-name-display">Memuatkan...</span>
+            </div>
+
+            <!-- Pill 2: ID Stall Kedai -->
+            <div class="stall-pill-badge">
+                <span id="stall-id-display">Stall --</span>
+            </div>
+        </div>
+
+        <div class="header-right-area">
+            <!-- Status Toggle (Gaya Pill Dark Mode) -->
+            <div class="shop-status-toggle">
+                <span id="txt-status">BUKA</span>
+                <label class="toggle-btn">
+                    <input type="checkbox" checked id="toggle-status" onchange="confirmToggleShopStatus(this)">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <!-- Hamburger Button (Aksen Oren Gambar 1) -->
+            <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleRightPanel()">
+                <div class="hamburger-icon-box">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
+        </div>
+    </header>
+
+    <!-- 5. Right side panel navigasi menu -->
+    <nav class="side-panel-menu" id="sidePanelMenu">
+        <div class="side-panel-header">
+            <span>Menu Utama</span>
+            <button class="close-panel-btn" onclick="toggleRightPanel()">✕</button>
+        </div>
+        <div class="side-panel-body">
+            <a class="side-item" onclick="openAccountModal(); toggleRightPanel();">
+                <span class="side-icon">👤</span> Akaun & Profil Kedai
+            </a>
+            <a class="side-item" onclick="openSettingsModal(); toggleRightPanel();">
+                <span class="side-icon">⚙️</span> Tetapan Sistem
+            </a>
+            <a class="side-item" onclick="openAboutModal(); toggleRightPanel();">
+                <span class="side-icon">ℹ️</span> Mengenai (About)
+            </a>
+            
+            <div class="side-divider"></div>
+            
+            <button class="side-item logout-item" onclick="handleLogoutClick()">
+                <span class="side-icon">🚪</span> Log Keluar
+            </button>
+        </div>
+    </nav>
+
+    <!-- 6. Kandungan Halaman 1: Urus Pesanan -->
+    <main class="main-container page-view active" id="page-uruspesanan">
+        <div>
+            <!-- Kad pesanan dimuatkan secara automatik oleh kedai.js -->
+        </div>
+    </main>
+
+    <!-- 7. Kandungan Halaman 2: Urus Menu -->
+    <main class="main-container page-view" id="page-urusmenu">
+        <div>
+            <div class="section-title">Menu Management</div>
+            <div class="menu-list" id="senarai-menu">
+                <!-- Senarai menu dimuatkan secara automatik -->
+            </div>
+            <button class="btn-add" onclick="openAddMenuModal()">+ Tambah Menu Baru</button>
+        </div>
+    </main>
+
+    <!-- 8. Kandungan Halaman 3: Sejarah Pesanan & Analitik -->
+    <main class="main-container page-view" id="page-sejarah">
+        <div>
+            <div class="tab-bar" id="tabBar">
+                <div class="tab-pill" id="tabPill"></div>
+                <button class="tab-btn active" id="tab-semua" data-index="0" onclick="filterSejarah('semua', this)">Semua</button>
+                <button class="tab-btn" id="tab-selesai" data-index="1" onclick="filterSejarah('selesai', this)">Selesai</button>
+                <button class="tab-btn" id="tab-dibatalkan" data-index="2" onclick="filterSejarah('dibatalkan', this)">Dibatalkan</button>
+            </div>
+
+            <div id="senarai-selesai">
+                <!-- Dimuatkan secara dinamik -->
+            </div>
+
+            <div id="senarai-dibatalkan">
+                <!-- Dimuatkan secara dinamik -->
+            </div>
+        </div>
+
+        <div>
+            <div class="section-title">Ringkasan Analitik</div>
+            <div class="mini-analytics">
+                <!-- Dimuatkan secara dinamik -->
+            </div>
+        </div>
+    </main>
+
+    <!-- 9. Liquid Glass Navbar Bawah -->
+    <nav class="telegram-dock liquid-glass-navbar">
+        <div class="dock-items-wrapper">
+            <button class="dock-item active" data-index="0" data-page="uruspesanan" onclick="switchPage('uruspesanan', this)">
+                <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                <span>Urus Pesanan</span>
+            </button>
+            <button class="dock-item" data-index="1" data-page="urusmenu" onclick="switchPage('urusmenu', this)">
+                <svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>
+                <span>Urus Menu</span>
+            </button>
+            <button class="dock-item" data-index="2" data-page="sejarah" onclick="switchPage('sejarah', this)">
+                <svg viewBox="0 0 24 24"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.25 2.52.77-1.28-3.52-2.09V8z"/></svg>
+                <span>Sejarah</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 10. Modal About Sistem -->
+    <div class="modal-overlay" id="modalAbout">
+        <div class="modal-box">
+            <div class="modal-header">About System</div>
+            <div class="modal-body" style="font-size: 13.5px; color: #d1d1d6; line-height: 1.6;">
+                <p><strong>Sistem Pengurusan Peniaga PreBites</strong></p>
+                <p style="margin-top: 8px;">Versi: 3.5 (Multi-Vendor LocalStorage)</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal btn-save" style="width: 100%;" onclick="closeModal('modalAbout')">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 11. Modal Tetapan Sistem -->
+    <div class="modal-overlay" id="modalSettings">
+        <div class="modal-box">
+            <div class="modal-header">Tetapan Sistem</div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Mod Paparan</label>
+                    <select class="modal-input"><option>Mod Gelap (Dark Mode - Aktif)</option></select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal btn-save" style="width: 100%;" onclick="closeModal('modalSettings')">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 12. Modal Tambah Menu -->
+    <div class="modal-overlay" id="modalAddMenu">
+        <div class="modal-box" style="max-width: 450px;">
+            <div class="modal-header">Tambah Menu Baru</div>
+            <div class="modal-body">
+                <div class="form-group" style="text-align: center;">
+                    <label style="text-align: left;">Gambar Makanan</label>
+                    <div style="position: relative; width: 120px; height: 120px; background: rgba(255,255,255,0.02); border-radius: 14px; margin: 0 auto 10px auto; overflow: hidden; border: 2px dashed rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center;">
+                        <img id="foodImgPreview" src="" alt="Prebiu" style="position: absolute; width: 100%; height: 100%; object-fit: cover; display: none;">
+                        <span id="foodImgPlaceholder" style="font-size: 11px; color: #8e8e93;">Tiada Imej</span>
+                    </div>
+                    <input type="file" id="inputFoodFile" accept="image/*" onchange="previewFoodImage(event)" style="font-size: 12px; cursor: pointer;">
+                </div>
+                <div class="form-group">
+                    <label>Nama Makanan / Minuman</label>
+                    <input type="text" id="inputFoodName" class="modal-input" placeholder="Contoh: Nasi Goreng USA">
+                </div>
+                <div class="form-group">
+                    <label>Harga (RM)</label>
+                    <input type="number" id="inputFoodPrice" class="modal-input" placeholder="Contoh: 6.50" step="0.10">
+                </div>
+                
+                <div class="form-group">
+                    <label>Kategori Makanan</label>
+                    <div class="category-select-container" id="categoryContainer" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;">
+                        <button type="button" class="cat-pill-btn" onclick="selectCategory(this, 'Nasi & Lauk')">🍚 Nasi & Lauk</button>
+                        <button type="button" class="cat-pill-btn" onclick="selectCategory(this, 'Mi & Bihun')">🍜 Mi & Bihun</button>
+                        <button type="button" class="cat-pill-btn" onclick="selectCategory(this, 'Makanan Ringan')">🍔 Makanan Ringan</button>
+                        <button type="button" class="cat-pill-btn" onclick="selectCategory(this, 'Kuih & Dessert')">🍰 Kuih & Dessert</button>
+                        <button type="button" class="cat-pill-btn" onclick="selectCategory(this, 'Ayam & Snek')">🍗 Ayam & Snek</button>
+                        <button type="button" class="cat-pill-btn" onclick="selectCategory(this, 'Minuman')">🥤 Minuman</button>
+                    </div>
+                    <input type="hidden" id="inputFoodCategory" value="">
+                </div>
+
+                <div class="form-group">
+                    <label>Keterangan / Deskripsi Makanan</label>
+                    <textarea id="inputFoodDesc" class="modal-input" placeholder="Contoh: Dihidangkan bersama ayam berempah panas dan sambal cair sedap"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal btn-cancel" onclick="closeModal('modalAddMenu')">Batal</button>
+                <button class="btn-modal btn-save" onclick="saveMenu()">Simpan Menu</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 13. Modal Edit Menu -->
+    <div class="modal-overlay" id="modalEditMenu">
+        <div class="modal-box" style="max-width: 450px;">
+            <div class="modal-header">Kemaskini Menu</div>
+            <div class="modal-body">
+                <div class="form-group" style="text-align: center;">
+                    <label style="text-align: left;">Gambar Makanan</label>
+                    <div style="position: relative; width: 120px; height: 120px; background: rgba(255,255,255,0.02); border-radius: 14px; margin: 0 auto 10px auto; overflow: hidden; border: 2px dashed rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center;">
+                        <img id="editFoodImgPreview" src="" alt="Prebiu" style="position: absolute; width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <input type="file" id="editFoodFile" accept="image/*" onchange="previewEditFoodImage(event)" style="font-size: 12px; cursor: pointer;">
+                </div>
+                <div class="form-group">
+                    <label>Nama Makanan / Minuman</label>
+                    <input type="text" id="editFoodName" class="modal-input">
+                </div>
+                <div class="form-group">
+                    <label>Harga (RM)</label>
+                    <input type="number" id="editFoodPrice" class="modal-input" step="0.10">
+                </div>
+                
+                <div class="form-group">
+                    <label>Kategori Makanan</label>
+                    <div class="category-select-container" id="editCategoryContainer" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;">
+                        <button type="button" class="cat-pill-btn" onclick="selectEditCategory(this, 'Nasi & Lauk')">🍚 Nasi & Lauk</button>
+                        <button type="button" class="cat-pill-btn" onclick="selectEditCategory(this, 'Mi & Bihun')">🍜 Mi & Bihun</button>
+                        <button type="button" class="cat-pill-btn" onclick="selectEditCategory(this, 'Makanan Ringan')">🍔 Makanan Ringan</button>
+                        <button type="button" class="cat-pill-btn" onclick="selectEditCategory(this, 'Kuih & Dessert')">🍰 Kuih & Dessert</button>
+                        <button type="button" class="cat-pill-btn" onclick="selectEditCategory(this, 'Ayam & Snek')">🍗 Ayam & Snek</button>
+                        <button type="button" class="cat-pill-btn" onclick="selectEditCategory(this, 'Minuman')">🥤 Minuman</button>
+                    </div>
+                    <input type="hidden" id="editFoodCategory" value="">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn-modal btn-cancel" onclick="closeModal('modalEditMenu')">Batal</button>
+                <button class="btn-modal btn-save" onclick="saveEditedMenu()">Kemaskini</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 14. Modal Akaun & Profil Kedai -->
+    <div class="modal-overlay" id="modalAccount">
+        <div class="modal-box" style="max-width: 480px;">
+            <div class="modal-header" id="accountModalTitle">Maklumat & Akaun Kedai</div>
+            <div class="modal-body" id="accountModalBody"></div>
+            <div class="modal-footer" id="accountModalFooter"></div>
+        </div>
+    </div>
+
+    <!-- 15. Modal Notifikasi Sistem -->
+    <div class="modal-overlay" id="modalNotification">
+        <div class="modal-box" style="max-width: 320px; text-align: center;">
+            <div class="modal-header" id="notifTitle" style="color: #30d158;">Berjaya</div>
+            <div class="modal-body">
+                <p id="notifMessage" style="font-size: 13.5px; color: #d1d1d6;"></p>
+            </div>
+            <div class="modal-footer" style="justify-content: center;">
+                <button class="btn-modal btn-save" style="width: 100%;" onclick="closeModal('modalNotification')">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 16. Modal Pengesahan Tindakan -->
+    <div class="modal-overlay" id="modalConfirm">
+        <div class="modal-box" style="max-width: 320px; text-align: center;">
+            <div class="modal-header" id="confirmTitle" style="color: #ff9f0a;">Pengesahan</div>
+            <div class="modal-body">
+                <p id="confirmMessage" style="font-size: 13.5px; color: #d1d1d6;"></p>
+            </div>
+            <div class="modal-footer" style="display: flex; gap: 8px;">
+                <button class="btn-modal btn-cancel" style="flex: 1;" onclick="closeModal('modalConfirm')">Batal</button>
+                <button class="btn-modal btn-save" style="flex: 1; background: #30d158;" id="confirmBtnYes">Ya</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 17. Modal Templat Mesej Pantas (Dalam-App) -->
+    <div id="modalTemplateMsg" class="modal-overlay" style="display: none;">
+        <div class="modal-box" style="max-width: 380px; text-align: center;">
+            <div class="modal-header">💬 Hantar Mesej Pantas</div>
+            <div class="modal-body" style="display: flex; flex-direction: column; gap: 10px; margin: 10px 0;">
+                <p style="font-size: 12.5px; color: #8e8e93; margin-bottom: 5px;">Pilih salah satu mesej templat di bawah untuk dipaparkan pada skrin pelanggan:</p>
+                
+                <button type="button" class="btn-modal" style="background: rgba(255, 179, 64, 0.15); color: #ffb340; border: 1px solid rgba(255, 179, 64, 0.3); text-align: left; padding: 12px 14px;" onclick="pilihMesejPreset('Pesanan mengambil masa sedikit.')">
+                    🟡 "Pesanan mengambil masa sedikit."
+                </button>
+                
+                <button type="button" class="btn-modal" style="background: rgba(255, 69, 58, 0.15); color: #ff453a; border: 1px solid rgba(255, 69, 58, 0.3); text-align: left; padding: 12px 14px;" onclick="pilihMesejPreset('Menu habis.')">
+                    🔴 "Menu habis."
+                </button>
+                
+                <button type="button" class="btn-modal" style="background: rgba(48, 209, 88, 0.15); color: #30d158; border: 1px solid rgba(48, 209, 88, 0.3); text-align: left; padding: 12px 14px;" onclick="pilihMesejPreset('Pesanan dah siap!')">
+                    🟢 "Pesanan dah siap!"
+                </button>
+            </div>
+            <div class="modal-footer" style="justify-content: center;">
+                <button class="btn-modal btn-cancel" style="width: 100%;" onclick="closeModal('modalTemplateMsg')">Batal</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase Configuration & Functions -->
+    <script src="validation.js"></script>
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module">
+        import { watchRoleSession } from './auth.js';
+
+        watchRoleSession('seller', null, () => {
+            window.location.href = 'login_seller.html';
+        });
+    </script>
+    
+    <!-- Seller Portal Main Script -->
+    <script src="kedai.js"></script>
+</body>
+</html>

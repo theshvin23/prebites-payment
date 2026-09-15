@@ -1,0 +1,283 @@
+/* ==========================================================================
+   GAYA HYPER-PREMIUM LUPA PASSWORD (V4 - EMERALD GREEN EDITION)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    letter-spacing: -0.03em;
+}
+
+body {
+    /* LATAR BELAKANG: Hitam OLED dengan biasan cahaya Hijau Korporat di bucu */
+    background: 
+        radial-gradient(circle at top right, rgba(48, 209, 88, 0.15) 0%, transparent 45%),
+        radial-gradient(circle at bottom left, rgba(10, 132, 255, 0.08) 0%, transparent 45%),
+        #050508;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px;
+    color: #f5f2f0;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Kotak Kad Utama (Cyber Glassmorphism) */
+.login-container {
+    background: rgba(20, 20, 28, 0.75);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    /* Sempadan bercahaya halus */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 28px;
+    padding: 56px 44px;
+    width: 100%;
+    max-width: 450px;
+    position: relative;
+    z-index: 10;
+    
+    /* Bayang neon gelap */
+    box-shadow: 
+        0 4px 30px rgba(0, 0, 0, 0.4),
+        0 20px 50px rgba(0, 0, 0, 0.6),
+        inset 0 1px 1px rgba(255, 255, 255, 0.1);
+        
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.login-container:hover {
+    transform: translateY(-5px);
+    border-color: rgba(48, 209, 88, 0.35); /* Sempadan menyala hijau bila hover */
+    box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.5),
+        0 30px 70px rgba(48, 209, 88, 0.12), /* Glow hijau lembut di bawah kad */
+        inset 0 1px 1px rgba(255, 255, 255, 0.15);
+}
+
+/* Header & Logo */
+.logo-section {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.logo-section h2 {
+    color: #ffffff;
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    margin-bottom: 12px;
+}
+
+.logo-section h2::after {
+    content: '.';
+    color: #30d158;
+    /* Efek neon menyala pada dot */
+    text-shadow: 0 0 12px #30d158, 0 0 20px #30d158;
+}
+
+.logo-section p {
+    font-size: 14px;
+    color: #aeaeb2;
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+/* Mesej Maklum Balas Versi Gelap */
+.status-message {
+    padding: 16px;
+    border-radius: 14px;
+    font-size: 13.5px;
+    font-weight: 600;
+    margin-bottom: 28px;
+    text-align: center;
+}
+
+.status-message.success {
+    background: rgba(48, 209, 88, 0.1);
+    color: #30d158;
+    border: 1px solid rgba(48, 209, 88, 0.2);
+    text-shadow: 0 0 10px rgba(48, 209, 88, 0.2);
+}
+
+.hidden {
+    display: none;
+}
+
+/* Struktur Input Neon Stealth */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 28px;
+}
+
+.input-group label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #aeaeb2;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.input-wrapper input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1.5px solid rgba(255, 255, 255, 0.08);
+    padding: 18px 18px 18px 54px;
+    border-radius: 14px;
+    font-size: 15px;
+    color: #ffffff;
+    font-weight: 500;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+/* Focus State: Input menyala hijau */
+.input-wrapper input:focus {
+    border-color: #30d158;
+    background: rgba(48, 209, 88, 0.02);
+    box-shadow: 
+        0 0 0 4px rgba(48, 209, 88, 0.15),
+        inset 0 1px 1px rgba(48, 209, 88, 0.2);
+}
+
+/* Ikon SVG */
+.input-wrapper svg {
+    position: absolute;
+    left: 20px;
+    fill: #636366;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.input-wrapper input:focus + svg {
+    fill: #30d158;
+    filter: drop-shadow(0 0 5px #30d158);
+    transform: scale(1.05);
+}
+
+/* Butang Hantar Solid Premium Glow */
+.btn-login {
+    width: 100%;
+    background: #30d158;
+    color: #050508;
+    border: none;
+    padding: 18px;
+    border-radius: 14px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(48, 209, 88, 0.3);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    margin-top: 8px;
+}
+
+.btn-login:hover {
+    background: #34c759;
+    box-shadow: 0 12px 35px rgba(48, 209, 88, 0.5);
+    transform: translateY(-2px);
+}
+
+.btn-login:active {
+    transform: translateY(0);
+    box-shadow: 0 6px 15px rgba(48, 209, 88, 0.3);
+}
+
+/* Pautan Bawah (Footer Text) */
+.footer-text {
+    text-align: center;
+    margin-top: 36px;
+    font-size: 14px;
+    color: #8e8e93;
+}
+
+.footer-text a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 700;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.footer-text a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: #30d158;
+    transform-origin: bottom right;
+    transition: transform 0.3s ease;
+}
+
+.footer-text a:hover {
+    color: #30d158;
+}
+
+.footer-text a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+/* ==========================================================================
+   ANIMASI ELEMEN MAKANAN TERAPUNG (NEON GHOST EFFECT)
+   ========================================================================== */
+.food-decor {
+    position: absolute;
+    font-size: 36px;
+    user-select: none;
+    opacity: 0.22;
+    filter: drop-shadow(0 0 10px rgba(48, 209, 88, 0.25));
+    z-index: 1;
+    animation: floatAnimation 8s ease-in-out infinite;
+}
+
+.food-1 { top: 15%; left: 10%; animation-delay: 0s; }
+.food-2 { top: 75%; left: 12%; animation-delay: 2s; }
+.food-3 { top: 20%; right: 12%; animation-delay: 4s; }
+.food-4 { top: 70%; right: 10%; animation-delay: 6s; }
+
+@keyframes floatAnimation {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(10deg); opacity: 0.35; }
+    100% { transform: translateY(0px) rotate(0deg); }
+}
+
+/* Responsif Mobile */
+@media (max-width: 480px) {
+    body {
+        padding: 24px 16px;
+        background: #050508;
+    }
+    .login-container {
+        padding: 32px 20px;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+    }
+    .food-decor {
+        display: none;
+    }
+}
+
+@media (max-width: 360px) {
+    body { padding: 12px; }
+    .login-container { padding: 30px 14px; }
+    .logo-section h2 { font-size: 30px; }
+    .input-wrapper input { padding-left: 48px; }
+}

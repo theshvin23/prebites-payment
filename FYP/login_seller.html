@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <!-- 1. Tetapan asas pengekodan aksara dan paparan responsif peranti -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Masuk Peniaga | PreBites Seller</title>
+    
+    <!-- 2. Menyambungkan fail gaya CSS khas portal peniaga -->
+    <link rel="stylesheet" href="login_seller.css">
+    <link rel="stylesheet" href="validation.css">
+    
+    <style>
+        /* 3. Gaya tambahan ringkas untuk butang kembali ke login pelanggan biasa */
+        .back-to-customer {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #aeaeb2;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 8px 14px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            z-index: 20;
+        }
+        .back-to-customer:hover {
+            color: #30d158;
+            border-color: rgba(48, 209, 88, 0.3);
+            background: rgba(48, 209, 88, 0.05);
+            transform: translateY(-2px);
+        }
+        .back-to-customer svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 4. Butang satu klik untuk kembali ke halaman log masuk pelanggan -->
+    <a href="login.html" class="back-to-customer">
+        <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+        <span>Log Masuk Pelajar</span>
+    </a>
+
+    <!-- 5. Elemen hiasan ikon makanan/kedai terapung di latar belakang -->
+    <div class="food-decor food-1">🏪</div>
+    <div class="food-decor food-2">🍱</div>
+    <div class="food-decor food-3">☕</div>
+    <div class="food-decor food-4">🧋</div>
+
+    <!-- 6. Kontena utama kad log masuk peniaga -->
+    <div class="login-container">
+        
+        <!-- 7. Bahagian tajuk, lencana, dan logo peniaga -->
+        <div class="logo-section">
+            <span class="seller-badge">Portal Peniaga</span>
+            <h2>PreBites<span>.</span></h2>
+            <p>Sistem Pengurusan & Pesanan Premis Peniaga</p>
+        </div>
+
+        <!-- 8. Borang utama log masuk peniaga -->
+        <form id="loginForm" novalidate>
+            
+            <!-- 9. Kumpulan input untuk ID Peniaga / Email -->
+            <div class="input-group">
+                <label for="seller_id">Email Peniaga</label>
+                <div class="input-wrapper">
+                    <input type="email" id="seller_id" name="seller_id" placeholder="Cth: seller@email.com" required>
+                    <svg width="18" height="18" viewBox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- 10. Kumpulan input untuk kata laluan keselamatan -->
+            <div class="input-group">
+                <label for="password">Kata Laluan Peniaga</label>
+                <div class="input-wrapper">
+                    <input type="password" id="password" name="password" placeholder="Masukkan kata laluan" required>
+                    <svg width="18" height="18" viewBox="0 0 24 24">
+                        <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- 11. Pautan pintasan jika pengguna lupa kata laluan -->
+            <div class="forgot-pass">
+                <a href="forgot_seller.html">Lupa Kata Laluan?</a>
+            </div>
+
+            <!-- 12. Butang tindakan utama untuk menghantar borang log masuk -->
+            <button type="submit" class="btn-login">Masuk Sebagai Peniaga</button>
+        </form>
+
+        <!-- 13. Bahagian pembahagi visual -->
+        <div class="divider">atau</div>
+
+        <!-- 14. Butang Log Masuk Menggunakan Google -->
+        <button type="button" class="btn-google-login" id="googleSellerLoginButton">
+            <svg width="18" height="18" viewBox="0 0 24 24">
+                <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.8 14.8 1 12 1 7.4 1 3.5 3.6 1.6 7.4l3.7 2.9C6.2 7.1 8.9 5 12 5z"/>
+                <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/>
+                <path fill="#FBBC05" d="M5.3 14.7c-.2-.7-.4-1.5-.4-2.7s.2-2 .4-2.7L1.6 6.4C.6 8.4 0 10.6 0 13s.6 4.6 1.6 6.6l3.7-2.9z"/>
+                <path fill="#34A853" d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.8-2.1-6.7-5.1L1.6 16C3.5 19.8 7.4 23 12 23z"/>
+            </svg>
+            <span>Log Masuk dengan Google</span>
+        </button>
+
+        <!-- 15. Teks rujukan pautan untuk pendaftaran akaun peniaga baharu -->
+        <div class="footer-text" style="margin-top: 24px;">
+            Belum ada akaun peniaga? <a href="register_seller.html">Klik Sini</a>
+        </div>
+    </div>
+
+    <!-- 16. Firebase SDK Setup -->
+    <script type="text/plain" id="legacy-seller-login">
+      // Import Firebase modules
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+      import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+      import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+      // Your Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyCnVVcO2VtV2NB3GFR0wNpsKMSNcceKpEc",
+        authDomain: "pre-order-fyp.firebaseapp.com",
+        projectId: "pre-order-fyp",
+        storageBucket: "pre-order-fyp.firebasestorage.app",
+        messagingSenderId: "434593930804",
+        appId: "1:434593930804:web:45a63ad202876204957461",
+        measurementId: "G-VKS1EH03TJ"
+      };
+
+      // Initialize Firebase Services
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+
+      console.log("Firebase initialized for Seller Login!");
+
+      // Handle Seller Login
+      document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const emailInput = document.getElementById('seller_id');
+        const passwordInput = document.getElementById('password');
+
+        if (!emailInput.value || !passwordInput.value) {
+          alert("Please enter email and password");
+          return;
+        }
+
+        try {
+          // Sign in with Firebase Auth
+          const userCredential = await signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value);
+          const user = userCredential.user;
+
+          // Fetch seller data from Firestore
+          const sellerRef = doc(db, 'sellers', user.uid);
+          const sellerSnap = await getDoc(sellerRef);
+
+          if (sellerSnap.exists()) {
+            const sellerData = sellerSnap.data();
+            
+            // Generate username from store_id (e.g., "stall_1" -> "stall1_psp")
+            let username = sellerData.store_id;
+            if (sellerData.store_id && sellerData.store_id.startsWith('stall_')) {
+              let num = sellerData.store_id.replace('stall_', '');
+              username = `stall${num}_psp`;
+            }
+            
+            // Store seller info in localStorage for use in other pages
+            localStorage.setItem('prebites_active_user', JSON.stringify({
+              uid: user.uid,
+              email: user.email,
+              nama: sellerData.nama,
+              store_id: sellerData.store_id,
+              username: username
+            }));
+            
+            localStorage.setItem('active_vendor_id', sellerData.store_id || user.uid);
+
+            console.log("Seller logged in:", sellerData.nama);
+            alert(`Log masuk berjaya! Selamat datang, ${sellerData.nama}.`);
+            
+            // Redirect to kedai.html
+            window.location.href = "kedai.html";
+          } else {
+            alert("Seller profile not found. Please contact admin.");
+          }
+        } catch (error) {
+          console.error("Login error:", error.code, error.message);
+          alert("Login failed: " + error.message);
+        }
+      });
+
+      window.loginWithGoogle = function() {
+        alert("Google login coming soon...");
+      };
+    </script>
+    <script src="validation.js"></script>
+    <script type="module">
+      import { initializeGoogleLogin, initializeLoginPage } from './auth.js';
+
+      initializeLoginPage({
+        role: 'seller',
+        formId: 'loginForm',
+        emailId: 'seller_id',
+        passwordId: 'password',
+        redirect: 'kedai.html'
+      });
+      initializeGoogleLogin({
+        role: 'seller',
+        buttonId: 'googleSellerLoginButton',
+        redirect: 'kedai.html'
+      });
+    </script>
+</body>
+</html>

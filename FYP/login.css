@@ -1,0 +1,380 @@
+/* ==========================================================================
+   GAYA HYPER-PREMIUM & CLEAN LOGIN (BAKERY/CAFETERIA LUXE COUTURE)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    letter-spacing: -0.03em;
+}
+
+body {
+    /* LATAR BELAKANG: Hitam OLED dengan biasan cahaya (Ambient Glow) Oren di bucu */
+    background: 
+        radial-gradient(circle at top right, rgba(230, 126, 34, 0.15) 0%, transparent 45%),
+        radial-gradient(circle at bottom left, rgba(211, 84, 0, 0.08) 0%, transparent 45%),
+        #0b0908;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    overflow-x: hidden;
+    position: relative;
+    color: #f5f2f0;
+}
+
+/* Grid Halus Cyber-Cafeteria untuk Impak Tekstur Mewah */
+body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.15;
+    pointer-events: none;
+    background-image: 
+        linear-gradient(90deg, rgba(230, 126, 34, 0.15) 1px, transparent 1px),
+        linear-gradient(rgba(230, 126, 34, 0.15) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: radial-gradient(circle at center, white, transparent 75%);
+}
+
+/* ELEMEN MAKANAN TERAPUNG (Neon Ghost Art) */
+body .food-decor {
+    position: absolute;
+    font-size: 34px;
+    z-index: 1;
+    opacity: 0.22;
+    user-select: none;
+    pointer-events: none;
+    filter: drop-shadow(0 0 12px rgba(230, 126, 34, 0.25)) blur(0.5px);
+    animation: apungNeon 8s ease-in-out infinite alternate;
+}
+
+.food-1 { top: 12%; left: 10%; animation-delay: 0s; }
+.food-2 { top: 15%; right: 12%; animation-delay: 2s; }
+.food-3 { bottom: 15%; left: 8%; animation-delay: 4s; }
+.food-4 { bottom: 12%; right: 10%; animation-delay: 6s; }
+
+@keyframes apungNeon {
+    0% { transform: translateY(0) rotate(-6deg) scale(1); opacity: 0.2; }
+    100% { transform: translateY(-20px) rotate(8deg) scale(1.06); opacity: 0.35; }
+}
+
+/* KAD KANDUNGAN LOGIN (Cyber Glassmorphism Card) */
+.login-container {
+    background: rgba(18, 15, 13, 0.75);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 52px 40px;
+    border-radius: 28px;
+    width: 100%;
+    max-width: 440px;
+    text-align: center;
+    z-index: 10;
+    
+    /* Bayang neon berlapis untuk kesan 3D realistik */
+    box-shadow: 
+        0 4px 30px rgba(0, 0, 0, 0.4),
+        0 25px 60px rgba(0, 0, 0, 0.6),
+        inset 0 1px 1px rgba(255, 255, 255, 0.08);
+        
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.login-container:hover {
+    transform: translateY(-5px);
+    border-color: rgba(230, 126, 34, 0.35); /* Sempadan menyala oren semasa hover */
+    box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.5),
+        0 30px 70px rgba(230, 126, 34, 0.12),
+        inset 0 1px 1px rgba(255, 255, 255, 0.15);
+}
+
+/* Header & Logo */
+.logo-section h2 {
+    color: #ffffff;
+    font-size: 36px;
+    margin-bottom: 8px;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+}
+
+.logo-section h2::after {
+    content: '.';
+    color: #e67e22;
+    text-shadow: 0 0 12px #e67e22, 0 0 24px #e67e22; /* Kesan neon menyala pada dot */
+}
+
+.logo-section p {
+    color: #a39387;
+    font-size: 14.5px;
+    font-weight: 500;
+    margin-bottom: 40px;
+}
+
+/* Ruangan Input (Stealth Neon Architecture) */
+.input-group {
+    margin-bottom: 24px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    font-size: 11px;
+    color: #a39387;
+    margin-bottom: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.input-wrapper svg {
+    position: absolute;
+    left: 18px;
+    fill: #66574d;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 16px 16px 16px 50px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1.5px solid rgba(255, 255, 255, 0.07);
+    border-radius: 14px;
+    font-size: 15px;
+    color: #ffffff;
+    font-weight: 500;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+    background: rgba(230, 126, 34, 0.02);
+    border-color: #e67e22;
+    box-shadow: 
+        0 0 0 4px rgba(230, 126, 34, 0.15),
+        inset 0 1px 1px rgba(230, 126, 34, 0.2);
+    transform: translateY(-1px);
+}
+
+.input-group input:focus + svg {
+    fill: #e67e22;
+    filter: drop-shadow(0 0 6px #e67e22);
+    transform: scale(1.05);
+}
+
+/* Lupa Kata Laluan (Animated Underline Reveal) */
+.forgot-pass {
+    text-align: right;
+    margin-top: -12px;
+    margin-bottom: 24px;
+}
+
+.forgot-pass a {
+    color: #8c7a6b;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 2px;
+    transition: color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.forgot-pass a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1.5px;
+    background: linear-gradient(90deg, #e67e22, #f39c12);
+    transform: scaleX(0);
+    transform-origin: right center;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 0 6px rgba(230, 126, 34, 0.6);
+}
+
+.forgot-pass a:hover {
+    color: #e67e22;
+}
+
+.forgot-pass a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left center;
+}
+
+/* Butang Utama Premium (Terracotta Liquid Silk) */
+.btn-login {
+    width: 100%;
+    padding: 16px;
+    background: #e67e22;
+    border: none;
+    border-radius: 14px;
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(230, 126, 34, 0.3);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-login:hover {
+    background: #f39c12;
+    box-shadow: 0 12px 35px rgba(230, 126, 34, 0.5);
+    transform: translateY(-2px);
+}
+
+.btn-login:active {
+    transform: translateY(0);
+    box-shadow: 0 6px 15px rgba(230, 126, 34, 0.3);
+}
+
+/* Pembahagi Neon Terputus (Cyber Divider) */
+.divider {
+    margin: 28px 0;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #66574d;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1.5px dashed rgba(230, 126, 34, 0.15);
+}
+
+.divider:not(:empty)::before { margin-right: 1em; }
+.divider:not(:empty)::after { margin-left: 1em; }
+
+/* Butang Media Sosial Gelap */
+.social-login-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.btn-social {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    padding: 15px;
+    border: 1.5px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.02);
+    transition: all 0.25s ease;
+}
+
+.btn-google {
+    color: #ffffff;
+}
+
+.btn-google:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-1px);
+}
+
+.btn-facebook {
+    background: #1877f2;
+    color: white;
+    border: none;
+    box-shadow: 0 6px 16px rgba(24, 119, 242, 0.15);
+}
+
+.btn-facebook:hover {
+    background: #166fe5;
+    box-shadow: 0 8px 20px rgba(24, 119, 242, 0.25);
+    transform: translateY(-1px);
+}
+
+/* Teks Bawah (Animated Underline Reveal) */
+.footer-text {
+    margin-top: 36px;
+    font-size: 14px;
+    color: #8c7a6b;
+    font-weight: 500;
+}
+
+.footer-text a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 4px;
+    transition: color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.footer-text a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, #e67e22, #f39c12);
+    transform: scaleX(0);
+    transform-origin: right center;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 0 8px rgba(230, 126, 34, 0.6);
+}
+
+.footer-text a:hover {
+    color: #e67e22;
+}
+
+.footer-text a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left center;
+}
+
+/* Responsif Skrin Telefon */
+@media (max-width: 480px) {
+    body {
+        padding: 16px;
+        background: #0b0908;
+    }
+    body::before, .food-decor {
+        display: none;
+    }
+    .login-container {
+        padding: 36px 20px;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+    .login-container:hover {
+        transform: none;
+        box-shadow: none;
+    }
+}
+
+@media (max-width: 360px) {
+    body { padding: 10px; }
+    .login-container { padding: 28px 12px; }
+    .logo-section h2 { font-size: 30px; }
+    .logo-section p { font-size: 13px; margin-bottom: 28px; }
+    .input-group input { font-size: 14px; padding-left: 46px; }
+}

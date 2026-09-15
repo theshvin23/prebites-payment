@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | PreBites</title>
+    <!-- Menyambungkan fail CSS luar -->
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="validation.css">
+    <style>
+        /* Gaya ringkas untuk butang pintasan ke login peniaga */
+        .btn-to-seller {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #a39387;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 8px 14px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        .btn-to-seller:hover {
+            color: #e67e22;
+            border-color: rgba(230, 126, 34, 0.35);
+            background: rgba(230, 126, 34, 0.05);
+            transform: translateY(-2px);
+        }
+        .btn-to-seller svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BUTANG SATU KLIK KE LOGIN PENIAGA -->
+    <a href="login_seller.html" class="btn-to-seller">
+        <span>Portal Peniaga</span>
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+    </a>
+
+    <!-- Hiasan makanan terapung -->
+    <div class="food-decor food-1">🍔</div>
+    <div class="food-decor food-2">🍕</div>
+    <div class="food-decor food-3">🍟</div>
+    <div class="food-decor food-4">🥤</div>
+
+    <div class="login-container">
+        <div class="logo-section">
+            <h2>PreBites</h2>
+            <p>Sistem Order Makanan Premis YES PSP</p>
+        </div>
+
+        <form id="loginForm" novalidate>
+            <div class="input-group">
+                <label for="username">No. Matrik / ID Student</label>
+                <div class="input-wrapper">
+                    <input type="email" id="username" name="username" placeholder="Contoh: student@email.com" required>
+                    <svg width="18" height="18" viewBox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Kata Laluan</label>
+                <div class="input-wrapper">
+                    <input type="password" id="password" name="password" placeholder="Masukkan kata laluan" required>
+                    <svg width="18" height="18" viewBox="0 0 24 24">
+                        <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="forgot-pass">
+                <a href="forgot_password.html">Lupa Kata Laluan?</a>
+            </div>
+
+            <button type="submit" class="btn-login">Masuk</button>
+        </form>
+
+        <div class="divider">atau log masuk dengan</div>
+
+        <div class="social-login-container">
+            <button type="button" class="btn-social btn-google" id="googleLoginButton">
+                <svg width="20" height="20" viewBox="0 0 24 24">
+                    <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v3.92h6.69c-.29 1.5-1.14 2.77-2.4 3.63v3h3.86c2.26-2.09 3.59-5.17 3.59-8.48z"/>
+                    <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96H1.21v3.11C3.18 21.88 7.31 24 12 24z"/>
+                    <path fill="#FBBC05" d="M5.27 14.29a7.18 7.18 0 0 1 0-4.58V6.6H1.21a11.94 11.94 0 0 0 0 10.8l4.06-3.11z"/>
+                    <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.18 2.12 1.21 6.6l4.06 3.11c.95-2.85 3.6-4.96 6.73-4.96z"/>
+                </svg>
+                Google
+            </button>
+            
+            <button type="button" class="btn-social btn-facebook" onclick="window.location.href='login_facebook.php'">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+                Facebook
+            </button>
+        </div>
+
+        <div class="footer-text">
+            Belum ada akaun? <a href="register.html">Daftar Sini</a>
+        </div>
+    </div>
+
+
+    <!-- Firebase SDK Setup -->
+<script type="text/plain" id="legacy-customer-login">
+  // Import Firebase modules
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+  // Your Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyCnVVcO2VtV2NB3GFR0wNpsKMSNcceKpEc",
+    authDomain: "pre-order-fyp.firebaseapp.com",
+    projectId: "pre-order-fyp",
+    storageBucket: "pre-order-fyp.firebasestorage.app",
+    messagingSenderId: "434593930804",
+    appId: "1:434593930804:web:45a63ad202876204957461",
+    measurementId: "G-VKS1EH03TJ"
+  };
+
+  // Initialize Firebase Services
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  console.log("Firebase initialized successfully!");
+
+  // Grab your form and inputs
+const loginForm = document.getElementById('loginForm');
+const emailInput = document.getElementById('username');
+const passwordInput = document.getElementById('password');
+
+if (loginForm) {
+  loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    if (!emailInput.value || !passwordInput.value) {
+      alert("Please enter email and password");
+      return;
+    }
+    
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value);
+      console.log("Logged in:", userCredential.user);
+      window.location.href = "homepage.html"; // Redirect after successful login
+    } catch (error) {
+      console.error("Login error:", error.code, error.message);
+      alert("Login failed: " + error.message);
+    }
+  });
+}
+</script>
+<script src="validation.js"></script>
+<script type="module">
+    import { initializeLoginPage } from './auth.js';
+    import { initializeGoogleLogin } from './auth.js';
+
+    initializeLoginPage({
+        role: 'customer',
+        formId: 'loginForm',
+        emailId: 'username',
+        passwordId: 'password',
+        redirect: 'homepage.html'
+    });
+    initializeGoogleLogin({
+        role: 'customer',
+        buttonId: 'googleLoginButton',
+        redirect: 'homepage.html'
+    });
+</script>
+</body>
+</html>

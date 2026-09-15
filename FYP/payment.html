@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TestPay - Preorder Kampus</title>
+    <!-- 1. Pautan ke fail CSS luaran -->
+    <link rel="stylesheet" href="payment.css">
+    <link rel="stylesheet" href="validation.css">
+</head>
+<body>
+
+    <!-- 2. Hiasan ikon makanan di latar belakang -->
+    <div class="food-decor food-1">🍔</div>
+    <div class="food-decor food-2">☕</div>
+    <div class="food-decor food-3">🍰</div>
+    <div class="food-decor food-4">🍟</div>
+
+    <!-- 3. Kotak kontena utama pembayaran -->
+    <div class="payment-container" id="payment-card">
+        <div class="logo-section">
+            <h2>Test Pay</h2>
+            <p>Sahkan pesanan & lakukan pembayaran preorder anda.</p>
+        </div>
+
+        <!-- 4. Bahagian ringkasan pesanan makanan -->
+        <div class="order-summary">
+            <h3>Ringkasan Makanan</h3>
+            
+            <!-- Tempat senarai makanan dimuatkan secara dinamik -->
+            <div id="senarai-makanan-container">
+                <div class="order-item">
+                    <span class="item-name">Memuatkan pesanan...</span>
+                    <span class="item-price">-</span>
+                </div>
+            </div>
+
+            <div class="divider-dashed"></div>
+            
+            <div class="order-total">
+                <span>Jumlah Keseluruhan</span>
+                <span class="total-price" id="total-harga-payment">RM 0.00</span>
+            </div>
+        </div>
+
+        <!-- 5. Bahagian pilihan kaedah pembayaran -->
+        <div class="payment-methods">
+            <h3>Pilih Kaedah Pembayaran</h3>
+            <label for="customer-phone" style="display: block; margin: 0 0 12px; color: #8c7a6b; font-size: 13px;">
+                Nombor WhatsApp untuk notifikasi makanan siap
+            </label>
+            <input id="customer-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="Contoh: 0123456789" required style="width: 100%; margin-bottom: 18px; padding: 12px 14px; border: 1px solid rgba(140, 122, 107, 0.35); border-radius: 10px; background: rgba(255, 255, 255, 0.04); color: inherit; font: inherit;">
+            <form id="payment-form" action="/proses-bayaran.php" method="POST" novalidate>
+                
+                <label class="method-option" id="label-qr">
+                    <input type="radio" name="payment-method" value="qr" id="radio-qr">
+                    <div class="method-details">
+                        <span class="method-title">DuitNow QR / E-Wallet</span>
+                        <span class="method-desc">MAE, TNG eWallet, ShopeePay dll</span>
+                    </div>
+                </label>
+
+                <label class="method-option active-method" id="label-fpx">
+                    <input type="radio" name="payment-method" value="fpx" id="radio-fpx" checked>
+                    <div class="method-details">
+                        <span class="method-title">Online Banking (FPX)</span>
+                        <span class="method-desc">Maybank2u, CIMB Clicks, Bank Islam dll</span>
+                    </div>
+                </label>
+
+                <label class="method-option" id="label-cash">
+                    <input type="radio" name="payment-method" value="cash" id="radio-cash">
+                    <div class="method-details">
+                        <span class="method-title">Bayar Tunai</span>
+                        <span class="method-desc">Bayar kepada peniaga semasa mengambil makanan</span>
+                    </div>
+                </label>
+            </form>
+        </div>
+
+        <!-- 6. Bahagian kod QR tersembunyi (Liquid Animation) -->
+        <div id="qr-expand-container" class="qr-expandable">
+            <div class="qr-overflow-wrapper">
+                <div class="qr-container-box">
+                    <p class="qr-instruction" id="qr-payment-title">Imbas QR bank kedai di bawah untuk bayar</p>
+                    <div class="qr-wrapper">
+                        <img id="shop-payment-qr" src="" alt="QR bank kedai" style="display: none;">
+                    </div>
+                    <p id="qr-payment-status" class="qr-timeout">Memuatkan QR bank kedai...</p>
+                    <p class="qr-timeout">⚠️ Sila selesaikan bayaran dalam masa 5 minit.</p>
+                    <button type="button" class="btn-check-status">Saya Dah Bayar (Semak Status)</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. Bahagian butang tindakan utama (Bayar) -->
+        <div class="button-wrapper">
+            <button id="butang-bayar-teks" type="submit" form="payment-form" class="btn-pay">
+                Bayar RM 0.00 Sekarang
+            </button>
+        </div>
+
+        <!-- 8. Bahagian butang sekunder (Cancel Payment) -->
+        <div class="cancel-btn-wrapper" style="margin-top: 14px;">
+            <button id="btn-cancel-payment" type="button" class="btn-cancel-outline">
+                Cancel Payment
+            </button>
+        </div>
+    </div>
+
+    <!-- 9. Custom Modal / Pop-up Pengesahan Batal Yang Lawa -->
+    <div class="cancel-modal-overlay" id="cancelModalOverlay">
+        <div class="cancel-modal-box">
+            <div class="cancel-modal-icon">⚠️</div>
+            <h3>Batal Pesanan?</h3>
+            <p>Adakah anda pasti mahu membatalkan pesanan? Tindakan ini akan mengkosongkan troli anda.</p>
+            <div class="cancel-modal-actions">
+                <button type="button" class="btn-modal-back" id="modalBtnBack">Kekalkan</button>
+                <button type="button" class="btn-modal-confirm" id="modalBtnConfirm">Ya, Batalkan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 10. Pautan ke fail JavaScript luaran -->
+    <script src="validation.js"></script>
+    <script type="module" src="payment.js"></script>
+</body>
+</html>
