@@ -1,7 +1,7 @@
 import { auth, db, firebaseErrorMessage } from './auth.js';
 import { addDoc, collection, deleteDoc, doc, getDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
 
-const BILLPLZ_API_BASE_URL = 'https://REPLACE-WITH-YOUR-VERCEL-URL.vercel.app';
+const BILLPLZ_API_BASE_URL = 'https://prebites-payment.vercel.app';
 
 document.addEventListener("DOMContentLoaded", async function () {
     // 1. Ambil data tersimpan dari localStorage semasa di homepage
