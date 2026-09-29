@@ -95,6 +95,12 @@
             <a class="side-item" onclick="openAboutModal(); toggleRightPanel();">
                 <span class="side-icon">ℹ️</span> Mengenai (About)
             </a>
+            <button class="side-item" onclick="deleteCompletedOrders(); toggleRightPanel();">
+                <span class="side-icon">🗑️</span> Padam Pesanan Selesai
+            </button>
+            <button class="side-item" onclick="deleteCancelledOrders(); toggleRightPanel();">
+                <span class="side-icon">🗑️</span> Padam Pesanan Dibatalkan
+            </button>
             
             <div class="side-divider"></div>
             
@@ -188,7 +194,10 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label>Mod Paparan</label>
-                    <select class="modal-input"><option>Mod Gelap (Dark Mode - Aktif)</option></select>
+                    <select class="modal-input" id="sellerThemeSelect">
+                        <option value="dark">Mod Gelap</option>
+                        <option value="light">Mod Cerah</option>
+                    </select>
                 </div>
             </div>
             <div class="modal-footer">

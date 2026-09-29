@@ -1,3 +1,68 @@
+.cart-notification {
+    position: fixed;
+    left: 50%;
+    bottom: 92px;
+    z-index: 1200;
+    max-width: min(92vw, 420px);
+    padding: 12px 18px;
+    border: 1px solid rgba(230, 126, 34, 0.35);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.95);
+    color: #1a1a1a;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, 12px);
+    transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.cart-notification.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+.customer-order-row {
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.customer-order-row:last-child { border-bottom: 0; }
+.customer-order-heading { display: flex; justify-content: space-between; gap: 12px; color: #1a1a1a; }
+.customer-order-heading strong { font-size: 13px; line-height: 1.45; }
+.customer-order-heading span { color: #d35400; white-space: nowrap; font-weight: 700; }
+.customer-order-meta { margin-top: 5px; color: #666666; font-size: 11px; }
+.customer-order-status { display: flex; justify-content: space-between; gap: 12px; margin-top: 9px; font-size: 11px; }
+.customer-order-status span { color: #27ae60; font-weight: 700; }
+.customer-order-status small { color: #555555; }
+
+.orders-close-btn,
+.orders-delete-btn {
+    width: auto;
+    min-height: 36px;
+    padding: 9px 16px;
+    flex: 0 0 auto;
+}
+
+.orders-delete-btn {
+    margin-left: auto;
+    background: rgba(235, 77, 75, 0.12);
+    color: #d63031;
+    border: 1px solid rgba(235, 77, 75, 0.3);
+}
+
+.orders-delete-confirmation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 0 22px 16px;
+    color: #444444;
+    font-size: 12px;
+}
+
+.orders-delete-confirmation[hidden] { display: none; }
+.orders-delete-confirmation > div { display: flex; gap: 8px; }
+.orders-delete-confirmation button { min-height: 32px; padding: 7px 13px; }
 /* ==========================================================================
    PREBITES HOMEPAGE - THE INTEGRATED LIQUID GLASS & TECH-MATRIC (2026)
    ========================================================================== */
@@ -22,8 +87,8 @@ html {
 
 /* 3. Gaya Asas Badan Laman (Background & Warna Teks Utama) */
 body.homepage-body {
-    background-color: #060505;
-    color: #f5f2f0;
+    background-color: #f8f9fa;
+    color: #212529;
     padding-top: 90px;
     width: 100%;
     max-width: 100vw;
@@ -37,7 +102,7 @@ body.homepage-body::before {
     position: absolute;
     width: 700px;
     height: 700px;
-    background: radial-gradient(circle, rgba(230, 126, 34, 0.22) 0%, rgba(243, 156, 18, 0.05) 40%, transparent 70%);
+    background: radial-gradient(circle, rgba(230, 126, 34, 0.15) 0%, rgba(243, 156, 18, 0.05) 40%, transparent 70%);
     top: -150px;
     right: -150px;
     filter: blur(100px);
@@ -51,7 +116,7 @@ body.homepage-body::before {
     position: absolute;
     width: 600px;
     height: 600px;
-    background: radial-gradient(circle, rgba(255, 77, 77, 0.12) 0%, rgba(230, 126, 34, 0.02) 50%, transparent 70%);
+    background: radial-gradient(circle, rgba(255, 77, 77, 0.08) 0%, rgba(230, 126, 34, 0.02) 50%, transparent 70%);
     top: 600px;
     left: -200px;
     filter: blur(120px);
@@ -67,11 +132,11 @@ body.homepage-body::after {
     inset: 0;
     pointer-events: none;
     z-index: 1;
-    opacity: 0.45;
+    opacity: 0.5;
     background-image: 
-        radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-        linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+        radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+        linear-gradient(to right, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
     background-size: 24px 24px, 48px 48px, 48px 48px;
     mask-image: radial-gradient(circle at 50% 50%, black 70%, transparent 100%);
     -webkit-mask-image: radial-gradient(circle at 50% 50%, black 70%, transparent 100%);
@@ -116,7 +181,7 @@ p, .description, .shop-info p {
 
 /* 13. Bar Navigasi Atas (Fixed Glassmorphism Navbar) */
 .navbar {
-    background: rgba(10, 8, 8, 0.9);
+    background: rgba(255, 255, 255, 0.85);
     position: fixed;
     top: 0;
     left: 0;
@@ -124,8 +189,8 @@ p, .description, .shop-info p {
     z-index: 1000;
     backdrop-filter: blur(30px) saturate(210%);
     -webkit-backdrop-filter: blur(30px) saturate(210%);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
 /* 14. Bekas Pengatur Kandungan Navbar */
@@ -147,7 +212,7 @@ p, .description, .shop-info p {
 
 /* 16. Gaya Judul Tajuk Logo Jenama */
 .brand h1 {
-    color: #ffffff;
+    color: #1a1a1a;
     font-size: 22px;
     font-weight: 800;
     letter-spacing: -0.05em;
@@ -158,7 +223,7 @@ p, .description, .shop-info p {
 
 /* 17. Penekanan Warna pada Huruf Akhir Logo */
 .brand h1 span {
-    color: #ff9f43; 
+    color: #e67e22; 
     font-weight: 800;
     margin-left: 2px;
 }
@@ -167,11 +232,11 @@ p, .description, .shop-info p {
 .brand .badge-psp {
     font-size: 9px;
     font-weight: 700;
-    color: #ff9f43;
-    background: rgba(255, 159, 67, 0.1);
+    color: #d35400;
+    background: rgba(230, 126, 34, 0.12);
     padding: 3px 8px;
     border-radius: 6px;
-    border: 1px solid rgba(255, 159, 67, 0.2);
+    border: 1px solid rgba(230, 126, 34, 0.25);
     letter-spacing: 0.06em;
 }
 
@@ -185,13 +250,13 @@ p, .description, .shop-info p {
 /* 20. Butang Pintasan Pesanan Saya */
 .nav-order-btn {
     text-decoration: none;
-    color: #ffffff;
+    color: #2c3e50;
     font-size: 13px;
     font-weight: 700;
     padding: 10px 16px;
     border-radius: 14px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     display: flex;
     align-items: center;
     gap: 8px;
@@ -199,21 +264,21 @@ p, .description, .shop-info p {
 
 /* 21. Ikon Dalam Butang Pesanan */
 .nav-order-btn i {
-    color: #ff9f43;
+    color: #e67e22;
     font-size: 14px;
 }
 
 /* 22. Kesan Tindak Balas Hover Butang Pesanan */
 .nav-order-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 159, 67, 0.4);
+    background: rgba(0, 0, 0, 0.08);
+    border-color: rgba(230, 126, 34, 0.4);
 }
 
 /* 23. Butang Menu Hamburger Sampingan */
 .menu-hamburger-btn {
-    background: rgba(255, 159, 67, 0.15);
-    border: 1px solid rgba(255, 159, 67, 0.3);
-    color: #ff9f43;
+    background: rgba(230, 126, 34, 0.12);
+    border: 1px solid rgba(230, 126, 34, 0.3);
+    color: #e67e22;
     width: 42px;
     height: 42px;
     border-radius: 14px;
@@ -228,14 +293,14 @@ p, .description, .shop-info p {
 .menu-hamburger-btn:hover {
     background: linear-gradient(180deg, #ff9f43 0%, #e67e22 100%);
     color: #ffffff;
-    box-shadow: 0 4px 15px rgba(230, 126, 34, 0.4);
+    box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3);
 }
 
 /* 25. Lapisan Pelindung Latar Belakang Sidebar (Overlay) */
 .sidebar-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(10px);
     z-index: 9998;
     opacity: 0;
@@ -249,18 +314,28 @@ p, .description, .shop-info p {
     pointer-events: auto;
 }
 
-/* 27. Laci Menu Sampingan (Sidebar Drawer) */
+/* 27. Laci Menu Sampingan (Sidebar Drawer - Tema Warm Peach) */
 .sidebar-drawer {
     position: fixed;
     top: 0;
     right: -320px;
     width: 300px;
     height: 100%;
-    background: rgba(18, 15, 14, 0.95);
-    border-left: 1px solid rgba(255, 255, 255, 0.08);
+    
+    /* Background: Dot + Gradien Peach Jelas */
+    background: 
+        /* Lapisan 1: Corak Dot Halus */
+        radial-gradient(rgba(0, 0, 0, 0.15) 1.2px, transparent 1.2px),
+        /* Lapisan 2: Gradien Peach & Orange Peformat Tinggi */
+        linear-gradient(160deg, rgba(255, 237, 225, 0.95) 0%, rgba(255, 215, 185, 0.9) 100%);
+        
+    background-size: 16px 16px, 100% 100%;
+    
+    border-left: 1px solid rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
     z-index: 9999;
-    box-shadow: -20px 0 50px rgba(0, 0, 0, 0.7);
+    box-shadow: -20px 0 50px rgba(0, 0, 0, 0.1);
     transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     display: flex;
     flex-direction: column;
@@ -277,23 +352,23 @@ p, .description, .shop-info p {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
     padding-bottom: 18px;
     margin-bottom: 20px;
 }
 
 /* 30. Tajuk Judul Dalam Header Sidebar */
 .sidebar-header h3 {
-    color: #ffffff;
+    color: #1a1a1a;
     font-size: 18px;
     font-weight: 800;
 }
 
 /* 31. Butang Tutup Sidebar */
 .close-sidebar-btn {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(0, 0, 0, 0.05);
     border: none;
-    color: #a89e96;
+    color: #666666;
     width: 32px;
     height: 32px;
     border-radius: 50%;
@@ -306,8 +381,8 @@ p, .description, .shop-info p {
 
 /* 32. Kesan Hover Butang Tutup Sidebar */
 .close-sidebar-btn:hover {
-    background: rgba(255, 77, 77, 0.2);
-    color: #ffffff;
+    background: rgba(235, 77, 75, 0.15);
+    color: #d63031;
 }
 
 /* 33. Senarai Pautan Navigasi Dalam Sidebar */
@@ -317,61 +392,83 @@ p, .description, .shop-info p {
     gap: 8px;
 }
 
-/* 34. Gaya Setiap Pautan Teks Sidebar */
+/* 34. Gaya Setiap Pautan Teks Sidebar (Tukar ke Kad Putih Glass) */
 .sidebar-links a {
     text-decoration: none;
-    color: #b5a89e;
+    color: #2d3748;
     font-size: 14px;
     font-weight: 600;
     padding: 12px 16px;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 14px;
+    
+    /* Latar belakang putih bersih dengan sikit efek glass */
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    
+    /* Bayang lembut supaya kotak menu nampak 'timbul' dari latar peach */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    
     display: flex;
     align-items: center;
     gap: 12px;
-    transition: all 0.25s ease;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* 35. Ikon Pautan Dalam Sidebar */
 .sidebar-links a i {
     font-size: 16px;
-    color: #ff9f43;
+    color: #e67e22;
     width: 20px;
     text-align: center;
 }
 
-/* 36. Kesan Interaksi Hover Pautan Sidebar */
+/* 36. Kesan Interaksi Hover Pautan Sidebar (Putih Penuh & Mengangkat) */
 .sidebar-links a:hover {
-    background: rgba(255, 255, 255, 0.06);
-    color: #ffffff;
-    border-color: rgba(255, 159, 67, 0.2);
+    background: #ffffff; /* Putih solid bila hover */
+    color: #1a1a1a;
+    border-color: rgba(230, 126, 34, 0.4); /* Border serlah oren PreBites */
+    box-shadow: 0 6px 16px rgba(230, 126, 34, 0.12);
     transform: translateX(4px);
 }
 
 /* 37. Garisan Pembahagi Pemisah Menu Sidebar */
 .sidebar-divider {
     height: 1px;
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(0, 0, 0, 0.06);
     margin: 12px 0;
 }
 
-/* 38. Gaya Khusus Pautan Log Keluar Sidebar */
-.sidebar-logout {
-    color: #ff6b6b !important;
-    background: rgba(255, 107, 107, 0.06) !important;
-    border-color: rgba(255, 107, 107, 0.15) !important;
+/* 38. Gaya Khusus Pautan Log Keluar Sidebar (Red Glassmorphism) */
+.sidebar-links a.sidebar-logout {
+    color: #dc2626 !important;
+    
+    /* Latar belakang merah lembut lutsinar (Red Glass Effect) */
+    background: rgba(254, 226, 226, 0.65) !important;
+    border: 1px solid rgba(239, 68, 68, 0.4) !important;
+    
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    
+    /* Bayangan merah lembut untuk kesan timbul */
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.12) !important;
 }
 
 /* 39. Warna Ikon Log Keluar */
-.sidebar-logout i {
-    color: #ff6b6b !important;
+.sidebar-links a.sidebar-logout i {
+    color: #dc2626 !important;
 }
 
-/* 40. Kesan Hover Butang Log Keluar */
-.sidebar-logout:hover {
-    background: rgba(255, 107, 107, 0.2) !important;
-    color: #ffffff !important;
+/* 40. Kesan Hover Butang Log Keluar (Merah Glass Menyala) */
+.sidebar-links a.sidebar-logout:hover {
+    background: rgba(252, 165, 165, 0.8) !important; /* Merah glass lebih pekat bila hover */
+    color: #991b1b !important;
+    border-color: rgba(220, 38, 38, 0.7) !important;
+    box-shadow: 0 6px 18px rgba(239, 68, 68, 0.22) !important;
+    transform: translateX(4px);
+}
+
+.sidebar-links a.sidebar-logout:hover i {
+    color: #991b1b !important;
 }
 
 /* Frame dalaman untuk menu sidebar */
@@ -383,41 +480,80 @@ p, .description, .shop-info p {
     align-items: center;
     justify-content: center;
     padding: 20px;
-    background: rgba(0, 0, 0, 0.78);
+    background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(14px);
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
 }
 .account-panel-overlay.active { opacity: 1; pointer-events: auto; }
-.account-panel { width: min(100%, 500px); max-height: min(680px, 90vh); overflow: auto; color: #f5f2f0; background: rgba(24, 20, 18, 0.98); border: 1px solid rgba(255, 159, 67, 0.25); border-radius: 24px; box-shadow: 0 30px 70px rgba(0, 0, 0, 0.75), inset 0 1px rgba(255, 255, 255, 0.08); transform: translateY(18px) scale(0.96); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
-.account-panel-overlay.active .account-panel { transform: translateY(0) scale(1); }
-.account-panel-header { display: flex; justify-content: space-between; align-items: flex-start; padding: 24px 24px 18px; border-bottom: 1px solid rgba(255,255,255,0.08); }
-.panel-kicker { color: #ff9f43; font-size: 10px; font-weight: 800; letter-spacing: 0.12em; }
-.account-panel-header h3 { margin-top: 6px; font-size: 24px; letter-spacing: -0.04em; }
-.close-account-panel { width: 36px; height: 36px; border: 1px solid rgba(255,255,255,0.1); border-radius: 50%; background: rgba(255,255,255,0.05); color: #c8bdb5; cursor: pointer; }
-.close-account-panel:hover { color: #fff; background: rgba(255,77,77,0.2); }
-.account-panel-body { padding: 24px; }
-.profile-summary { display: flex; align-items: center; gap: 14px; padding: 18px; border-radius: 16px; background: linear-gradient(135deg, rgba(255,159,67,0.16), rgba(255,255,255,0.03)); border: 1px solid rgba(255,159,67,0.2); }
-.profile-avatar { width: 52px; height: 52px; display: grid; place-items: center; border-radius: 16px; background: #ff9f43; color: #21130a; font-size: 22px; font-weight: 800; }
-.profile-summary h4, .account-panel-body h4 { color: #fff; font-size: 17px; }
-.profile-summary p, .panel-note, .account-panel-body small { color: #a6988e; font-size: 12px; }
-.account-name-editor { margin-top: 16px; padding: 16px; border-radius: 16px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); }
-.account-name-editor label { display: block; margin-bottom: 8px; color: #a6988e; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; }
-.account-name-input { width: 100%; padding: 12px 13px; border: 1px solid rgba(255,255,255,0.12); border-radius: 11px; color: #fff; background: rgba(0,0,0,0.2); font: inherit; outline: none; }
-.account-name-input:focus { border-color: #ff9f43; box-shadow: 0 0 0 3px rgba(255,159,67,0.12); }
-.panel-detail-list, .settings-list { margin-top: 14px; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; overflow: hidden; }
-.panel-detail-list > div, .setting-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 15px 16px; border-bottom: 1px solid rgba(255,255,255,0.07); }
-.panel-detail-list > div:last-child, .setting-row:last-child { border-bottom: 0; }
-.panel-detail-list span { color: #a6988e; font-size: 13px; }.panel-detail-list strong { color: #fff; font-size: 13px; }.status-text { color: #2ecc71 !important; }
-.panel-note { margin: 16px 2px 0; line-height: 1.7; }
-.setting-row { cursor: pointer; }.setting-row span { display: grid; gap: 4px; }.setting-row strong { color: #fff; font-size: 13px; }.setting-row input { width: 18px; height: 18px; accent-color: #ff9f43; }
-.panel-action { width: 100%; margin-top: 18px; padding: 13px; border: 0; border-radius: 12px; background: #ff9f43; color: #21130a; font-weight: 800; cursor: pointer; }.panel-action:hover { background: #ffbe76; }
-.panel-feedback { min-height: 18px; margin-top: 10px; color: #2ecc71; text-align: center; font-size: 12px; }
-.about-mark { width: 58px; height: 58px; display: grid; place-items: center; margin-bottom: 16px; border-radius: 18px; background: rgba(255,159,67,0.14); color: #ff9f43; font-size: 25px; }.about-facts { display: flex; gap: 10px; margin-top: 20px; }.about-facts span { flex: 1; padding: 14px; border-radius: 12px; background: rgba(255,255,255,0.04); color: #a6988e; font-size: 12px; }.about-facts strong { display: block; color: #fff; margin-bottom: 4px; }
-.panel-empty { padding: 28px 8px; text-align: center; }.panel-empty i { margin-bottom: 14px; color: #ff9f43; font-size: 30px; }.panel-empty p { margin-top: 8px; color: #a6988e; font-size: 13px; }.history-list { display: grid; gap: 10px; }.history-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 15px; border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; background: rgba(255,255,255,0.03); }.history-row div { display: grid; gap: 5px; }.history-row strong { color: #fff; font-size: 13px; }.history-row small { color: #a6988e; }.history-row b { color: #ff9f43; font-size: 14px; white-space: nowrap; }
 
-/* 41. Bahagian Utama Banner Pengenalan (Hero Section) */
+/* Kontena Utama & Tema Orange Peach */
+.account-panel { width: min(100%, 500px); max-height: min(680px, 90vh); overflow: auto; color: #1f2937; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1.5px solid rgba(255, 102, 0, 0.22); border-radius: 24px; box-shadow: 0 25px 60px rgba(255, 102, 0, 0.12), inset 0 1px 2px rgba(255, 255, 255, 0.9); transform: translateY(18px) scale(0.96); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
+.account-panel-overlay.active .account-panel { transform: translateY(0) scale(1); }
+
+/* Header & Kicker */
+.account-panel-header { display: flex; justify-content: space-between; align-items: flex-start; padding: 24px 24px 18px; border-bottom: 1px solid rgba(255, 102, 0, 0.1); }
+.panel-kicker { color: #ff6600; font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
+.account-panel-header h3 { margin-top: 6px; font-size: 24px; font-weight: 700; letter-spacing: -0.04em; color: #111827; }
+
+/* Butang Tutup */
+.close-account-panel { width: 36px; height: 36px; border: 1px solid rgba(0,0,0,0.08); border-radius: 50%; background: rgba(0,0,0,0.03); color: #4b5563; cursor: pointer; transition: all 0.2s ease; }
+.close-account-panel:hover { color: #ef4444; background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.2); }
+
+/* Body & Ringkasan Profil */
+.account-panel-body { padding: 24px; font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif; }
+.profile-summary { display: flex; align-items: center; gap: 14px; padding: 18px; border-radius: 16px; background: linear-gradient(135deg, rgba(255, 102, 0, 0.1), rgba(254, 180, 123, 0.15)); border: 1px solid rgba(255, 102, 0, 0.2); }
+.profile-avatar { width: 52px; height: 52px; display: grid; place-items: center; border-radius: 16px; background: linear-gradient(135deg, #ff6600, #ff8c00); color: #ffffff; font-size: 22px; font-weight: 800; box-shadow: 0 6px 15px rgba(255, 102, 0, 0.25); }
+.profile-summary h4, .account-panel-body h4 { color: #111827; font-size: 17px; font-weight: 700; }
+.profile-summary p, .panel-note, .account-panel-body small { color: #6b7280; font-size: 12px; }
+
+/* Bahagian Editor Nama */
+.account-name-editor { margin-top: 16px; padding: 16px; border-radius: 16px; background: rgba(255, 255, 255, 0.6); border: 1px solid rgba(0,0,0,0.08); }
+.account-name-editor label { display: block; margin-bottom: 8px; color: #4b5563; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; }
+.account-name-input { width: 100%; padding: 12px 13px; border: 1.5px solid rgba(0,0,0,0.12); border-radius: 11px; color: #111827; background: #ffffff; font: inherit; outline: none; transition: all 0.2s ease; }
+.account-name-input:focus { border-color: #ff6600; box-shadow: 0 0 0 4px rgba(255, 102, 0, 0.12); }
+
+/* Senarai & Tetapan */
+.panel-detail-list, .settings-list { margin-top: 14px; border: 1px solid rgba(0,0,0,0.08); border-radius: 16px; overflow: hidden; background: #ffffff; }
+.panel-detail-list > div, .setting-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 15px 16px; border-bottom: 1px solid rgba(0,0,0,0.05); }
+.panel-detail-list > div:last-child, .setting-row:last-child { border-bottom: 0; }
+.panel-detail-list span { color: #6b7280; font-size: 13px; }
+.panel-detail-list strong { color: #111827; font-size: 13px; }
+.status-text { color: #10b981 !important; font-weight: 700 !important; }
+.panel-note { margin: 16px 2px 0; line-height: 1.7; }
+
+/* Baris Interaktif & Checkbox */
+.setting-row { cursor: pointer; transition: background 0.2s ease; }
+.setting-row:hover { background: rgba(255, 102, 0, 0.04); }
+.setting-row span { display: grid; gap: 4px; }
+.setting-row strong { color: #111827; font-size: 13px; }
+.setting-row input { width: 18px; height: 18px; accent-color: #ff6600; cursor: pointer; }
+
+/* Butang Tindakan */
+.panel-action { width: 100%; margin-top: 18px; padding: 13px; border: 0; border-radius: 12px; background: linear-gradient(135deg, #ff6600, #ff8c00); color: #ffffff; font-weight: 800; cursor: pointer; box-shadow: 0 8px 18px rgba(255, 102, 0, 0.2); transition: all 0.2s ease; }
+.panel-action:hover { background: linear-gradient(135deg, #e65c00, #ff7700); transform: translateY(-1px); box-shadow: 0 10px 22px rgba(255, 102, 0, 0.3); }
+.panel-feedback { min-height: 18px; margin-top: 10px; color: #10b981; text-align: center; font-size: 12px; font-weight: 600; }
+
+/* Bahagian 'About' & Fakta */
+.about-mark { width: 58px; height: 58px; display: grid; place-items: center; margin-bottom: 16px; border-radius: 18px; background: rgba(255, 102, 0, 0.12); color: #ff6600; font-size: 25px; }
+.about-facts { display: flex; gap: 10px; margin-top: 20px; }
+.about-facts span { flex: 1; padding: 14px; border-radius: 12px; background: rgba(255, 255, 255, 0.7); border: 1px solid rgba(0,0,0,0.05); color: #6b7280; font-size: 12px; }
+.about-facts strong { display: block; color: #111827; margin-bottom: 4px; font-weight: 700; }
+
+/* Paparan Kosong & Sejarah */
+.panel-empty { padding: 28px 8px; text-align: center; }
+.panel-empty i { margin-bottom: 14px; color: #ff6600; font-size: 30px; }
+.panel-empty p { margin-top: 8px; color: #6b7280; font-size: 13px; }
+.history-list { display: grid; gap: 10px; }
+.history-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 15px; border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; background: #ffffff; transition: border-color 0.2s ease; }
+.history-row:hover { border-color: rgba(255, 102, 0, 0.3); }
+.history-row div { display: grid; gap: 5px; }
+.history-row strong { color: #111827; font-size: 13px; }
+.history-row small { color: #6b7280; }
+.history-row b { color: #ff6600; font-size: 14px; white-space: nowrap; }
+
+/* 41. Tetapan Utama Bahagian Atas Laman (Hero Section) */
 .hero-section {
     padding: 120px 20px 50px;
     text-align: center;
@@ -425,41 +561,41 @@ p, .description, .shop-info p {
     z-index: 2;
 }
 
-/* 42. Lencana Status Langsung (Live Badge) */
+/* 42. Kotak Lencana Status "Live" */
 .live-badge {
     display: inline-flex;
     align-items: center;
     gap: 6px;
     font-size: 10px;
     font-weight: 800;
-    color: #2ecc71;
-    background: rgba(46, 204, 113, 0.08);
+    color: #27ae60;
+    background: rgba(39, 174, 96, 0.1);
     padding: 6px 14px;
     border-radius: 100px;
     margin-bottom: 20px;
     letter-spacing: 0.1em;
-    border: 1px solid rgba(46, 204, 113, 0.15);
+    border: 1px solid rgba(39, 174, 96, 0.2);
 }
 
-/* 43. Titik Lampu Status Hidup (Live Dot) */
+/* 43. Titik Hijau Menyala */
 .live-dot {
     width: 6px;
     height: 6px;
-    background-color: #2ecc71;
+    background-color: #27ae60;
     border-radius: 50%;
     animation: pulse 1.5s infinite;
 }
 
-/* 44. Animasi Denyutan Titik Status */
+/* 44. Kesan Animasi Berdenyut Untuk Titik Hijau */
 @keyframes pulse {
     0% { opacity: 0.4; transform: scale(0.9); }
     50% { opacity: 1; transform: scale(1.2); }
     100% { opacity: 0.4; transform: scale(0.9); }
 }
 
-/* 45. Gaya Tajuk Utama Hero */
+/* 45. Saiz & Bentuk Tulisan Tajuk Utama (H2) */
 .hero-content h2 {
-    color: #ffffff;
+    color: #1a1a1a;
     font-size: 44px;
     font-weight: 800;
     letter-spacing: -0.06em;
@@ -467,29 +603,29 @@ p, .description, .shop-info p {
     margin-bottom: 16px;
 }
 
-/* 46. Penekanan Gradien Teks Nama Jenama */
+/* 46. Kesan Warna Gradien Pada Nama Jenama (Span) */
 .hero-content h2 span {
-    background: linear-gradient(180deg, #ffbe76 0%, #ff9f43 100%);
+    background: linear-gradient(180deg, #f39c12 0%, #d35400 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text; 
     color: transparent; 
 }
 
-/* 47. Paragraf Deskripsi Penerangan Hero */
+/* 47. Perenggan Teks Penerangan Bawah Tajuk */
 .hero-content p {
-    color: #9e9288;
+    color: #555555;
     font-size: 15px;
     max-width: 550px;
     margin: 0 auto 30px;
     padding: 0 10px;
 }
-
 /* 48. Butang Tindakan Utama (Primary CTA Button) */
 .btn-primary {
     display: inline-block;
-    background: linear-gradient(180deg, #ffffff 0%, #ededed 100%);
-    color: #0b0908;
+    /* Tukar background putih kepada gradien warna Orange Peach yang sepadan */
+    background: linear-gradient(135deg, #f39c12 0%, #d35400 100%);
+    color: #ffffff; /* Tukar teks jadi putih supaya kontras dan senang nampak */
     text-decoration: none;
     padding: 14px 36px;
     border-radius: 16px;
@@ -497,17 +633,17 @@ p, .description, .shop-info p {
     font-size: 13px;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    border: 1px solid rgba(255, 255, 255, 0.9);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    /* Tukar bayang-bayang jadi oren cair supaya nampak kesan glow */
+    box-shadow: 0 10px 25px rgba(211, 84, 0, 0.3);
+    transition: all 0.3s ease;
 }
 
 /* 49. Kesan Hover Butang Tindakan Utama */
 .btn-primary:hover {
-    transform: translateY(-4px);
-    background: linear-gradient(180deg, #ff9f43 0%, #e67e22 100%);
-    color: white;
-    border-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 20px 40px rgba(230, 126, 34, 0.4);
+    transform: translateY(-2px); /* Butang terangkat sikit ke atas */
+    box-shadow: 0 15px 30px rgba(211, 84, 0, 0.45); /* Bayang makin menyerlah */
+    background: linear-gradient(135deg, #f5b041 0%, #e67e22 100%); /* Warna jadi cerah sikit */
 }
 
 /* 50. Kontena Seksyen Senarai Premis Kedai */
@@ -528,19 +664,19 @@ p, .description, .shop-info p {
 
 /* 52. Komponen Kad Kedai Individu */
 .shop-card {
-    background: rgba(20, 18, 17, 0.55);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: 20px;
     overflow: hidden;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 
 /* 53. Kesan Hover Kad Kedai */
 .shop-card:hover {
     transform: translateY(-4px);
-    border-color: rgba(255, 159, 67, 0.4);
+    border-color: rgba(230, 126, 34, 0.4);
 }
 
 /* 54. Bekas Gambar Banner Kedai */
@@ -573,16 +709,16 @@ p, .description, .shop-info p {
 
 /* 57. Animasi Kedip Lampu Hijau Status Buka */
 @keyframes blink-green {
-    0% { background: rgba(46, 204, 113, 0.9); box-shadow: 0 0 0 rgba(46, 204, 113, 0.3); }
-    50% { background: rgba(46, 204, 113, 1); box-shadow: 0 0 15px rgba(46, 204, 113, 0.9); }
-    100% { background: rgba(46, 204, 113, 0.9); box-shadow: 0 0 0 rgba(46, 204, 113, 0.3); }
+    0% { background: rgba(39, 174, 96, 0.9); box-shadow: 0 0 0 rgba(39, 174, 96, 0.3); }
+    50% { background: rgba(39, 174, 96, 1); box-shadow: 0 0 12px rgba(39, 174, 96, 0.6); }
+    100% { background: rgba(39, 174, 96, 0.9); box-shadow: 0 0 0 rgba(39, 174, 96, 0.3); }
 }
 
 /* 58. Kelas Status Kedai Buka (Open Indicator) */
 .status-open { 
     color: white; 
     animation: blink-green 1.5s infinite ease-in-out;
-    border: 1px solid rgba(46, 204, 113, 0.5);
+    border: 1px solid rgba(39, 174, 96, 0.5);
 }
 
 /* 59. Maklumat Teks Perincian Kedai */
@@ -592,7 +728,7 @@ p, .description, .shop-info p {
 
 /* 60. Tajuk Nama Kedai */
 .shop-info h4 {
-    color: white;
+    color: #1a1a1a;
     font-size: 16px;
     font-weight: 700;
     margin-bottom: 4px;
@@ -600,7 +736,7 @@ p, .description, .shop-info p {
 
 /* 61. Keterangan Waktu & Lokasi Kedai */
 .shop-info p {
-    color: #9e9288;
+    color: #666666;
     font-size: 12px;
 }
 
@@ -608,7 +744,7 @@ p, .description, .shop-info p {
 .shop-modal-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.85);
+    background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(15px);
     z-index: 10000;
     display: none;
@@ -624,14 +760,14 @@ p, .description, .shop-info p {
 
 /* 64. Kontena Kandungan Kotak Modal Kedai */
 .shop-modal-content {
-    background: rgba(22, 19, 18, 0.98);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.98);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     width: 100%;
     max-width: 480px;
     border-radius: 24px;
     overflow: hidden;
-    color: #fff;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+    color: #1a1a1a;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
 }
 
 /* 65. Bahagian Gambar Header Banner Modal Kedai */
@@ -653,14 +789,21 @@ p, .description, .shop-info p {
     position: absolute;
     top: 14px;
     right: 14px;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.5);
     border: none;
-    color: #fff;
+    color: #ffffff;
     width: 32px;
     height: 32px;
     border-radius: 50%;
     cursor: pointer;
     font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+}
+.close-shop-modal:hover {
+    background: rgba(214, 48, 49, 0.8);
 }
 
 /* 68. Kontena Badan Dalaman Modal Kedai */
@@ -670,6 +813,7 @@ p, .description, .shop-info p {
 
 /* 69. Tajuk Nama Di Dalam Modal Kedai */
 .shop-modal-body-container h3 {
+    color: #1a1a1a;
     font-size: 22px;
     font-weight: 800;
     letter-spacing: -0.03em;
@@ -681,28 +825,29 @@ p, .description, .shop-info p {
 .shop-tabs {
     display: flex;
     gap: 8px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
     padding-bottom: 12px;
     margin-bottom: 16px;
 }
 
 /* 71. Butang Pilihan Tab Premis Kedai */
 .shop-tab-btn {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    color: #a39387;
+    background: rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    color: #555555;
     padding: 8px 14px;
     border-radius: 10px;
     font-size: 12px;
     font-weight: 600;
     cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 /* 72. Keadaan Aktif Butang Tab Kedai */
 .shop-tab-btn.active {
-    background: #ff9f43;
-    color: white;
-    border-color: #ff9f43;
+    background: #e67e22;
+    color: #ffffff;
+    border-color: #e67e22;
 }
 
 /* 73. Kandungan Panel Paparan Tab Kedai */
@@ -729,19 +874,20 @@ p, .description, .shop-info p {
 .shop-menu-item {
     display: flex;
     align-items: center;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.07);
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: 16px;
     padding: 12px 14px;
     gap: 14px;
     position: relative;
     transition: all 0.25s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
 }
 
 /* 77. Kesan Hover Item Menu Dalam Modal */
 .shop-menu-item:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 159, 67, 0.25);
+    background: rgba(0, 0, 0, 0.02);
+    border-color: rgba(230, 126, 34, 0.3);
 }
 
 /* 78. Gambar Miniatur Makanan Menu Modal */
@@ -761,21 +907,21 @@ p, .description, .shop-info p {
 .shop-menu-details h5 {
     font-size: 14px;
     font-weight: 700;
-    color: white;
+    color: #1a1a1a;
     margin-bottom: 3px;
 }
 
 /* 81. Paparan Harga Makanan Dalam Modal */
 .shop-menu-details span {
     font-size: 13px;
-    color: #ff9f43;
+    color: #d35400;
     font-weight: 800;
 }
 
 /* 82. Butang Tambah Makanan Terus Dari Modal Kedai */
 .btn-add-shop {
-    background: #ff9f43;
-    color: white;
+    background: #e67e22;
+    color: #ffffff;
     border: none;
     width: 34px;
     height: 34px;
@@ -785,20 +931,21 @@ p, .description, .shop-info p {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.2s ease;
 }
 .btn-add-shop:hover:not(:disabled) {
-    background: #e67e22;
+    background: #d35400;
     transform: scale(1.1);
 }
 
 /* 83. Kotak Maklumat Perincian Premis Kedai (Tab Info Tersusun & Kemas) */
 .shop-info-box {
-    background: rgba(255, 255, 255, 0.025);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     padding: 18px;
     border-radius: 16px;
     font-size: 13.5px;
-    color: #e2d9d2;
+    color: #4a5568;
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -814,7 +961,7 @@ p, .description, .shop-info p {
 }
 
 .shop-info-box strong {
-    color: #ffffff;
+    color: #1a1a1a;
     font-weight: 600;
     min-width: 120px;
 }
@@ -830,7 +977,7 @@ p, .description, .shop-info p {
 
 /* 85. Gaya Tajuk Seksyen Umum */
 .section-title {
-    color: #ffffff;
+    color: #1a1a1a;
     font-size: 20px;
     font-weight: 800;
     margin-bottom: 18px;
@@ -855,24 +1002,25 @@ p, .description, .shop-info p {
 
 /* 88. Butang Item Kapsul Kategori Individu */
 .category-item {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     padding: 10px 20px;
     border-radius: 100px;
     font-size: 13px;
     font-weight: 600;
-    color: #a39387;
+    color: #555555;
     cursor: pointer;
     backdrop-filter: blur(10px);
     white-space: nowrap;
+    transition: all 0.25s ease;
 }
 
 /* 89. Keadaan Hover & Aktif Item Kategori Kapsul */
 .category-item:hover, .category-item.active {
-    background: linear-gradient(180deg, #ffffff 0%, #e6e6e6 100%);
-    color: #0b0908;
-    border-color: #ffffff;
-    box-shadow: 0 8px 24px rgba(255, 255, 255, 0.12);
+    background: linear-gradient(180deg, #1a1a1a 0%, #2c3e50 100%);
+    color: #ffffff;
+    border-color: #1a1a1a;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
     transform: translateY(-2px);
 }
 
@@ -892,48 +1040,66 @@ p, .description, .shop-info p {
     gap: 24px;
 }
 
-/* 92. Komponen Kad Menu Makanan Asas */
+/* 92. Komponen Kad Menu Makanan Asas (Liquid Glassmorphism) */
 .menu-card {
-    background: rgba(20, 18, 17, 0.45);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    /* Background putih lutsinar supaya dot & gradient kat belakang nampak membias */
+    background: rgba(255, 255, 255, 0.72);
+    
+    /* Border kilauan kaca dengan warna oren/peach cair */
+    border: 1px solid rgba(255, 255, 255, 0.85);
     border-radius: 24px;
     overflow: hidden;
     position: relative;
+    
+    /* Kesan kabur kilauan kaca */
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
+    
     transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     display: flex;
     flex-direction: column;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.05);
+    
+    /* Bayangan berlapis untuk impak kad 'terapung' & kilauan highlight atas */
+    box-shadow: 
+        0 10px 30px -5px rgba(0, 0, 0, 0.04),
+        0 20px 40px -8px rgba(230, 126, 34, 0.08),
+        inset 0 1px 1px rgba(255, 255, 255, 0.95);
 }
 
-/* 93. Kesan Interaksi Hover Kad Menu */
+/* 93. Kesan Interaksi Hover Kad Menu (Glass Menyala & Mengangkat) */
 .menu-card:hover {
-    transform: translateY(-6px);
-    background: rgba(28, 26, 25, 0.6);
-    border-color: rgba(255, 159, 67, 0.3);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 159, 67, 0.1);
+    transform: translateY(-8px);
+    
+    /* Kekalkan kesan glass (lebih terang sikit) bila hover, bukan putih solid */
+    background: rgba(255, 255, 255, 0.85);
+    border-color: rgba(230, 126, 34, 0.45);
+    
+    /* Aura bayang oren PreBites yang lebih terserlah */
+    box-shadow: 
+        0 15px 35px -5px rgba(0, 0, 0, 0.06),
+        0 25px 50px -6px rgba(230, 126, 34, 0.18),
+        inset 0 1px 2px #ffffff;
 }
 
 /* 94. Gaya Susun Atur Istimewa Bento Highlight (Span 2 Columns) */
-.menu-card.bento-highlight {
+/*.menu-card.bento-highlight {
     grid-column: span 2;
     flex-direction: row;
-    background: rgba(255, 255, 255, 0.02);
-    border-color: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(0, 0, 0, 0.12);
 }
 
 /* 95. Penyesuaian Imej Ruang Placeholder Bento Highlight */
-.menu-card.bento-highlight .menu-image-placeholder {
+/*.menu-card.bento-highlight .menu-image-placeholder {
     width: 45%;
     height: 100%;
     border-bottom: none;
-    border-right: 1px solid rgba(255, 255, 255, 0.06);
-    background: radial-gradient(circle at 50% 50%, rgba(255,159,67,0.08) 0%, transparent 75%);
+    border-right: 1px solid rgba(0, 0, 0, 0.06);
+    background: radial-gradient(circle at 50% 50%, rgba(230, 126, 34, 0.08) 0%, transparent 75%);
 }
 
 /* 96. Penyesuaian Lebar Maklumat Kotak Bento Highlight */
-.menu-card.bento-highlight .menu-info {
+/*.menu-card.bento-highlight .menu-info {
     width: 55%;
     padding: 28px;
 }
@@ -956,8 +1122,8 @@ p, .description, .shop-info p {
 
 /* 98. Bekas Pemegang Gambar Foto Menu */
 .menu-image-placeholder {
-    background-color: rgba(255,255,255,0.02);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    background-color: rgba(0, 0, 0, 0.02);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
     height: 200px;
     display: flex;
     align-items: center;
@@ -989,7 +1155,7 @@ p, .description, .shop-info p {
 
 /* 102. Tajuk Nama Hidangan Makanan */
 .menu-info h4 {
-    color: #ffffff;
+    color: #1a1a1a;
     font-size: 18px;
     font-weight: 700;
     margin-bottom: 8px;
@@ -998,7 +1164,7 @@ p, .description, .shop-info p {
 
 /* 103. Penerangan Keterangan Ringkas Makanan */
 .menu-info .description {
-    color: #9c8e84;
+    color: #666666;
     font-size: 13px;
     margin-bottom: 18px;
 }
@@ -1017,24 +1183,24 @@ p, .description, .shop-info p {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
     padding-top: 14px;
     margin-top: auto;
 }
 
 /* 106. Paparan Nilai Harga Makanan */
 .menu-footer .price {
-    color: #ffffff;
+    color: #1a1a1a;
     font-weight: 800;
     font-size: 20px;
     letter-spacing: -0.02em;
 }
 
-/* 107. Butang Tambah Item Makanan Bulat (+) */
+/* 107. Butang Tambah Item (Asal Putih Bersih) */
 .btn-add {
-    background: linear-gradient(180deg, #ffffff 0%, #e6e6e6 100%);
-    color: #0b0908;
-    border: 1px solid #ffffff;
+    background: linear-gradient(180deg, #ffffff 0%, #f7f9fa 100%);
+    color: #1a1a1a; /* Warna ikon/teks jadi gelap supaya kontras atas putih */
+    border: 1px solid rgba(230, 126, 34, 0.15); /* Bingkai oren nipis yang lembut */
     width: 42px;
     height: 42px;
     border-radius: 50%;
@@ -1043,13 +1209,14 @@ p, .description, .shop-info p {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
 }
 
 /* 108. Kesan Interaksi Hover Butang Tambah Item */
 .menu-card:hover .btn-add {
-    background: linear-gradient(180deg, #ff9f43 0%, #e67e22 100%);
-    color: #ffffff;
+    background: linear-gradient(180deg, #ff9f43 0%, #e67e22 100%); /* Tukar jadi gradien oren bila hover */
+    color: #ffffff; /* Ikon bertukar jadi putih */
     border-color: rgba(255, 255, 255, 0.2);
     box-shadow: 0 8px 24px rgba(230, 126, 34, 0.45);
     transform: scale(1.08) rotate(90deg);
@@ -1061,11 +1228,11 @@ p, .description, .shop-info p {
     bottom: 24px;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(20, 18, 17, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.12);
     backdrop-filter: blur(35px) saturate(200%);
     -webkit-backdrop-filter: blur(35px) saturate(200%);
-    color: white;
+    color: #1a1a1a;
     width: calc(100% - 32px);
     max-width: 480px;
     padding: 14px 20px;
@@ -1073,7 +1240,7 @@ p, .description, .shop-info p {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255,255,255,0.15);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.9);
     z-index: 999;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -1082,13 +1249,14 @@ p, .description, .shop-info p {
 /* 110. Kesan Hover Bar Troli Terapung */
 .floating-cart:hover {
     transform: translateX(-50%) translateY(-3px);
-    border-color: rgba(255, 159, 67, 0.4);
+    border-color: rgba(230, 126, 34, 0.5);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.18);
 }
 
 /* 111. Teks Keterangan Bilangan Item Dalam Troli */
 .cart-details span {
     font-size: 11px;
-    color: #b0a49c;
+    color: #666666;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -1096,6 +1264,7 @@ p, .description, .shop-info p {
 
 /* 112. Teks Nilai Harga Total Dalam Troli */
 .cart-details strong {
+    color: #1a1a1a;
     font-size: 20px;
     font-weight: 800;
     display: block;
@@ -1124,7 +1293,7 @@ p, .description, .shop-info p {
 .cart-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.85);
+    background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(15px);
     z-index: 10000;
     display: flex;
@@ -1144,15 +1313,17 @@ p, .description, .shop-info p {
 
 /* 117. Kotak Rangka Modal Perincian Troli */
 .cart-modal {
-    background: rgba(23, 20, 19, 0.98);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     width: 100%;
     max-width: 460px;
     border-radius: 24px;
     overflow: hidden;
     transform: scale(0.9) translateY(20px);
     transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
 }
 
 /* 118. Animasi Skala Masuk Kotak Modal Troli Aktif */
@@ -1163,7 +1334,7 @@ p, .description, .shop-info p {
 /* 119. Bahagian Header Atas Modal Troli */
 .modal-header {
     padding: 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1173,14 +1344,14 @@ p, .description, .shop-info p {
 .modal-header h4 {
     font-size: 18px;
     font-weight: 800;
-    color: #ffffff;
+    color: #1a1a1a;
 }
 
 /* 121. Butang Keluar (Close) Modal Troli */
 .close-modal {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(0, 0, 0, 0.05);
     border: none;
-    color: #a89e96;
+    color: #666666;
     width: 32px;
     height: 32px;
     border-radius: 50%;
@@ -1194,8 +1365,8 @@ p, .description, .shop-info p {
 
 /* 122. Kesan Hover Butang Tutup Modal Troli */
 .close-modal:hover {
-    background: rgba(255, 67, 67, 0.2);
-    color: #ffffff;
+    background: rgba(255, 59, 48, 0.15);
+    color: #ff3b30;
 }
 
 /* 123. Bahagian Badan Kandungan Senarai Item Modal */
@@ -1208,7 +1379,7 @@ p, .description, .shop-info p {
 
 /* 124. Teks Amaran Apabila Troli Masih Kosong */
 .empty-cart-text {
-    color: #8c7e74;
+    color: #777777;
     text-align: center;
     padding: 30px 0;
     font-size: 14px;
@@ -1217,10 +1388,10 @@ p, .description, .shop-info p {
 /* 125. Bahagian Bawah Footer Modal Troli */
 .modal-footer {
     padding: 18px 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
     display: flex;
     gap: 10px;
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.02);
 }
 
 /* 126. Gaya Butang Tindakan Dalam Footer Modal */
@@ -1235,15 +1406,16 @@ p, .description, .shop-info p {
 
 /* 127. Butang Kosongkan Troli (Clear Cart Button) */
 .btn-clear {
-    background: rgba(255, 255, 255, 0.05);
-    color: #a89e96;
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(0, 0, 0, 0.05);
+    color: #555555;
+    border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 /* 128. Kesan Hover Butang Kosongkan Troli */
 .btn-clear:hover {
-    background: rgba(255, 77, 77, 0.15);
-    color: #ff4d4d;
+    background: rgba(255, 59, 48, 0.1);
+    color: #ff3b30;
+    border-color: rgba(255, 59, 48, 0.2);
 }
 
 /* 129. Butang Sahkan Bayaran Di Dalam Modal */
@@ -1269,7 +1441,7 @@ p, .description, .shop-info p {
 .cancel-order-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.85);
+    background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     z-index: 100000;
@@ -1287,8 +1459,8 @@ p, .description, .shop-info p {
 
 /* 134. Kotak Rangka Modal Pembatalan Pesanan */
 .cancel-order-modal {
-    background: rgba(22, 19, 18, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(35px) saturate(200%);
     -webkit-backdrop-filter: blur(35px) saturate(200%);
     width: 100%;
@@ -1296,7 +1468,7 @@ p, .description, .shop-info p {
     border-radius: 24px;
     padding: 28px 24px;
     text-align: center;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.8);
     transform: scale(0.85) translateY(20px);
     transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
@@ -1308,20 +1480,21 @@ p, .description, .shop-info p {
 .cancel-modal-icon-box {
     width: 56px;
     height: 56px;
-    background: rgba(255, 77, 77, 0.1);
-    border: 1px solid rgba(255, 77, 77, 0.25);
+    background: rgba(255, 59, 48, 0.1);
+    border: 1px solid rgba(255, 59, 48, 0.25);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 16px;
     font-size: 22px;
-    box-shadow: 0 8px 24px rgba(255, 77, 77, 0.2);
+    color: #ff3b30;
+    box-shadow: 0 8px 24px rgba(255, 59, 48, 0.15);
 }
 
 /* 137. Tajuk Judul Modal Pembatalan Pesanan */
 .cancel-order-modal h3 {
-    color: #ffffff;
+    color: #1a1a1a;
     font-size: 20px;
     font-weight: 800;
     letter-spacing: -0.04em;
@@ -1330,7 +1503,7 @@ p, .description, .shop-info p {
 
 /* 138. Teks Keterangan Amaran Pembatalan Pesanan */
 .cancel-order-modal p {
-    color: #a09287;
+    color: #666666;
     font-size: 13px;
     margin-bottom: 22px;
 }
@@ -1350,8 +1523,8 @@ p, .description, .shop-info p {
 }
 
 /* 141. Butang Kembali / Kekalkan Pesanan */
-.btn-back { background: rgba(255, 255, 255, 0.05); color: #a89e96; border: 1px solid rgba(255, 255, 255, 0.08); }
-.btn-back:hover { background: rgba(255, 255, 255, 0.1); color: #ffffff; }
+.btn-back { background: rgba(0, 0, 0, 0.05); color: #555555; border: 1px solid rgba(0, 0, 0, 0.08); }
+.btn-back:hover { background: rgba(0, 0, 0, 0.1); color: #1a1a1a; }
 
 /* 142. Butang Teruskan Pembatalan Pesanan */
 .btn-proceed-cancel {
@@ -1371,7 +1544,7 @@ p, .description, .shop-info p {
     display: none; 
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(12px); 
     z-index: 100000;
     justify-content: center;
@@ -1389,14 +1562,14 @@ p, .description, .shop-info p {
 
 /* 146. Kotak Kandungan Kandang Modal Tersuai */
 .modal-content {
-    background: rgba(22, 20, 19, 0.98); 
-    color: #ffffff;
+    background: rgba(255, 255, 255, 0.95); 
+    color: #1a1a1a;
     padding: 28px 24px;
     border-radius: 24px; 
     width: 100%;
     max-width: 400px;
-    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255,255,255,0.08);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     transform: scale(0.9) translateY(10px);
     transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     text-align: center;
@@ -1409,15 +1582,16 @@ p, .description, .shop-info p {
 .modal-icon-box {
     width: 56px;
     height: 56px;
-    background: rgba(255, 159, 67, 0.1);
-    border: 1px solid rgba(255, 159, 67, 0.25);
+    background: rgba(230, 126, 34, 0.1);
+    border: 1px solid rgba(230, 126, 34, 0.25);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 16px;
     font-size: 22px;
-    box-shadow: 0 8px 24px rgba(255, 159, 67, 0.15);
+    color: #e67e22;
+    box-shadow: 0 8px 24px rgba(230, 126, 34, 0.15);
 }
 
 /* 149. Tajuk Judul Modal Tersuai */
@@ -1426,19 +1600,20 @@ p, .description, .shop-info p {
     margin-bottom: 10px;
     font-weight: 800;
     letter-spacing: -0.04em;
+    color: #1a1a1a;
 }
 
 /* 150. Paragraf Keterangan Badan Modal Tersuai */
 .modal-body {
-    color: #a6988e;
+    color: #666666;
     font-size: 13px;
     margin-bottom: 20px;
 }
 
 /* 151. Bekas Kontena Maklumat Ringkasan Modal */
 .modal-info-container {
-    background: rgba(0, 0, 0, 0.25);
-    border: 1px solid rgba(255, 255, 255, 0.04);
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.06);
     border-radius: 16px;
     padding: 14px 16px;
     margin-bottom: 22px;
@@ -1450,25 +1625,25 @@ p, .description, .shop-info p {
     display: flex;
     justify-content: space-between;
     font-size: 13px;
-    color: #9c8e84;
+    color: #666666;
     padding: 5px 0;
 }
 
 /* 153. Teks Penekanan Nilai Barisan Maklumat */
-.info-row strong { color: #ffffff; }
+.info-row strong { color: #1a1a1a; }
 
 /* 154. Barisan Khas Nilai Harga Keseluruhan (Total Row) */
 .info-row.total-row {
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
     margin-top: 6px;
     padding-top: 10px;
     font-size: 15px;
-    color: #ffffff;
+    color: #1a1a1a;
 }
 
 /* 155. Teks Penekanan Harga Total Yang Menonjol */
 .info-row.total-row strong {
-    color: #ff9f43;
+    color: #e67e22;
     font-size: 18px;
     font-weight: 800;
 }
@@ -1488,8 +1663,8 @@ p, .description, .shop-info p {
 }
 
 /* 158. Butang Batal / Tutup Modal Tersuai */
-.btn-cancel { background: rgba(255, 255, 255, 0.05); color: #a89e96; border: 1px solid rgba(255, 255, 255, 0.05); }
-.btn-cancel:hover { background: rgba(255, 255, 255, 0.1); color: #ffffff; }
+.btn-cancel { background: rgba(0, 0, 0, 0.05); color: #555555; border: 1px solid rgba(0, 0, 0, 0.08); }
+.btn-cancel:hover { background: rgba(0, 0, 0, 0.1); color: #1a1a1a; }
 
 /* 159. Butang Sahkan / Teruskan Tindakan Modal */
 .btn-confirm {
@@ -1519,7 +1694,7 @@ p, .description, .shop-info p {
     .menu-grid { grid-template-columns: 1fr; gap: 16px; width: 100%; }
     .menu-card { width: 100%; max-width: 100%; }
     .menu-card.bento-highlight { grid-column: auto; flex-direction: column; }
-    .menu-card.bento-highlight .menu-image-placeholder { width: 100%; height: 200px; border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+    .menu-card.bento-highlight .menu-image-placeholder { width: 100%; height: 200px; border-right: none; border-bottom: 1px solid rgba(0, 0, 0, 0.08); }
     .menu-card.bento-highlight .menu-info { width: 100%; padding: 20px; }
     .btn-add { width: 44px; height: 44px; }
     .floating-cart { bottom: 20px; width: calc(100% - 32px); padding: 16px 20px; border-radius: 20px; min-height: 64px; }
@@ -1553,4 +1728,61 @@ p, .description, .shop-info p {
     .btn-checkout { padding: 10px 14px; font-size: 12px; }
     .modal-footer { padding: 14px 16px; }
     .btn-checkout-modal, .btn-clear { flex: 1; min-height: 44px; }
+    .orders-close-btn, .orders-delete-btn { flex: 0 0 auto; min-height: 36px; }
+}
+
+/* 161. Latar Belakang Utama dengan Corak Dot Jelas dan Gradien Soft Warm (Terserlah) */
+body {
+    background-color: #f3efe9;
+    background-image: 
+        /* Lapisan 1: Corak Dot Jelas */
+        radial-gradient(rgba(0, 0, 0, 0.13) 1.5px, transparent 1.5px),
+        /* Lapisan 2: Soft Warm Orange Accent (Ditingkatkan Opacity & Saiz) */
+        radial-gradient(at 10% 10%, rgba(255, 140, 66, 0.28) 0px, transparent 55%),
+        radial-gradient(at 90% 20%, rgba(255, 185, 90, 0.35) 0px, transparent 60%),
+        radial-gradient(at 50% 80%, rgba(255, 110, 60, 0.22) 0px, transparent 65%);
+    background-size: 24px 24px, 100% 100%, 100% 100%, 100% 100%;
+    background-attachment: fixed;
+}
+
+/* 162. Kotak Kontena Khas Bahagian Hero (Glassmorphism Box) */
+.hero-box {
+    max-width: 850px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 55px 45px;
+    
+    /* Latar belakang kaca dengan corak titik halus (dot pattern) + warna putih lembut */
+    background-image: radial-gradient(rgba(230, 126, 34, 0.12) 1.5px, transparent 1.5px), rgba(255, 255, 255, 0.9);
+    background-size: 24px 24px; /* Saiz corak titik */
+    background-position: 0 0;
+    
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    
+    /* Sempadan oren gradien yang nampak berkilat */
+    border: 1.5px solid rgba(230, 126, 34, 0.3);
+    border-radius: 30px; /* Sudut lebih melengkung moden */
+    
+    /* Bayang-bayang mendalam + kesan cahaya terapung */
+    box-shadow: 0 30px 60px rgba(230, 126, 34, 0.15), 
+                inset 0 1px 2px rgba(255, 255, 255, 0.95);
+    
+    transition: all 0.3s ease;
+}
+/* 163. Kontena Pembungkus Logo Hero (Tengah & Elok Susunan) */
+.hero-logo-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+/* 164. Gaya Imej Logo Politeknik */
+.hero-poli-img {
+    width: 300px;
+    height: auto;
+    object-fit: contain;
+    mix-blend-mode: multiply; 
+    opacity: 0.95;
 }

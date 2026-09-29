@@ -1,4 +1,15 @@
-<!DOCTYPE html>
+$secureKey = Read-Host "Sandbox Billplz secret key" -AsSecureString
+$keyPointer = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($secureKey)
+try {
+    $env:BILLPLZ_SECRET_KEY = [Runtime.InteropServices.Marshal]::PtrToStringBSTR($keyPointer)
+} finally {
+    [Runtime.InteropServices.Marshal]::ZeroFreeBSTR($keyPointer)
+}
+
+$env:BILLPLZ_COLLECTION_ID = "ACTUAL_SANDBOX_COLLECTION_ID"
+$env:PUBLIC_BASE_URL = "https://crevice-ninth-sponsor.ngrok-free.dev"
+$env:FRONTEND_BASE_URL = "http://localhost:8080"
+node .\demo-billplz-server.js<!DOCTYPE html>
 <html lang="ms">
 <head>
     <!-- 1. Tetapan asas pengekodan aksara dan paparan responsif peranti -->
@@ -9,47 +20,16 @@
     <!-- 2. Menyambungkan fail gaya CSS khas portal peniaga -->
     <link rel="stylesheet" href="login_seller.css">
     <link rel="stylesheet" href="validation.css">
-    
-    <style>
-        /* 3. Gaya tambahan ringkas untuk butang kembali ke login pelanggan biasa */
-        .back-to-customer {
-            position: absolute;
-            top: 24px;
-            left: 24px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: #aeaeb2;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 600;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 8px 14px;
-            border-radius: 12px;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            z-index: 20;
-        }
-        .back-to-customer:hover {
-            color: #30d158;
-            border-color: rgba(48, 209, 88, 0.3);
-            background: rgba(48, 209, 88, 0.05);
-            transform: translateY(-2px);
-        }
-        .back-to-customer svg {
-            width: 16px;
-            height: 16px;
-            fill: currentColor;
-        }
-    </style>
 </head>
 <body>
 
-    <!-- 4. Butang satu klik untuk kembali ke halaman log masuk pelanggan -->
-    <a href="login.html" class="back-to-customer">
-        <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
-        <span>Log Masuk Pelajar</span>
+    <!-- 4. Butang pautan menarik untuk kembali ke halaman log masuk pelajar -->
+    <a href="login.html" class="btn-student-portal">
+        <svg class="back-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5"></path>
+            <path d="m12 19-7-7 7-7"></path>
+        </svg>
+        <span>Log Masuk Pengguna</span>
     </a>
 
     <!-- 5. Elemen hiasan ikon makanan/kedai terapung di latar belakang -->

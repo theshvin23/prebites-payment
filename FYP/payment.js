@@ -1,9 +1,44 @@
 import { auth, db, firebaseErrorMessage } from './auth.js';
 import { addDoc, collection, deleteDoc, doc, getDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
 
-const BILLPLZ_API_BASE_URL = 'https://prebites-payment.vercel.app';
+const BILLPLZ_API_BASE_URL = (() => {
+    const configured = (window.__BILLPLZ_API_BASE_URL__ || localStorage.getItem('billplz_api_base_url') || '').replace(/\/$/, '');
+    if (configured) return configured;
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        return 'http://localhost:3001';
+    }
+    return window.location.origin;
+})();
+
+function setHomepageNotice(title, message) {
+    sessionStorage.setItem('prebites_homepage_notice', JSON.stringify({ title, message }));
+}
 
 document.addEventListener("DOMContentLoaded", async function () {
+    const paymentReturn = new URLSearchParams(window.location.search).get('payment');
+    const returnedOrderId = new URLSearchParams(window.location.search).get('order_id');
+
+    if (paymentReturn === 'returned') {
+        let returnMessage = 'Anda Telah Membuat Pembayaran. Sila tunggu pengesahan pesanan.';
+        if (returnedOrderId) {
+            try {
+                const returnedOrder = await getDoc(doc(db, 'orders', returnedOrderId));
+                if (returnedOrder.exists() && returnedOrder.data().paymentStatus === 'failed') {
+                    returnMessage = 'Pembayaran tidak berjaya. Sila cuba lagi.';
+                }
+            } catch (error) {
+                console.error('Gagal menyemak status bayaran:', error);
+            }
+        }
+
+        localStorage.removeItem('cartItems');
+        localStorage.removeItem('cartTotal');
+        localStorage.removeItem('active_checkout_shop');
+        setHomepageNotice('Status Pembayaran', returnMessage);
+        window.location.replace('homepage.html');
+        return;
+    }
+
     // 1. Ambil data tersimpan dari localStorage semasa di homepage
     const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     const cartTotal = localStorage.getItem('cartTotal') || "0.00";
@@ -95,16 +130,25 @@ document.addEventListener("DOMContentLoaded", async function () {
             let orderReference;
 
             try {
+                const orderItems = cartItems.map(item => ({
+                    ...item,
+                    name: item.nama,
+                    quantity: item.kuantiti,
+                    price: item.harga
+                }));
+
                 orderReference = await addDoc(collection(db, 'orders'), {
                     customerId: auth.currentUser.uid,
                     customerEmail: auth.currentUser.email,
+                    customerName: auth.currentUser.displayName || 'Pelanggan',
                     customerPhone,
                     store_id: checkoutShopId,
-                    items: cartItems,
+                    items: orderItems,
                     totalPrice: Number(cartTotal),
                     paymentMethod: nilaiKaedah,
                     paymentStatus: isCashPayment ? 'pending_cash' : (isQrPayment ? 'pending_qr' : 'pending_fpx'),
                     orderStatus: 'pending',
+                    status: 'diterima',
                     createdAt: serverTimestamp(),
                     updatedAt: serverTimestamp()
                 });
@@ -118,6 +162,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
+                            'ngrok-skip-browser-warning': 'true',
                             Authorization: `Bearer ${await auth.currentUser.getIdToken()}`
                         },
                         body: JSON.stringify({
@@ -140,17 +185,23 @@ document.addEventListener("DOMContentLoaded", async function () {
                 }
 
                 const confirmation = isCashPayment
-                    ? `Pesanan RM ${cartTotal} berjaya dihantar. Sila bayar tunai kepada peniaga semasa mengambil makanan.`
+                    ? 'Anda Telah Membuat Pesanan. Sila tunggu pesanan anda disediakan.'
                     : isQrPayment
                         ? `Pesanan RM ${cartTotal} berjaya dihantar. Sila tunjukkan bukti bayaran QR kepada peniaga jika diperlukan.`
                     : `Pembayaran RM ${cartTotal} melalui kaedah [${nilaiKaedah}] berjaya! Terima kasih.`;
-                alert(confirmation);
+                setHomepageNotice(
+                    isCashPayment ? 'Anda Telah Membuat Pesanan' : 'Pesanan Diterima',
+                    confirmation
+                );
                 localStorage.removeItem('cartItems');
                 localStorage.removeItem('cartTotal');
                 localStorage.removeItem('active_checkout_shop');
-                window.location.href = 'homepage.html';
+                window.location.replace('homepage.html');
             } catch (error) {
-                alert(error.message || firebaseErrorMessage(error));
+                const message = error instanceof TypeError && error.message === 'Failed to fetch'
+                    ? 'Server pembayaran tidak dapat dicapai. Pastikan Firebase Functions sudah dideploy dan cuba lagi.'
+                    : (error.message || firebaseErrorMessage(error));
+                alert(message);
                 butangBayarTeks.disabled = false;
             }
         });

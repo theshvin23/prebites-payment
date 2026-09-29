@@ -1,5 +1,5 @@
 /* ==========================================================================
-   GAYA HYPER-PREMIUM LUPA PASSWORD (V4 - EMERALD GREEN EDITION)
+   1. ASAS & SKIM WARNA UTAMA (V4 - COOL ICE BLUE EDITION)
    ========================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
@@ -12,29 +12,49 @@
     letter-spacing: -0.03em;
 }
 
+/* ==========================================================================
+   2. REKABENTUK LATAR BELAKANG (COOL ICE BLUE DOT & GRADIENT)
+   ========================================================================== */
 body {
-    /* LATAR BELAKANG: Hitam OLED dengan biasan cahaya Hijau Korporat di bucu */
-    background: 
-        radial-gradient(circle at top right, rgba(48, 209, 88, 0.15) 0%, transparent 45%),
-        radial-gradient(circle at bottom left, rgba(10, 132, 255, 0.08) 0%, transparent 45%),
-        #050508;
+    /* LATAR BELAKANG: Cool Ice White dengan biasan cahaya Biru PreBites & Corak Dot Jelas */
+    background-color: #f4f7fc;
+    background-image: 
+        /* Lapisan 1: Corak Dot Biru Halus & Jelas */
+        radial-gradient(rgba(10, 132, 255, 0.18) 1.5px, transparent 1.5px),
+        /* Lapisan 2: Soft Blue Accent (Biasan Warna Biru Cair & Sky Blue) */
+        radial-gradient(at 10% 10%, rgba(10, 132, 255, 0.22) 0px, transparent 55%),
+        radial-gradient(at 90% 20%, rgba(186, 230, 253, 0.4) 0px, transparent 60%),
+        radial-gradient(at 50% 80%, rgba(147, 197, 253, 0.25) 0px, transparent 65%);
+    
+    background-size: 24px 24px, 100% 100%, 100% 100%, 100% 100%;
+    background-attachment: fixed;
+    
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 40px 24px;
-    color: #f5f2f0;
+    
+    /* Warna teks gelap agar mudah dibaca di atas latar terang */
+    color: #1e293b;
+    
     position: relative;
     overflow-x: hidden;
 }
 
-/* Kotak Kad Utama (Cyber Glassmorphism) */
+/* ==========================================================================
+   3. CONTAINER UTAMA KACA (COOL ICE GLASSMORPHISM)
+   ========================================================================== */
 .login-container {
-    background: rgba(20, 20, 28, 0.75);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    /* Sempadan bercahaya halus */
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    /* 1. Latar belakang putih-biru lutsinar yang seimbang */
+    background: rgba(255, 255, 255, 0.6) !important;
+    
+    /* 2. Kesan blur kaca padu & ketepuan warna biasan biru di belakang */
+    backdrop-filter: blur(25px) saturate(180%);
+    -webkit-backdrop-filter: blur(25px) saturate(180%);
+    
+    /* 3. Border kilauan kaca putih bersih */
+    border: 1px solid rgba(255, 255, 255, 0.85);
     border-radius: 28px;
     padding: 56px 44px;
     width: 100%;
@@ -42,32 +62,36 @@ body {
     position: relative;
     z-index: 10;
     
-    /* Bayang neon gelap */
+    /* 4. Bayangan berlapis: Aura biru soft + kilauan highlight atas & bawah */
     box-shadow: 
-        0 4px 30px rgba(0, 0, 0, 0.4),
-        0 20px 50px rgba(0, 0, 0, 0.6),
-        inset 0 1px 1px rgba(255, 255, 255, 0.1);
+        0 20px 40px rgba(10, 132, 255, 0.12),
+        0 4px 12px rgba(0, 0, 0, 0.03),
+        inset 0 1px 2px rgba(255, 255, 255, 0.95),
+        inset 0 -1px 1px rgba(255, 255, 255, 0.4);
         
     transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .login-container:hover {
     transform: translateY(-5px);
-    border-color: rgba(48, 209, 88, 0.35); /* Sempadan menyala hijau bila hover */
+    border-color: rgba(10, 132, 255, 0.4); /* Sempadan menyala biru bila hover */
     box-shadow: 
-        0 10px 40px rgba(0, 0, 0, 0.5),
-        0 30px 70px rgba(48, 209, 88, 0.12), /* Glow hijau lembut di bawah kad */
-        inset 0 1px 1px rgba(255, 255, 255, 0.15);
+        0 15px 35px rgba(0, 0, 0, 0.05),
+        0 25px 60px rgba(10, 132, 255, 0.18), /* Glow biru lembut di bawah kad */
+        inset 0 1px 2px rgba(255, 255, 255, 0.95);
 }
 
-/* Header & Logo */
+/* ==========================================================================
+   4. LOGO & HEADER TAJUK (COOL ICE BLUE TAJUK)
+   ========================================================================== */
 .logo-section {
     text-align: center;
     margin-bottom: 40px;
 }
 
 .logo-section h2 {
-    color: #ffffff;
+    /* Warna teks gelap bersih untuk dibaca atas latar terang */
+    color: #1e293b;
     font-size: 36px;
     font-weight: 800;
     letter-spacing: -0.05em;
@@ -76,19 +100,24 @@ body {
 
 .logo-section h2::after {
     content: '.';
-    color: #30d158;
-    /* Efek neon menyala pada dot */
-    text-shadow: 0 0 12px #30d158, 0 0 20px #30d158;
+    /* Warna dot biru berseri (Cool Ice Blue) */
+    color: #0a84ff;
+    
+    /* Efek biasan cahaya biru yang halus & premium */
+    text-shadow: 0 0 12px rgba(10, 132, 255, 0.5), 0 0 20px rgba(10, 132, 255, 0.3);
 }
 
 .logo-section p {
     font-size: 14px;
-    color: #aeaeb2;
+    /* Warna kelabu-biru (slate) yang jelas & kemas */
+    color: #64748b;
     line-height: 1.6;
     font-weight: 500;
 }
 
-/* Mesej Maklum Balas Versi Gelap */
+/* ==========================================================================
+   5. MESEJ STATUS MAKLUM BALAS
+   ========================================================================== */
 .status-message {
     padding: 16px;
     border-radius: 14px;
@@ -99,17 +128,19 @@ body {
 }
 
 .status-message.success {
-    background: rgba(48, 209, 88, 0.1);
-    color: #30d158;
-    border: 1px solid rgba(48, 209, 88, 0.2);
-    text-shadow: 0 0 10px rgba(48, 209, 88, 0.2);
+    background: rgba(10, 132, 255, 0.1);
+    color: #0a84ff;
+    border: 1px solid rgba(10, 132, 255, 0.2);
+    text-shadow: 0 0 10px rgba(10, 132, 255, 0.15);
 }
 
 .hidden {
     display: none;
 }
 
-/* Struktur Input Neon Stealth */
+/* ==========================================================================
+   6. BORANG INPUT (COOL ICE STEALTH INPUT)
+   ========================================================================== */
 .input-group {
     display: flex;
     flex-direction: column;
@@ -120,7 +151,7 @@ body {
 .input-group label {
     font-size: 11px;
     font-weight: 700;
-    color: #aeaeb2;
+    color: #64748b;
     text-transform: uppercase;
     letter-spacing: 0.12em;
 }
@@ -134,79 +165,84 @@ body {
 
 .input-wrapper input {
     width: 100%;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1.5px solid rgba(255, 255, 255, 0.08);
+    /* Putih lutsinar bersih */
+    background: rgba(255, 255, 255, 0.7);
+    border: 1.5px solid rgba(226, 232, 240, 0.8);
     padding: 18px 18px 18px 54px;
     border-radius: 14px;
     font-size: 15px;
-    color: #ffffff;
+    color: #1e293b;
     font-weight: 500;
     outline: none;
     transition: all 0.3s ease;
 }
 
-/* Focus State: Input menyala hijau */
+/* Focus State: Input menyala biru */
 .input-wrapper input:focus {
-    border-color: #30d158;
-    background: rgba(48, 209, 88, 0.02);
+    border-color: #0a84ff;
+    background: rgba(255, 255, 255, 0.95);
     box-shadow: 
-        0 0 0 4px rgba(48, 209, 88, 0.15),
-        inset 0 1px 1px rgba(48, 209, 88, 0.2);
+        0 0 0 4px rgba(10, 132, 255, 0.15),
+        inset 0 1px 1px rgba(10, 132, 255, 0.1);
 }
 
-/* Ikon SVG */
+/* Ikon SVG Input */
 .input-wrapper svg {
     position: absolute;
     left: 20px;
-    fill: #636366;
+    fill: #94a3b8;
     transition: all 0.3s ease;
     pointer-events: none;
 }
 
 .input-wrapper input:focus + svg {
-    fill: #30d158;
-    filter: drop-shadow(0 0 5px #30d158);
+    fill: #0a84ff;
+    filter: drop-shadow(0 0 5px rgba(10, 132, 255, 0.4));
     transform: scale(1.05);
 }
 
-/* Butang Hantar Solid Premium Glow */
+/* ==========================================================================
+   7. BUTANG HANTAR / LOGIN (COOL ICE BLUE SOLID BUTTON)
+   ========================================================================== */
 .btn-login {
     width: 100%;
-    background: #30d158;
-    color: #050508;
+    background: #0a84ff;
+    color: #ffffff;
     border: none;
     padding: 18px;
     border-radius: 14px;
     font-size: 15px;
     font-weight: 700;
     cursor: pointer;
-    box-shadow: 0 8px 25px rgba(48, 209, 88, 0.3);
+    box-shadow: 0 8px 25px rgba(10, 132, 255, 0.3);
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     margin-top: 8px;
 }
 
 .btn-login:hover {
-    background: #34c759;
-    box-shadow: 0 12px 35px rgba(48, 209, 88, 0.5);
+    background: #0071e3;
+    box-shadow: 0 12px 35px rgba(10, 132, 255, 0.45);
     transform: translateY(-2px);
 }
 
 .btn-login:active {
     transform: translateY(0);
-    box-shadow: 0 6px 15px rgba(48, 209, 88, 0.3);
+    box-shadow: 0 6px 15px rgba(10, 132, 255, 0.25);
 }
 
-/* Pautan Bawah (Footer Text) */
+/* ==========================================================================
+   8. PAUTAN FOOTER (FOOTER NAVIGATION)
+   ========================================================================== */
 .footer-text {
     text-align: center;
     margin-top: 36px;
     font-size: 14px;
-    color: #8e8e93;
+    color: #64748b;
 }
 
 .footer-text a {
     text-decoration: none;
-    color: #ffffff;
+    color: #0a84ff;
     font-weight: 700;
     position: relative;
     transition: all 0.3s ease;
@@ -220,13 +256,13 @@ body {
     height: 2px;
     bottom: -4px;
     left: 0;
-    background-color: #30d158;
+    background-color: #0a84ff;
     transform-origin: bottom right;
     transition: transform 0.3s ease;
 }
 
 .footer-text a:hover {
-    color: #30d158;
+    color: #0071e3;
 }
 
 .footer-text a:hover::after {
@@ -235,14 +271,14 @@ body {
 }
 
 /* ==========================================================================
-   ANIMASI ELEMEN MAKANAN TERAPUNG (NEON GHOST EFFECT)
+   9. ELEMEN MAKANAN TERAPUNG (COOL ICE BLUE GHOST EFFECT)
    ========================================================================== */
 .food-decor {
     position: absolute;
     font-size: 36px;
     user-select: none;
-    opacity: 0.22;
-    filter: drop-shadow(0 0 10px rgba(48, 209, 88, 0.25));
+    opacity: 0.25;
+    filter: drop-shadow(0 0 10px rgba(10, 132, 255, 0.2));
     z-index: 1;
     animation: floatAnimation 8s ease-in-out infinite;
 }
@@ -254,21 +290,23 @@ body {
 
 @keyframes floatAnimation {
     0% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-20px) rotate(10deg); opacity: 0.35; }
+    50% { transform: translateY(-20px) rotate(10deg); opacity: 0.38; }
     100% { transform: translateY(0px) rotate(0deg); }
 }
 
-/* Responsif Mobile */
+/* ==========================================================================
+   10. LAYOUT RESPONSIF MOBILE
+   ========================================================================== */
 @media (max-width: 480px) {
     body {
         padding: 24px 16px;
-        background: #050508;
+        background-color: #f4f7fc;
     }
     .login-container {
         padding: 32px 20px;
-        border: none;
-        background: transparent;
-        box-shadow: none;
+        border: 1px solid rgba(255, 255, 255, 0.85);
+        background: rgba(255, 255, 255, 0.7) !important;
+        box-shadow: 0 10px 30px rgba(10, 132, 255, 0.1);
     }
     .food-decor {
         display: none;

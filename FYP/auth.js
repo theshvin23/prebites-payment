@@ -53,6 +53,8 @@ export function firebaseErrorMessage(error) {
         'auth/missing-password': 'Sila masukkan kata laluan.',
         'auth/email-already-in-use': 'Email ini sudah didaftarkan.',
         'auth/invalid-email': 'Format email tidak sah.',
+        'auth/unauthorized-continue-uri': 'Pautan tetapan semula tidak dibenarkan untuk domain ini. Semak Authorized domains Firebase.',
+        'auth/missing-continue-uri': 'Konfigurasi pautan tetapan semula tidak lengkap.',
         'auth/weak-password': 'Kata laluan mesti sekurang-kurangnya 6 aksara.',
         'auth/operation-not-allowed': 'Log masuk email/password belum diaktifkan dalam Firebase Console > Authentication > Sign-in providers.',
         'auth/popup-closed-by-user': 'Log masuk Google dibatalkan.',
@@ -165,7 +167,11 @@ export async function signInWithGoogle(role) {
 }
 
 export function resetPassword(email) {
-    return sendPasswordResetEmail(auth, email.trim());
+    const continueUrl = `${window.location.origin}/login.html`;
+    return sendPasswordResetEmail(auth, email.trim(), {
+        url: continueUrl,
+        handleCodeInApp: false
+    });
 }
 
 export async function updateCustomerName(name) {

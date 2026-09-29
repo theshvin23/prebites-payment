@@ -16,7 +16,12 @@ function toggleRightPanel() {
 ======================================================== */
 let activeUser = null;
 
+function applySellerTheme(theme) {
+    document.body.classList.toggle('light-mode', theme === 'light');
+}
+
 window.addEventListener('DOMContentLoaded', async () => {
+    applySellerTheme(localStorage.getItem('seller_theme') || 'dark');
     const sessionData = localStorage.getItem('prebites_active_user');
     
     if (!sessionData) {
@@ -109,6 +114,15 @@ window.addEventListener('DOMContentLoaded', async () => {
     }
     loadVendorOrders();
     loadVendorHistoryAndAnalytics();
+
+    const themeSelect = document.getElementById('sellerThemeSelect');
+    if (themeSelect) {
+        themeSelect.value = localStorage.getItem('seller_theme') || 'dark';
+        themeSelect.addEventListener('change', () => {
+            localStorage.setItem('seller_theme', themeSelect.value);
+            applySellerTheme(themeSelect.value);
+        });
+    }
 });
 
 /* ========================================================
@@ -223,6 +237,151 @@ function playOrderSound() {
     }
 }
 
+function normalizeOrderItems(order) {
+    const items = Array.isArray(order?.items) ? order.items : [];
+    return items.map(item => ({
+        name: item.name || item.nama || 'Makanan',
+        quantity: Number(item.quantity || item.kuantiti || 1),
+        price: Number(item.price ?? item.harga ?? 0)
+    }));
+}
+
+function getOrderPaymentLabel(order) {
+    const method = String(order?.paymentMethod || '').toUpperCase();
+    return {
+        CASH: 'Bayar Tunai',
+        FPX: 'Online Banking',
+        ONLINE: 'Online Banking',
+        QR: 'DuitNow QR'
+    }[method] || 'Kaedah tidak diketahui';
+}
+
+function parseOrderDate(value) {
+    if (!value) return null;
+    if (typeof value?.toDate === 'function') return value.toDate();
+    const date = new Date(value);
+    return Number.isNaN(date.getTime()) ? null : date;
+}
+
+function getOrderHistoryTimestamp(order, primaryField, secondaryField) {
+    const primaryDate = parseOrderDate(order?.[primaryField]);
+    if (primaryDate) return primaryDate.getTime();
+    const secondaryDate = secondaryField ? parseOrderDate(order?.[secondaryField]) : null;
+    if (secondaryDate) return secondaryDate.getTime();
+    return parseOrderDate(order?.createdAt)?.getTime() || 0;
+}
+
+function serverTimestampForOrder() {
+    return new Date().toISOString();
+}
+
+async function persistOrderUpdate(orderId, updates) {
+    if (!window.firebaseMenuFunctions?.updateOrderInFirebase) {
+        throw new Error('Sambungan Firestore belum tersedia.');
+    }
+    await window.firebaseMenuFunctions.updateOrderInFirebase(orderId, updates);
+}
+
+async function deleteCompletedOrders() {
+    if (!activeUser) return;
+
+    const allOrders = JSON.parse(localStorage.getItem('prebites_orders') || '[]');
+    const completedOrders = allOrders.filter(order =>
+        (order.store_id === activeUser.store_id || order.shopId === activeUser.store_id || order.shopId === activeUser.username) &&
+        (order.status === 'selesai' || order.orderStatus === 'completed')
+    );
+
+    if (completedOrders.length === 0) {
+        showNotification('Tiada Rekod', 'Tiada pesanan selesai untuk dipadam.');
+        return;
+    }
+
+    showConfirm(
+        'Padam Pesanan Selesai',
+        'Pasti mahu memadam semua pesanan yang telah selesai? Tindakan ini tidak boleh dibuat asal.',
+        async () => {
+            const deletedIds = new Set();
+            const failedOrders = [];
+
+            for (const order of completedOrders) {
+                if (!order.id || !window.firebaseMenuFunctions?.deleteOrderInFirebase) {
+                    failedOrders.push(order);
+                    continue;
+                }
+
+                try {
+                    await window.firebaseMenuFunctions.deleteOrderInFirebase(order.id);
+                    deletedIds.add(String(order.id));
+                } catch (error) {
+                    console.error('Gagal memadam order selesai:', order.id, error);
+                    failedOrders.push(order);
+                }
+            }
+
+            const remainingOrders = allOrders.filter(order => !deletedIds.has(String(order.id)));
+            localStorage.setItem('prebites_orders', JSON.stringify(remainingOrders));
+            loadVendorOrders();
+            loadVendorHistoryAndAnalytics();
+
+            if (failedOrders.length > 0) {
+                showNotification('Sebahagian Gagal', `${deletedIds.size} rekod dipadam. ${failedOrders.length} rekod gagal dipadam.`);
+            } else {
+                showNotification('Berjaya', `${deletedIds.size} pesanan selesai berjaya dipadam.`);
+            }
+        }
+    );
+}
+
+async function deleteCancelledOrders() {
+    if (!activeUser) return;
+
+    const allOrders = JSON.parse(localStorage.getItem('prebites_orders') || '[]');
+    const cancelledOrders = allOrders.filter(order =>
+        (order.store_id === activeUser.store_id || order.shopId === activeUser.store_id || order.shopId === activeUser.username) &&
+        (order.status === 'dibatalkan' || order.orderStatus === 'cancelled')
+    );
+
+    if (cancelledOrders.length === 0) {
+        showNotification('Tiada Rekod', 'Tiada pesanan dibatalkan untuk dipadam.');
+        return;
+    }
+
+    showConfirm(
+        'Padam Pesanan Dibatalkan',
+        'Pasti mahu memadam semua pesanan yang dibatalkan? Tindakan ini tidak boleh dibuat asal.',
+        async () => {
+            const deletedIds = new Set();
+            const failedOrders = [];
+
+            for (const order of cancelledOrders) {
+                if (!order.id || !window.firebaseMenuFunctions?.deleteOrderInFirebase) {
+                    failedOrders.push(order);
+                    continue;
+                }
+
+                try {
+                    await window.firebaseMenuFunctions.deleteOrderInFirebase(order.id);
+                    deletedIds.add(String(order.id));
+                } catch (error) {
+                    console.error('Gagal memadam order dibatalkan:', order.id, error);
+                    failedOrders.push(order);
+                }
+            }
+
+            const remainingOrders = allOrders.filter(order => !deletedIds.has(String(order.id)));
+            localStorage.setItem('prebites_orders', JSON.stringify(remainingOrders));
+            loadVendorOrders();
+            loadVendorHistoryAndAnalytics();
+
+            if (failedOrders.length > 0) {
+                showNotification('Sebahagian Gagal', `${deletedIds.size} rekod dipadam. ${failedOrders.length} rekod gagal dipadam.`);
+            } else {
+                showNotification('Berjaya', `${deletedIds.size} pesanan dibatalkan berjaya dipadam.`);
+            }
+        }
+    );
+}
+
 function loadVendorOrders() {
     const orderContainer = document.querySelector('#page-uruspesanan > div');
     if (!orderContainer || !activeUser) return;
@@ -253,7 +412,7 @@ function loadVendorOrders() {
         htmlContent += `<p style="text-align: center; color: #8e8e93; padding: 40px 10px;">Tiada pesanan aktif buat masa ini.<br><small>Sistem menyemak pesanan baharu secara automatik...</small></p>`;
     } else {
         activeOrders.forEach(order => {
-            let itemsText = order.items.map(item => `<b>${item.quantity}x</b> ${item.name}`).join('<br>');
+            let itemsText = normalizeOrderItems(order).map(item => `<b>${item.quantity}x</b> ${item.name}`).join('<br>');
             let currentStatus = order.status || 'diterima';
 
             let statusBadgeHtml = '';
@@ -280,13 +439,14 @@ function loadVendorOrders() {
                         <span>👤 Pelanggan: <b>${order.customerName}</b></span>
                         ${statusBadgeHtml}
                     </div>
+                    <div class="order-payment-method">💳 Kaedah bayaran: <strong>${getOrderPaymentLabel(order)}</strong></div>
                     
                     <div class="order-items" style="margin: 10px 0; line-height: 1.5;">${itemsText}</div>
                     ${msgDisplay}
 
                     <div class="order-footer">
                         <span class="order-price">RM ${parseFloat(order.totalPrice || 0).toFixed(2)}</span>
-                        <span class="timer-tracker" id="timer-${order.id}" style="${currentStatus === 'disediakan' ? 'display:inline-flex;' : 'display:none;'}">⏳ <span class="time-left">15:00</span></span>
+                        <span class="timer-tracker" id="timer-${order.id}" style="${currentStatus === 'disediakan' ? 'display:inline-flex;' : 'display:none;'}">⏳ <span class="time-left">--:--</span></span>
                     </div>
 
                     <div class="order-actions" style="margin-top: 12px; display: flex; gap: 6px; flex-wrap: wrap;">
@@ -313,27 +473,42 @@ function loadVendorOrders() {
     }
 
     orderContainer.innerHTML = htmlContent;
+
+    activeOrders.filter(order => (order.status || order.orderStatus) === 'disediakan')
+        .forEach(order => mulakanTracker(order.id, Number(order.prepDurationMins || 15), order.preparedAt));
 }
 
 function mulaSediakanPesanan(orderId, durationMins) {
-    showConfirm("Mula Sediakan", "Adakah anda pasti mahu mula sediakan pesanan ini?", function() {
+    const selectedDuration = Number(prompt('Berapa minit diperlukan untuk menyediakan pesanan?', durationMins) || durationMins);
+    if (!Number.isFinite(selectedDuration) || selectedDuration <= 0) return;
+
+    showConfirm("Mula Sediakan", `Adakah anda pasti mahu mula sediakan pesanan ini dalam ${selectedDuration} minit?`, async function() {
+        const preparedAt = new Date().toISOString();
         let allOrders = JSON.parse(localStorage.getItem('prebites_orders')) || [];
         allOrders = allOrders.map(order => {
             if (order.id == orderId) {
                 order.status = 'disediakan';
+                order.orderStatus = 'preparing';
+                order.preparedAt = preparedAt;
+                order.prepDurationMins = selectedDuration;
             }
             return order;
         });
         localStorage.setItem('prebites_orders', JSON.stringify(allOrders));
 
-        mulakanTracker(orderId, durationMins);
-        showNotification("Berjaya", `Status bertukar ke: DISEDIAKAN. Baki masa ${durationMins} minit bermula.`);
+        await persistOrderUpdate(orderId, {
+            status: 'disediakan',
+            orderStatus: 'preparing',
+            preparedAt: serverTimestampForOrder(),
+            prepDurationMins: selectedDuration
+        });
+        showNotification("Berjaya", `Status bertukar ke: DISEDIAKAN. Baki masa ${selectedDuration} minit bermula.`);
         loadVendorOrders();
     });
 }
 
 function tandakanSudahSiap(orderId, nama) {
-    showConfirm("Makanan Sudah Siap", `Maklumkan kepada ${nama} bahawa makanan sudah siap untuk diambil?`, function() {
+    showConfirm("Makanan Sudah Siap", `Maklumkan kepada ${nama} bahawa makanan sudah siap untuk diambil?`, async function() {
         if(orderTimers[orderId]) {
             clearInterval(orderTimers[orderId]);
         }
@@ -342,12 +517,19 @@ function tandakanSudahSiap(orderId, nama) {
         allOrders = allOrders.map(order => {
             if (order.id == orderId) {
                 order.status = 'sudah_siap';
+                order.orderStatus = 'ready';
                 order.vendorMessage = 'Pesanan dah siap!';
                 order.messageTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             }
             return order;
         });
         localStorage.setItem('prebites_orders', JSON.stringify(allOrders));
+        await persistOrderUpdate(orderId, {
+            status: 'sudah_siap',
+            orderStatus: 'ready',
+            readyAt: serverTimestampForOrder(),
+            vendorMessage: 'Pesanan dah siap!'
+        });
 
         showNotification("Berjaya", `Notifikasi "SUDAH SIAP" dihantar kepada ${nama}!`);
         loadVendorOrders();
@@ -372,21 +554,30 @@ function hantarNotifikasiWhatsApp(orderId, nama) {
         return;
     }
 
-    const message = `Hai ${nama}, pesanan #${order.id} anda sudah siap untuk diambil. Terima kasih kerana menggunakan PreBites!`;
+    const itemSummary = normalizeOrderItems(order).map(item => `${item.quantity}x ${item.name}`).join(', ');
+    const shortOrderId = String(order.id).slice(-8).toUpperCase();
+    const message = `Hai ${nama}, pesanan #${shortOrderId} (${itemSummary}) anda sudah siap untuk diambil. Terima kasih kerana menggunakan PreBites!`;
     window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
 }
 
 function tandakanSelesaiAmbil(orderId, nama) {
-    showConfirm("Selesaikan Transaksi", `Adakah ${nama} telah mengambil pesanan ini?`, function() {
+    showConfirm("Selesaikan Transaksi", `Adakah ${nama} telah mengambil pesanan ini?`, async function() {
+        const completedAt = new Date().toISOString();
         let allOrders = JSON.parse(localStorage.getItem('prebites_orders')) || [];
         allOrders = allOrders.map(order => {
             if (order.id == orderId) {
                 order.status = 'selesai';
-                order.completedAt = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                order.orderStatus = 'completed';
+                order.completedAt = completedAt;
             }
             return order;
         });
         localStorage.setItem('prebites_orders', JSON.stringify(allOrders));
+        await persistOrderUpdate(orderId, {
+            status: 'selesai',
+            orderStatus: 'completed',
+            completedAt: serverTimestampForOrder()
+        });
 
         showNotification("Transaksi Selesai", `Pesanan ${nama} berjaya diselesaikan & dikira dalam Analitik!`);
         loadVendorOrders();
@@ -403,16 +594,24 @@ function tolakPesanan(orderId, nama) {
         return;
     }
 
+    const cancelledAt = new Date().toISOString();
     let allOrders = JSON.parse(localStorage.getItem('prebites_orders')) || [];
     allOrders = allOrders.map(order => {
         if (order.id == orderId) {
             order.status = 'dibatalkan';
+            order.orderStatus = 'cancelled';
             order.reason = alasan.trim();
-            order.completedAt = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            order.cancelledAt = cancelledAt;
         }
         return order;
     });
     localStorage.setItem('prebites_orders', JSON.stringify(allOrders));
+    persistOrderUpdate(orderId, {
+        status: 'dibatalkan',
+        orderStatus: 'cancelled',
+        reason: alasan.trim(),
+        cancelledAt: serverTimestampForOrder()
+    }).catch(error => console.error('Gagal menyimpan penolakan order:', error));
 
     showNotification("Pesanan Ditolak", `Pesanan ${nama} dibatalkan atas sebab: "${alasan}"`);
     loadVendorOrders();
@@ -445,15 +644,19 @@ function pilihMesejPreset(mesejAkhir) {
     loadVendorOrders();
 }
 
-function mulakanTracker(orderId, durationMins) {
-    let timeInSeconds = durationMins * 60;
+function mulakanTracker(orderId, durationMins, preparedAt) {
     const timerElement = document.getElementById(`timer-${orderId}`);
     if (!timerElement) return;
     
     const timeDisplay = timerElement.querySelector('.time-left');
     timerElement.style.display = 'inline-flex';
 
-    orderTimers[orderId] = setInterval(() => {
+    if (orderTimers[orderId]) clearInterval(orderTimers[orderId]);
+    const startedAt = parseOrderDate(preparedAt)?.getTime() || Date.now();
+    const endAt = startedAt + durationMins * 60 * 1000;
+
+    const renderTimer = () => {
+        let timeInSeconds = Math.max(0, Math.ceil((endAt - Date.now()) / 1000));
         let minutes = Math.floor(timeInSeconds / 60);
         let seconds = timeInSeconds % 60;
         
@@ -462,22 +665,28 @@ function mulakanTracker(orderId, durationMins) {
         
         if (timeDisplay) timeDisplay.textContent = minutes + ':' + seconds;
 
-        if (--timeInSeconds < 0) {
+        if (timeInSeconds <= 0) {
             clearInterval(orderTimers[orderId]);
             if (timeDisplay) timeDisplay.textContent = "LEWAT!";
             timerElement.style.color = "#ff453a";
             timerElement.style.background = "rgba(255,69,58,0.1)";
             timerElement.style.borderColor = "rgba(255,69,58,0.3)";
         }
-    }, 1000);
+    };
+
+    renderTimer();
+    orderTimers[orderId] = setInterval(renderTimer, 1000);
 }
 
-setInterval(() => {
+setInterval(async () => {
     const activePage = document.querySelector('.page-view.active');
     if (activePage && activePage.id === 'page-uruspesanan') {
+        if (window.firebaseMenuFunctions?.syncOrdersToSellerDashboard) {
+            await window.firebaseMenuFunctions.syncOrdersToSellerDashboard();
+        }
         loadVendorOrders();
     }
-}, 5000);
+}, 10000);
 
 /* ========================================================
    7. OBJEK & FUNGSI PROFIL / AKAUN KEDAI & DRAG/ZOOM (CANVA STYLE)
@@ -1041,8 +1250,12 @@ function loadVendorHistoryAndAnalytics() {
     // KUNCI UTAMA: Hanya tapis rekod sejarah mengikut store_id
     const vendorOrders = allOrders.filter(order => order.store_id === activeUser.store_id || order.shopId === activeUser.store_id || order.shopId === activeUser.username);
 
-    const completedOrders = vendorOrders.filter(o => o.status === 'selesai' || o.status === 'sudah_siap');
-    const cancelledOrders = vendorOrders.filter(o => o.status === 'dibatalkan');
+    const completedOrders = vendorOrders
+        .filter(o => o.status === 'selesai' || o.orderStatus === 'completed')
+        .sort((firstOrder, secondOrder) => getOrderHistoryTimestamp(secondOrder, 'completedAt') - getOrderHistoryTimestamp(firstOrder, 'completedAt'));
+    const cancelledOrders = vendorOrders
+        .filter(o => o.status === 'dibatalkan' || o.orderStatus === 'cancelled')
+        .sort((firstOrder, secondOrder) => getOrderHistoryTimestamp(secondOrder, 'cancelledAt', 'completedAt') - getOrderHistoryTimestamp(firstOrder, 'cancelledAt', 'completedAt'));
 
     const selesaiContainer = document.getElementById('senarai-selesai');
     if (selesaiContainer) {
@@ -1051,14 +1264,16 @@ function loadVendorHistoryAndAnalytics() {
             selesaiHtml += `<p style="text-align: center; color: #8e8e93; padding: 15px;">Tiada rekod selesai.</p>`;
         } else {
             completedOrders.forEach(order => {
-                let itemsText = order.items.map(item => `${item.quantity}x ${item.name}`).join('<br>');
+                let itemsText = normalizeOrderItems(order).map(item => `${item.quantity}x ${item.name}`).join('<br>');
+                const completedDate = parseOrderDate(order.completedAt);
                 selesaiHtml += `
                     <div class="order-card selesai">
                         <div class="order-meta">
                             <span class="order-id">Order ID: #${order.id}</span>
-                            <span class="order-time">${order.completedAt || 'Selesai'}</span>
+                            <span class="order-time">${completedDate ? completedDate.toLocaleString('ms-MY') : 'Selesai'}</span>
                         </div>
                         <div class="order-customer">👤 Pelanggan: ${order.customerName}</div>
+                        <div class="order-payment-method">💳 Kaedah bayaran: <strong>${getOrderPaymentLabel(order)}</strong></div>
                         <div class="order-items">${itemsText}</div>
                         <div class="order-footer">
                             <span class="order-price">RM ${parseFloat(order.totalPrice || 0).toFixed(2)}</span>
@@ -1078,14 +1293,16 @@ function loadVendorHistoryAndAnalytics() {
             batalHtml += `<p style="text-align: center; color: #8e8e93; padding: 15px;">Tiada rekod dibatalkan.</p>`;
         } else {
             cancelledOrders.forEach(order => {
-                let itemsText = order.items.map(item => `${item.quantity}x ${item.name}`).join('<br>');
+                let itemsText = normalizeOrderItems(order).map(item => `${item.quantity}x ${item.name}`).join('<br>');
+                const cancelledDate = parseOrderDate(order.cancelledAt || order.completedAt);
                 batalHtml += `
                     <div class="order-card dibatalkan">
                         <div class="order-meta">
                             <span class="order-id">Order ID: #${order.id}</span>
-                            <span class="order-time">${order.completedAt || 'Dibatalkan'}</span>
+                            <span class="order-time">${cancelledDate ? cancelledDate.toLocaleString('ms-MY') : 'Dibatalkan'}</span>
                         </div>
                         <div class="order-customer" style="background: rgba(255, 69, 58, 0.1); color: #ff453a; border-color: rgba(255, 69, 58, 0.2);">👤 Pelanggan: ${order.customerName}</div>
+                        <div class="order-payment-method">💳 Kaedah bayaran: <strong>${getOrderPaymentLabel(order)}</strong></div>
                         <div class="order-items">
                             ${itemsText}<br>
                             <strong style="color: #ff453a; font-size: 11.5px;">Sebab: ${order.reason || 'Tiada alasan'}</strong>
@@ -1105,23 +1322,21 @@ function loadVendorHistoryAndAnalytics() {
     let itemBreakdown = {};
 
     completedOrders.forEach(order => {
-        totalRevenue += (order.totalPrice || 0);
-        if (order.items && Array.isArray(order.items)) {
-            order.items.forEach(item => {
+        totalRevenue += Number(order.totalPrice || 0);
+        normalizeOrderItems(order).forEach(item => {
                 if (!itemBreakdown[item.name]) {
                     itemBreakdown[item.name] = { qty: 0, total: 0 };
                 }
                 itemBreakdown[item.name].qty += item.quantity;
                 itemBreakdown[item.name].total += ((item.price || 0) * item.quantity);
-            });
-        }
+        });
     });
 
     const analyticsBox = document.querySelector('.mini-analytics');
     if (analyticsBox) {
         let breakdownHtml = '';
         for (let itemName in itemBreakdown) {
-            breakdownHtml += `<div style="display: flex; justify-content: space-between; font-size: 12px; color: #d1d1d6;">
+            breakdownHtml += `<div style="display: flex; justify-content: space-between; font-size: 12px; color: #030303;">
                 <span>• ${itemName} (${itemBreakdown[itemName].qty} unit)</span>
                 <strong>RM ${itemBreakdown[itemName].total.toFixed(2)}</strong>
             </div>`;
@@ -1137,7 +1352,7 @@ function loadVendorHistoryAndAnalytics() {
             </div>
 
             <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 10px; margin-top: 8px;">
-                <p style="font-size: 11px; color: #ffb340; margin-bottom: 8px; font-weight: 700; letter-spacing: 0.5px;">🏆 PECAHAN JUALAN MENU:</p>
+                <p style="font-size: 11px; color: #40a9ff; margin-bottom: 8px; font-weight: 700; letter-spacing: 0.5px;">🏆 PECAHAN JUALAN MENU:</p>
                 <div style="display: flex; flex-direction: column; gap: 6px;">
                     ${breakdownHtml || '<span style="color: #8e8e93; font-size: 11px;">Belum ada jualan menu.</span>'}
                 </div>

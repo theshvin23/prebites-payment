@@ -1,5 +1,5 @@
 /* ==========================================================================
-   GAYA HYPER-PREMIUM & CLEAN LOGIN (BAKERY/CAFETERIA LUXE COUTURE)
+   GAYA LIGHT GLASSMORPHISM & CLEAN LOGIN (BAKERY/CAFETERIA MODEN)
    ========================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
@@ -9,15 +9,21 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.02em;
 }
 
 body {
-    /* LATAR BELAKANG: Hitam OLED dengan biasan cahaya (Ambient Glow) Oren di bucu */
-    background: 
-        radial-gradient(circle at top right, rgba(230, 126, 34, 0.15) 0%, transparent 45%),
-        radial-gradient(circle at bottom left, rgba(211, 84, 0, 0.08) 0%, transparent 45%),
-        #0b0908;
+    /* LATAR BELAKANG: Off-white lembut + Dot pattern + Aura gradient pastel */
+    background-image: 
+        /* Lapisan 1: Corak Dot Jelas */
+        radial-gradient(rgba(0, 0, 0, 0.13) 1.5px, transparent 1.5px),
+        /* Lapisan 2: Biasan Aura Gradient Pastel */
+        radial-gradient(circle at 80% 20%, rgba(230, 126, 34, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 20% 80%, rgba(241, 196, 15, 0.1) 0%, transparent 40%);
+    background-color: #f8f6f3;
+    background-size: 24px 24px, 100% 100%, 100% 100%;
+    background-attachment: fixed;
+
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -25,33 +31,19 @@ body {
     padding: 24px;
     overflow-x: hidden;
     position: relative;
-    color: #f5f2f0;
+    color: #2c2520;
 }
 
-/* Grid Halus Cyber-Cafeteria untuk Impak Tekstur Mewah */
-body::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    opacity: 0.15;
-    pointer-events: none;
-    background-image: 
-        linear-gradient(90deg, rgba(230, 126, 34, 0.15) 1px, transparent 1px),
-        linear-gradient(rgba(230, 126, 34, 0.15) 1px, transparent 1px);
-    background-size: 32px 32px;
-    mask-image: radial-gradient(circle at center, white, transparent 75%);
-}
-
-/* ELEMEN MAKANAN TERAPUNG (Neon Ghost Art) */
+/* ELEMEN MAKANAN TERAPUNG (Soft Aesthetic Icons) */
 body .food-decor {
     position: absolute;
-    font-size: 34px;
+    font-size: 32px;
     z-index: 1;
-    opacity: 0.22;
+    opacity: 0.35;
     user-select: none;
     pointer-events: none;
-    filter: drop-shadow(0 0 12px rgba(230, 126, 34, 0.25)) blur(0.5px);
-    animation: apungNeon 8s ease-in-out infinite alternate;
+    filter: drop-shadow(0 4px 10px rgba(211, 84, 0, 0.1));
+    animation: apungLembut 7s ease-in-out infinite alternate;
 }
 
 .food-1 { top: 12%; left: 10%; animation-delay: 0s; }
@@ -59,78 +51,139 @@ body .food-decor {
 .food-3 { bottom: 15%; left: 8%; animation-delay: 4s; }
 .food-4 { bottom: 12%; right: 10%; animation-delay: 6s; }
 
-@keyframes apungNeon {
-    0% { transform: translateY(0) rotate(-6deg) scale(1); opacity: 0.2; }
-    100% { transform: translateY(-20px) rotate(8deg) scale(1.06); opacity: 0.35; }
+@keyframes apungLembut {
+    0% { transform: translateY(0) rotate(-4deg) scale(1); opacity: 0.3; }
+    100% { transform: translateY(-16px) rotate(6deg) scale(1.05); opacity: 0.5; }
 }
 
-/* KAD KANDUNGAN LOGIN (Cyber Glassmorphism Card) */
+/* KAD KANDUNGAN LOGIN (Light Glassmorphism Card) */
 .login-container {
-    background: rgba(18, 15, 13, 0.75);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    padding: 52px 40px;
+    /* Background: Dot halus + Warna Peach ringan lutsinar */
+    background: 
+        /* Lapisan 1: Corak dot peach/oren lembut */
+        radial-gradient(rgba(230, 126, 34, 0.15) 1.2px, transparent 1.2px),
+        /* Lapisan 2: Gradien peach ringan (campuran peach cair & off-white lutsinar) */
+        linear-gradient(135deg, rgba(255, 237, 225, 0.78) 0%, rgba(255, 245, 238, 0.68) 100%);
+    
+    background-size: 16px 16px, 100% 100%; /* Saiz kerapihan dot (16px) */
+    
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    
+    /* Border diselaraskan dengan ton peach lembut */
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    padding: 48px 40px;
     border-radius: 28px;
     width: 100%;
     max-width: 440px;
     text-align: center;
     z-index: 10;
     
-    /* Bayang neon berlapis untuk kesan 3D realistik */
+    /* Bayang lembut berlapis untuk kesan kedalaman premium */
     box-shadow: 
-        0 4px 30px rgba(0, 0, 0, 0.4),
-        0 25px 60px rgba(0, 0, 0, 0.6),
-        inset 0 1px 1px rgba(255, 255, 255, 0.08);
+        0 10px 30px -5px rgba(0, 0, 0, 0.04),
+        0 25px 50px -12px rgba(230, 126, 34, 0.12),
+        inset 0 1px 1px rgba(255, 255, 255, 0.95);
         
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .login-container:hover {
-    transform: translateY(-5px);
-    border-color: rgba(230, 126, 34, 0.35); /* Sempadan menyala oren semasa hover */
+    transform: translateY(-4px);
+    border-color: rgba(230, 126, 34, 0.3);
     box-shadow: 
-        0 10px 40px rgba(0, 0, 0, 0.5),
-        0 30px 70px rgba(230, 126, 34, 0.12),
-        inset 0 1px 1px rgba(255, 255, 255, 0.15);
+        0 15px 35px -5px rgba(0, 0, 0, 0.07),
+        0 30px 60px -10px rgba(230, 126, 34, 0.12),
+        inset 0 1px 0 #ffffff;
 }
 
 /* Header & Logo */
 .logo-section h2 {
-    color: #ffffff;
-    font-size: 36px;
+    color: #2c2520;
+    font-size: 34px;
     margin-bottom: 8px;
     font-weight: 800;
-    letter-spacing: -0.05em;
+    letter-spacing: -0.04em;
 }
 
 .logo-section h2::after {
     content: '.';
     color: #e67e22;
-    text-shadow: 0 0 12px #e67e22, 0 0 24px #e67e22; /* Kesan neon menyala pada dot */
 }
 
 .logo-section p {
-    color: #a39387;
+    color: #7d7268;
     font-size: 14.5px;
     font-weight: 500;
-    margin-bottom: 40px;
+    margin-bottom: 36px;
 }
 
-/* Ruangan Input (Stealth Neon Architecture) */
-.input-group {
+/* BUTTON PORTAL PENIAGA (Menarik & Timbul) */
+.btn-seller-portal {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 18px;
     margin-bottom: 24px;
+    
+    background: rgba(255, 255, 255, 0.85);
+    border: 1.5px solid rgba(230, 126, 34, 0.35);
+    border-radius: 100px;
+    
+    color: #2c2520;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    
+    box-shadow: 0 4px 12px rgba(230, 126, 34, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-seller-portal svg:not(.arrow-icon) {
+    stroke: #e67e22;
+}
+
+.btn-seller-portal .arrow-icon {
+    stroke: #8c7a6b;
+    transition: transform 0.3s ease, stroke 0.3s ease;
+}
+
+.btn-seller-portal:hover {
+    background: #ffffff;
+    border-color: #e67e22;
+    color: #e67e22;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(230, 126, 34, 0.2);
+}
+
+.btn-seller-portal:hover .arrow-icon {
+    stroke: #e67e22;
+    transform: translateX(3px);
+}
+
+.btn-seller-portal:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(230, 126, 34, 0.12);
+}
+
+/* Ruangan Input (Soft Modern Style) */
+.input-group {
+    margin-bottom: 22px;
     text-align: left;
 }
 
 .input-group label {
     display: block;
-    font-size: 11px;
-    color: #a39387;
+    font-size: 11.5px;
+    color: #63584e;
     margin-bottom: 8px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.08em;
 }
 
 .input-wrapper {
@@ -143,54 +196,55 @@ body .food-decor {
 .input-wrapper svg {
     position: absolute;
     left: 18px;
-    fill: #66574d;
+    fill: #a09387;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     pointer-events: none;
 }
 
 .input-group input {
     width: 100%;
-    padding: 16px 16px 16px 50px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1.5px solid rgba(255, 255, 255, 0.07);
+    padding: 15px 16px 15px 50px;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1.5px solid rgba(0, 0, 0, 0.08);
     border-radius: 14px;
     font-size: 15px;
-    color: #ffffff;
+    color: #2c2520;
     font-weight: 500;
     outline: none;
     transition: all 0.3s ease;
 }
 
+.input-group input::placeholder {
+    color: #b3a79c;
+}
+
 .input-group input:focus {
-    background: rgba(230, 126, 34, 0.02);
+    background: #ffffff;
     border-color: #e67e22;
-    box-shadow: 
-        0 0 0 4px rgba(230, 126, 34, 0.15),
-        inset 0 1px 1px rgba(230, 126, 34, 0.2);
+    box-shadow: 0 0 0 4px rgba(230, 126, 34, 0.12);
     transform: translateY(-1px);
 }
 
 .input-group input:focus + svg {
     fill: #e67e22;
-    filter: drop-shadow(0 0 6px #e67e22);
     transform: scale(1.05);
 }
 
-/* Lupa Kata Laluan (Animated Underline Reveal) */
+/* Lupa Kata Laluan */
 .forgot-pass {
     text-align: right;
-    margin-top: -12px;
+    margin-top: -10px;
     margin-bottom: 24px;
 }
 
 .forgot-pass a {
-    color: #8c7a6b;
+    color: #7d7268;
     font-size: 13px;
     font-weight: 600;
     text-decoration: none;
     position: relative;
     padding-bottom: 2px;
-    transition: color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: color 0.3s ease;
 }
 
 .forgot-pass a::after {
@@ -200,11 +254,10 @@ body .food-decor {
     left: 0;
     width: 100%;
     height: 1.5px;
-    background: linear-gradient(90deg, #e67e22, #f39c12);
+    background: #e67e22;
     transform: scaleX(0);
     transform-origin: right center;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 0 6px rgba(230, 126, 34, 0.6);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .forgot-pass a:hover {
@@ -216,7 +269,7 @@ body .food-decor {
     transform-origin: left center;
 }
 
-/* Butang Utama Premium (Terracotta Liquid Silk) */
+/* Butang Utama (Warm Terracotta) */
 .btn-login {
     width: 100%;
     padding: 16px;
@@ -227,28 +280,28 @@ body .food-decor {
     font-size: 15px;
     font-weight: 700;
     cursor: pointer;
-    box-shadow: 0 8px 25px rgba(230, 126, 34, 0.3);
+    box-shadow: 0 6px 20px rgba(230, 126, 34, 0.25);
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .btn-login:hover {
-    background: #f39c12;
-    box-shadow: 0 12px 35px rgba(230, 126, 34, 0.5);
+    background: #d35400;
+    box-shadow: 0 10px 25px rgba(230, 126, 34, 0.35);
     transform: translateY(-2px);
 }
 
 .btn-login:active {
     transform: translateY(0);
-    box-shadow: 0 6px 15px rgba(230, 126, 34, 0.3);
+    box-shadow: 0 4px 12px rgba(230, 126, 34, 0.2);
 }
 
-/* Pembahagi Neon Terputus (Cyber Divider) */
+/* Pembahagi (Soft Divider) */
 .divider {
-    margin: 28px 0;
+    margin: 26px 0;
     display: flex;
     align-items: center;
     text-align: center;
-    color: #66574d;
+    color: #a09387;
     font-size: 13px;
     font-weight: 600;
 }
@@ -256,13 +309,13 @@ body .food-decor {
 .divider::before, .divider::after {
     content: '';
     flex: 1;
-    border-bottom: 1.5px dashed rgba(230, 126, 34, 0.15);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .divider:not(:empty)::before { margin-right: 1em; }
 .divider:not(:empty)::after { margin-left: 1em; }
 
-/* Butang Media Sosial Gelap */
+/* Butang Media Sosial */
 .social-login-container {
     display: flex;
     flex-direction: column;
@@ -275,23 +328,24 @@ body .food-decor {
     justify-content: center;
     gap: 12px;
     width: 100%;
-    padding: 15px;
-    border: 1.5px solid rgba(255, 255, 255, 0.08);
+    padding: 14px;
+    border: 1.5px solid rgba(0, 0, 0, 0.08);
     border-radius: 14px;
     font-size: 14px;
     font-weight: 700;
     cursor: pointer;
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(255, 255, 255, 0.8);
     transition: all 0.25s ease;
 }
 
 .btn-google {
-    color: #ffffff;
+    color: #2c2520;
 }
 
 .btn-google:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.15);
+    background: #ffffff;
+    border-color: rgba(0, 0, 0, 0.18);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
     transform: translateY(-1px);
 }
 
@@ -299,30 +353,30 @@ body .food-decor {
     background: #1877f2;
     color: white;
     border: none;
-    box-shadow: 0 6px 16px rgba(24, 119, 242, 0.15);
+    box-shadow: 0 4px 14px rgba(24, 119, 242, 0.2);
 }
 
 .btn-facebook:hover {
     background: #166fe5;
-    box-shadow: 0 8px 20px rgba(24, 119, 242, 0.25);
+    box-shadow: 0 6px 18px rgba(24, 119, 242, 0.3);
     transform: translateY(-1px);
 }
 
-/* Teks Bawah (Animated Underline Reveal) */
+/* Teks Bawah */
 .footer-text {
-    margin-top: 36px;
+    margin-top: 32px;
     font-size: 14px;
-    color: #8c7a6b;
+    color: #7d7268;
     font-weight: 500;
 }
 
 .footer-text a {
-    color: #ffffff;
+    color: #2c2520;
     text-decoration: none;
     font-weight: 700;
     position: relative;
-    padding-bottom: 4px;
-    transition: color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    padding-bottom: 2px;
+    transition: color 0.3s ease;
 }
 
 .footer-text a::after {
@@ -332,11 +386,10 @@ body .food-decor {
     left: 0;
     width: 100%;
     height: 2px;
-    background: linear-gradient(90deg, #e67e22, #f39c12);
+    background: #e67e22;
     transform: scaleX(0);
     transform-origin: right center;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 0 8px rgba(230, 126, 34, 0.6);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .footer-text a:hover {
@@ -352,13 +405,13 @@ body .food-decor {
 @media (max-width: 480px) {
     body {
         padding: 16px;
-        background: #0b0908;
+        background: #f8f6f3;
     }
     body::before, .food-decor {
         display: none;
     }
     .login-container {
-        padding: 36px 20px;
+        padding: 32px 20px;
         border: none;
         background: transparent;
         box-shadow: none;
@@ -373,8 +426,8 @@ body .food-decor {
 
 @media (max-width: 360px) {
     body { padding: 10px; }
-    .login-container { padding: 28px 12px; }
-    .logo-section h2 { font-size: 30px; }
-    .logo-section p { font-size: 13px; margin-bottom: 28px; }
+    .login-container { padding: 24px 12px; }
+    .logo-section h2 { font-size: 28px; }
+    .logo-section p { font-size: 13px; margin-bottom: 24px; }
     .input-group input { font-size: 14px; padding-left: 46px; }
 }

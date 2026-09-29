@@ -347,7 +347,11 @@ async function syncOrdersToSellerDashboard() {
                 id: orderDocument.id,
                 customerName: order.customerName || order.customerEmail || 'Pelanggan',
                 status: order.status || (order.orderStatus === 'pending' ? 'diterima' : order.orderStatus),
-                time: order.createdAt?.toDate?.().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) || 'Baru Sahaja'
+                time: order.createdAt?.toDate?.().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) || 'Baru Sahaja',
+                createdAt: order.createdAt?.toDate?.().toISOString() || order.createdAt || null,
+                preparedAt: order.preparedAt?.toDate?.().toISOString() || order.preparedAt || null,
+                completedAt: order.completedAt?.toDate?.().toISOString() || order.completedAt || null,
+                cancelledAt: order.cancelledAt?.toDate?.().toISOString() || order.cancelledAt || null
             };
         });
 
@@ -358,6 +362,19 @@ async function syncOrdersToSellerDashboard() {
     } catch (error) {
         console.error('Gagal menyegerakkan pesanan Firebase:', error);
     }
+}
+
+async function updateOrderInFirebase(orderId, updates) {
+    if (!orderId) throw new Error('Order ID tidak ditemui.');
+    await updateDoc(doc(db, 'orders', orderId), {
+        ...updates,
+        updatedAt: serverTimestamp()
+    });
+}
+
+async function deleteOrderInFirebase(orderId) {
+    if (!orderId) throw new Error('Order ID tidak ditemui.');
+    await deleteDoc(doc(db, 'orders', orderId));
 }
 
 // Export functions untuk digunakan dalam kedai.js
@@ -371,5 +388,7 @@ window.firebaseMenuFunctions = {
     updateShopProfileInFirebase,
     loadShopProfileFromFirebase,
     syncOrdersToSellerDashboard,
+    updateOrderInFirebase,
+    deleteOrderInFirebase,
     uploadToCloudinary
 };

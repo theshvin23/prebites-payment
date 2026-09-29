@@ -72,8 +72,15 @@
     </div>
 
     <!-- 11. Bahagian Utama Banner Pengenalan (Hero Section) -->
-    <section class="hero-section">
+<section class="hero-section">
+    <!-- Kotak container khas untuk hero section -->
+    <div class="hero-box">
         <div class="hero-content">
+            <!-- GAMBAR / LOGO DI TENGAH -->
+            <div class="hero-logo-wrapper">
+                <img src="psp.png" alt="Politeknik Seberang Perai" class="hero-poli-img">
+            </div>
+
             <div class="live-badge">
                 <span class="live-dot"></span> LIVE PRE-ORDER
             </div>
@@ -81,7 +88,8 @@
             <p>Pesan makanan kegemaran anda dari premis YES PSP tanpa perlu beratur panjang.</p>
             <a href="#menu" class="btn-primary">Lihat Menu Sekarang</a>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- 12. Seksyen Senarai Premis Makanan Utama (Dimuatkan Dinamik dari LocalStorage) -->
     <section class="shops-section">
@@ -158,6 +166,7 @@
         </div>
         <a href="payment.html" class="btn-checkout" id="checkoutBtn">Bayar</a>
     </div>
+    <div id="cartNotification" class="cart-notification" role="status" aria-live="polite"></div>
 
     <!-- 22. Lapisan Pelindung Popup Modal Perincian Senarai Troli -->
     <div class="cart-overlay" id="cartOverlay">
@@ -193,7 +202,15 @@
                 <p class="empty-cart-text">Tiada pesanan aktif buat masa sekarang.</p>
             </div>
             <div class="modal-footer">
-                <button class="btn-checkout-modal" id="closeOrdersBtn" style="width:100%;">Tutup</button>
+                <button class="btn-checkout-modal orders-close-btn" id="closeOrdersBtn">Tutup</button>
+                <button class="btn-clear orders-delete-btn" id="deleteOrdersBtn">Padam Pesanan</button>
+            </div>
+            <div class="orders-delete-confirmation" id="deleteOrdersConfirmation" hidden>
+                <span>Padam pesanan yang dipaparkan?</span>
+                <div>
+                    <button class="btn-clear" id="cancelDeleteOrdersBtn">Batal</button>
+                    <button class="btn-checkout-modal" id="confirmDeleteOrdersBtn">Ya</button>
+                </div>
             </div>
         </div>
     </div>

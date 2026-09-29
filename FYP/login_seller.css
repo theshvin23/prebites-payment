@@ -1,5 +1,5 @@
 /* ==========================================================================
-   GAYA HYPER-PREMIUM & CLEAN LOGIN SELLER (EMERALD BUSINESS THEME)
+   GAYA HYPER-PREMIUM & CLEAN LOGIN SELLER (LIGHT ELECTRIC BLUE THEME)
    ========================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
@@ -13,12 +13,20 @@
     letter-spacing: -0.03em;
 }
 
-/* 2. Pengaturan latar belakang OLED hitam dan biasan cahaya hijau korporat */
+/* 2. Latar belakang cerah dengan biasan gradien biru lembut */
 body {
-    background: 
-        radial-gradient(circle at top right, rgba(48, 209, 88, 0.15) 0%, transparent 45%),
-        radial-gradient(circle at bottom left, rgba(10, 132, 255, 0.08) 0%, transparent 45%),
-        #050508;
+    /* LATAR BELAKANG: Tema Biru Soft + Dot Pattern + Radial Blue Gradient */
+    background-image: 
+        /* Lapisan 1: Corak Dot Halus (Warna kelabu/biru gelap lutsinar) */
+        radial-gradient(rgba(28, 28, 30, 0.12) 1.3px, transparent 1.3px),
+        /* Lapisan 2 & 3: Tema asal gradien biru kau */
+        radial-gradient(circle at top right, rgba(10, 132, 255, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at bottom left, rgba(0, 122, 255, 0.08) 0%, transparent 50%);
+        
+    background-color: #f4f7fc;
+    background-size: 20px 20px, 100% 100%, 100% 100%;
+    background-attachment: fixed;
+
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -26,32 +34,32 @@ body {
     padding: 24px;
     overflow-x: hidden;
     position: relative;
-    color: #f5f2f0;
+    color: #1c1c1e;
 }
 
-/* 3. Tekstur grid halus siber peniaga untuk impak visual tambahan */
+/* 3. Tekstur grid halus siber (Versi Light) */
 body::before {
     content: "";
     position: absolute;
     inset: 0;
-    opacity: 0.12;
+    opacity: 0.6;
     pointer-events: none;
     background-image: 
-        linear-gradient(90deg, rgba(48, 209, 88, 0.15) 1px, transparent 1px),
-        linear-gradient(rgba(48, 209, 88, 0.15) 1px, transparent 1px);
+        linear-gradient(90deg, rgba(10, 132, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(rgba(10, 132, 255, 0.05) 1px, transparent 1px);
     background-size: 32px 32px;
-    mask-image: radial-gradient(circle at center, white, transparent 75%);
+    mask-image: radial-gradient(circle at center, white, transparent 80%);
 }
 
-/* 4. Elemen hiasan ikon terapung neon (Neon Ghost Art) */
+/* 4. Elemen hiasan ikon terapung (Soft Blue Tint) */
 body .food-decor {
     position: absolute;
     font-size: 34px;
     z-index: 1;
-    opacity: 0.22;
+    opacity: 0.35;
     user-select: none;
     pointer-events: none;
-    filter: drop-shadow(0 0 12px rgba(48, 209, 88, 0.25)) blur(0.5px);
+    filter: drop-shadow(0 4px 10px rgba(10, 132, 255, 0.15));
     animation: apungNeon 8s ease-in-out infinite alternate;
 }
 
@@ -61,56 +69,68 @@ body .food-decor {
 .food-4 { bottom: 12%; right: 10%; animation-delay: 6s; }
 
 @keyframes apungNeon {
-    0% { transform: translateY(0) rotate(-6deg) scale(1); opacity: 0.2; }
-    100% { transform: translateY(-20px) rotate(8deg) scale(1.06); opacity: 0.35; }
+    0% { transform: translateY(0) rotate(-6deg) scale(1); opacity: 0.3; }
+    100% { transform: translateY(-20px) rotate(8deg) scale(1.06); opacity: 0.5; }
 }
 
-/* 5. Kad kontena utama log masuk (Cyber Glassmorphism Card) */
+/* 5. Kad kontena utama log masuk (Glassmorphism Kad dengan Gradient Biru) */
 .login-container {
-    background: rgba(20, 20, 28, 0.75);
+    /* Background: Dot halus + Gradient Biru Soft */
+    background: 
+        /* Lapisan 1: Corak Dot warna biru terang lutsinar */
+        radial-gradient(rgba(10, 132, 255, 0.18) 1.2px, transparent 1.2px),
+        /* Lapisan 2: Gradient Biru Cair (dari top-left ke bottom-right) */
+        linear-gradient(135deg, rgba(224, 242, 254, 0.82) 0%, rgba(255, 255, 255, 0.7) 50%, rgba(219, 234, 254, 0.78) 100%);
+    
+    background-size: 16px 16px, 100% 100%;
+    
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    
+    /* Border ada biasan biru cair */
+    border: 1px solid rgba(186, 230, 253, 0.85);
     padding: 52px 40px;
     border-radius: 28px;
     width: 100%;
     max-width: 440px;
     text-align: center;
     z-index: 10;
+    
+    /* Box-shadow dengan aura biru yang lebih terserlah */
     box-shadow: 
-        0 4px 30px rgba(0, 0, 0, 0.4),
-        0 25px 60px rgba(0, 0, 0, 0.6),
-        inset 0 1px 1px rgba(255, 255, 255, 0.1);
+        0 10px 40px rgba(10, 132, 255, 0.12),
+        0 20px 50px rgba(0, 0, 0, 0.04),
+        inset 0 1px 1px rgba(255, 255, 255, 0.95);
+        
     transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .login-container:hover {
     transform: translateY(-5px);
-    border-color: rgba(48, 209, 88, 0.35);
+    border-color: rgba(10, 132, 255, 0.4);
     box-shadow: 
-        0 10px 40px rgba(0, 0, 0, 0.5),
-        0 30px 70px rgba(48, 209, 88, 0.12),
-        inset 0 1px 1px rgba(255, 255, 255, 0.15);
+        0 15px 45px rgba(10, 132, 255, 0.2),
+        0 30px 60px rgba(0, 0, 0, 0.06);
 }
 
-/* 6. Lencana pengenalan khas portal peniaga */
+/* 6. Lencana pengenalan khas portal peniaga (Soft Blue Pill) */
 .seller-badge {
     display: inline-block;
-    background: rgba(48, 209, 88, 0.12);
-    color: #30d158;
+    background: rgba(10, 132, 255, 0.08);
+    color: #007aff;
     font-size: 11px;
     font-weight: 700;
     padding: 6px 14px;
     border-radius: 20px;
-    border: 1px solid rgba(48, 209, 88, 0.3);
+    border: 1px solid rgba(10, 132, 255, 0.2);
     text-transform: uppercase;
     letter-spacing: 0.1em;
     margin-bottom: 16px;
 }
 
-/* 7. Bahagian tajuk tajuk logo */
+/* 7. Bahagian tajuk logo */
 .logo-section h2 {
-    color: #ffffff;
+    color: #1c1c1e;
     font-size: 36px;
     margin-bottom: 8px;
     font-weight: 800;
@@ -118,12 +138,11 @@ body .food-decor {
 }
 
 .logo-section h2 span {
-    color: #30d158;
-    text-shadow: 0 0 12px #30d158, 0 0 24px #30d158;
+    color: #007aff;
 }
 
 .logo-section p {
-    color: #aeaeb2;
+    color: #636366;
     font-size: 14.5px;
     font-weight: 500;
     margin-bottom: 32px;
@@ -138,7 +157,7 @@ body .food-decor {
 .input-group label {
     display: block;
     font-size: 11px;
-    color: #aeaeb2;
+    color: #636366;
     margin-bottom: 8px;
     font-weight: 700;
     text-transform: uppercase;
@@ -155,7 +174,7 @@ body .food-decor {
 .input-wrapper svg {
     position: absolute;
     left: 18px;
-    fill: #636366;
+    fill: #8e8e93;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     pointer-events: none;
 }
@@ -163,28 +182,27 @@ body .food-decor {
 .input-group input {
     width: 100%;
     padding: 16px 16px 16px 50px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1.5px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.8);
+    border: 1.5px solid rgba(0, 0, 0, 0.08);
     border-radius: 14px;
     font-size: 15px;
-    color: #ffffff;
+    color: #1c1c1e;
     font-weight: 500;
     outline: none;
     transition: all 0.3s ease;
 }
 
 .input-group input:focus {
-    background: rgba(48, 209, 88, 0.02);
-    border-color: #30d158;
+    background: #ffffff;
+    border-color: #007aff;
     box-shadow: 
-        0 0 0 4px rgba(48, 209, 88, 0.15),
-        inset 0 1px 1px rgba(48, 209, 88, 0.2);
+        0 0 0 4px rgba(0, 122, 255, 0.12),
+        0 4px 12px rgba(0, 122, 255, 0.08);
     transform: translateY(-1px);
 }
 
 .input-group input:focus + svg {
-    fill: #30d158;
-    filter: drop-shadow(0 0 6px #30d158);
+    fill: #007aff;
     transform: scale(1.05);
 }
 
@@ -196,13 +214,13 @@ body .food-decor {
 }
 
 .forgot-pass a {
-    color: #8e8e93;
+    color: #636366;
     font-size: 13px;
     font-weight: 600;
     text-decoration: none;
     position: relative;
     padding-bottom: 2px;
-    transition: color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: color 0.3s ease;
 }
 
 .forgot-pass a::after {
@@ -212,15 +230,14 @@ body .food-decor {
     left: 0;
     width: 100%;
     height: 1.5px;
-    background: linear-gradient(90deg, #30d158, #34c759);
+    background: #007aff;
     transform: scaleX(0);
     transform-origin: right center;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 0 6px rgba(48, 209, 88, 0.6);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .forgot-pass a:hover {
-    color: #30d158;
+    color: #007aff;
 }
 
 .forgot-pass a:hover::after {
@@ -228,38 +245,38 @@ body .food-decor {
     transform-origin: left center;
 }
 
-/* 10. Butang utama log masuk peniaga (Emerald Liquid Silk) */
+/* 10. Butang utama log masuk peniaga (Electric Blue Button) */
 .btn-login {
     width: 100%;
     padding: 16px;
-    background: #30d158;
+    background: #007aff;
     border: none;
     border-radius: 14px;
-    color: #050508;
+    color: #ffffff;
     font-size: 15px;
     font-weight: 700;
     cursor: pointer;
-    box-shadow: 0 8px 25px rgba(48, 209, 88, 0.3);
+    box-shadow: 0 8px 20px rgba(0, 122, 255, 0.25);
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .btn-login:hover {
-    background: #34c759;
-    box-shadow: 0 12px 35px rgba(48, 209, 88, 0.5);
+    background: #0062cc;
+    box-shadow: 0 12px 28px rgba(0, 122, 255, 0.35);
     transform: translateY(-2px);
 }
 
 .btn-login:active {
     transform: translateY(0);
-    box-shadow: 0 6px 15px rgba(48, 209, 88, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 122, 255, 0.2);
 }
 
-/* 11. Gaya butang log masuk menggunakan Google (Tambahan Baharu) */
+/* 11. Gaya butang log masuk menggunakan Google (Light Mode) */
 .btn-google-login {
     width: 100%;
-    background: rgba(255, 255, 255, 0.05);
-    color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: #ffffff;
+    color: #1c1c1e;
+    border: 1.5px solid rgba(0, 0, 0, 0.08);
     padding: 16px;
     border-radius: 14px;
     font-size: 15px;
@@ -271,13 +288,14 @@ body .food-decor {
     gap: 12px;
     transition: all 0.3s ease;
     margin-top: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
 }
 
 .btn-google-login:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.25);
+    background: #f8f9fa;
+    border-color: rgba(0, 0, 0, 0.15);
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
 }
 
 /* 12. Garisan pembahagi teks 'atau' */
@@ -286,7 +304,7 @@ body .food-decor {
     display: flex;
     align-items: center;
     text-align: center;
-    color: #636366;
+    color: #8e8e93;
     font-size: 13px;
     font-weight: 600;
 }
@@ -294,7 +312,7 @@ body .food-decor {
 .divider::before, .divider::after {
     content: '';
     flex: 1;
-    border-bottom: 1.5px dashed rgba(255, 255, 255, 0.1);
+    border-bottom: 1.5px dashed rgba(0, 0, 0, 0.1);
 }
 
 .divider:not(:empty)::before { margin-right: 1em; }
@@ -303,17 +321,17 @@ body .food-decor {
 /* 13. Teks footer bahagian bawah borang */
 .footer-text {
     font-size: 14px;
-    color: #8e8e93;
+    color: #636366;
     font-weight: 500;
 }
 
 .footer-text a {
-    color: #ffffff;
+    color: #007aff;
     text-decoration: none;
     font-weight: 700;
     position: relative;
-    padding-bottom: 4px;
-    transition: color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    padding-bottom: 2px;
+    transition: color 0.3s ease;
 }
 
 .footer-text a::after {
@@ -323,15 +341,14 @@ body .food-decor {
     left: 0;
     width: 100%;
     height: 2px;
-    background: linear-gradient(90deg, #30d158, #34c759);
+    background: #007aff;
     transform: scaleX(0);
     transform-origin: right center;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 0 8px rgba(48, 209, 88, 0.6);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .footer-text a:hover {
-    color: #30d158;
+    color: #0056b3;
 }
 
 .footer-text a:hover::after {
@@ -339,14 +356,67 @@ body .food-decor {
     transform-origin: left center;
 }
 
-/* 14. Tetapan paparan responsif khas skrin telefon mudah alih */
+/* 14. BUTANG PAUTAN LOG MASUK PELAJAR (LIGHT GLASSMORPHISM PILL) */
+.btn-student-portal {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #007aff;
+    text-decoration: none;
+    font-size: 13.5px;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.85);
+    border: 1.5px solid rgba(0, 122, 255, 0.25);
+    padding: 10px 18px;
+    border-radius: 50px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 
+        0 4px 15px rgba(0, 122, 255, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 100;
+    cursor: pointer;
+}
+
+.btn-student-portal:hover {
+    color: #ffffff;
+    background: #007aff;
+    border-color: #007aff;
+    box-shadow: 0 8px 22px rgba(0, 122, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.btn-student-portal .back-icon {
+    transition: transform 0.3s ease;
+}
+
+.btn-student-portal:hover .back-icon {
+    transform: translateX(-4px);
+}
+
+.btn-student-portal:active {
+    transform: translateY(0) scale(0.97);
+    box-shadow: 0 4px 12px rgba(0, 122, 255, 0.2);
+}
+
+/* 15. Tetapan paparan responsif khas skrin telefon mudah alih */
 @media (max-width: 480px) {
     body {
         padding: 16px;
-        background: #050508;
+        background: #f4f7fc;
     }
     body::before, .food-decor {
         display: none;
+    }
+    .btn-student-portal {
+        top: 16px;
+        left: 16px;
+        padding: 8px 14px;
+        font-size: 12.5px;
     }
     .login-container {
         padding: 36px 20px;

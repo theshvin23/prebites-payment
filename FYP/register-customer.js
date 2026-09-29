@@ -51,6 +51,7 @@ form?.addEventListener('submit', async (event) => {
             nama,
             email,
             matrikId,
+            matrik: matrikId,
             role: 'customer',
             status: 'active',
             createdAt: serverTimestamp()

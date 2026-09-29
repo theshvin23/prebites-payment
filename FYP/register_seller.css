@@ -1,0 +1,423 @@
+/* ==========================================================================
+   1. ASAS & SKIM WARNA UTAMA (COOL ICE BLUE EDITION - REGISTER SELLER)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    letter-spacing: -0.03em;
+}
+
+/* ==========================================================================
+   2. REKABENTUK LATAR BELAKANG (COOL ICE BLUE DOT & GRADIENT)
+   ========================================================================== */
+body {
+    /* Latar belakang terang Cool Ice White dengan corak dot dan biasan biru */
+    background-color: #f4f7fc;
+    background-image: 
+        /* Corak Dot Biru Halus */
+        radial-gradient(rgba(10, 132, 255, 0.18) 1.5px, transparent 1.5px),
+        /* Soft Blue Accent Gradient */
+        radial-gradient(at 10% 10%, rgba(10, 132, 255, 0.22) 0px, transparent 55%),
+        radial-gradient(at 90% 20%, rgba(186, 230, 253, 0.4) 0px, transparent 60%),
+        radial-gradient(at 50% 80%, rgba(147, 197, 253, 0.25) 0px, transparent 65%);
+    
+    background-size: 24px 24px, 100% 100%, 100% 100%, 100% 100%;
+    background-attachment: fixed;
+    
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 24px;
+    color: #1e293b;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Grid overlay lutsinar dengan warna biru lembut */
+body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.15;
+    pointer-events: none;
+    background-image:
+        linear-gradient(90deg, rgba(10, 132, 255, 0.2) 1px, transparent 1px),
+        linear-gradient(rgba(10, 132, 255, 0.2) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: radial-gradient(circle at center, white, transparent 75%);
+}
+
+/* ==========================================================================
+   3. ELEMEN DEKORASI MAKANAN TERAPUNG (GHOST EFFECT BIRU)
+   ========================================================================== */
+.food-decor {
+    position: fixed;
+    font-size: 60px;
+    opacity: 0.20;
+    pointer-events: none;
+    filter: drop-shadow(0 0 10px rgba(10, 132, 255, 0.2));
+    animation: float 20s infinite;
+    z-index: 1;
+}
+
+.food-1 { top: 10%; left: 5%; animation-delay: 0s; }
+.food-2 { top: 60%; right: 8%; animation-delay: 2s; }
+.food-3 { top: 30%; right: 5%; animation-delay: 4s; }
+.food-4 { bottom: 10%; left: 10%; animation-delay: 6s; }
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(5deg); opacity: 0.35; }
+}
+
+/* ==========================================================================
+   4. KONTENA BORANG UTAMA (COOL ICE GLASSMORPHISM)
+   ========================================================================== */
+.register-container {
+    /* Kaca lutsinar terang berserta blur padu */
+    background: rgba(255, 255, 255, 0.65) !important;
+    backdrop-filter: blur(25px) saturate(180%);
+    -webkit-backdrop-filter: blur(25px) saturate(180%);
+    
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    border-radius: 28px;
+    padding: 48px 40px 38px;
+    width: 100%;
+    max-width: 520px;
+    
+    /* Bayangan berlapis warna biru lembut */
+    box-shadow: 
+        0 20px 40px rgba(10, 132, 255, 0.12),
+        0 4px 12px rgba(0, 0, 0, 0.03),
+        inset 0 1px 2px rgba(255, 255, 255, 0.95),
+        inset 0 -1px 1px rgba(255, 255, 255, 0.4);
+        
+    position: relative;
+    z-index: 10;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.register-container:hover {
+    transform: translateY(-4px);
+    border-color: rgba(10, 132, 255, 0.4);
+    box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.05),
+        0 25px 60px rgba(10, 132, 255, 0.18),
+        inset 0 1px 2px rgba(255, 255, 255, 0.95);
+}
+
+/* Pautan Kembali ke Halaman Utama / Login */
+.back-link {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    color: #64748b;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+}
+
+.back-link:hover {
+    color: #0a84ff;
+    transform: translateX(-4px);
+}
+
+/* ==========================================================================
+   5. HEADER LOGO & LENCANA PENJUAL
+   ========================================================================== */
+.logo-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Lencana Penjual (Seller Badge) */
+.logo-section span.seller-badge {
+    background: rgba(10, 132, 255, 0.1);
+    color: #0a84ff;
+    border: 1px solid rgba(10, 132, 255, 0.25);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    display: inline-block;
+    margin-bottom: 12px;
+}
+
+.logo-section h2 {
+    color: #1e293b;
+    font-size: 36px;
+    font-weight: 800;
+    margin: 10px 0;
+    letter-spacing: -0.05em;
+}
+
+.logo-section h2 span {
+    color: #0a84ff;
+    text-shadow: 0 0 12px rgba(10, 132, 255, 0.3);
+}
+
+.logo-section p {
+    font-size: 14px;
+    color: #64748b;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+/* ==========================================================================
+   6. RUANGAN INPUT & DROPDOWN SELECT
+   ========================================================================== */
+.input-group {
+    margin-bottom: 22px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    color: #64748b;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-wrapper input,
+.input-wrapper select {
+    width: 100%;
+    min-height: 52px;
+    padding: 15px 16px 15px 50px;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1.5px solid rgba(226, 232, 240, 0.8);
+    border-radius: 14px;
+    font-size: 14px;
+    color: #1e293b;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+/* Rekabentuk Dropdown Select */
+.input-wrapper select {
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    background-image: 
+        linear-gradient(45deg, transparent 50%, #0a84ff 50%), 
+        linear-gradient(135deg, #0a84ff 50%, transparent 50%);
+    background-position: calc(100% - 20px) 22px, calc(100% - 14px) 22px;
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+}
+
+.input-wrapper select option {
+    background: #ffffff;
+    color: #1e293b;
+}
+
+.input-wrapper input::placeholder {
+    color: #94a3b8;
+}
+
+/* Focus State: Input menyala biru */
+.input-wrapper input:focus,
+.input-wrapper select:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.95);
+    border-color: #0a84ff;
+    box-shadow: 
+        0 0 0 4px rgba(10, 132, 255, 0.15), 
+        inset 0 1px 1px rgba(10, 132, 255, 0.1);
+    transform: translateY(-1px);
+}
+
+/* Ikon SVG Input */
+.input-wrapper svg {
+    position: absolute;
+    left: 18px;
+    width: 18px;
+    height: 18px;
+    fill: #94a3b8;
+    pointer-events: none;
+    z-index: 1;
+    transition: all 0.3s ease;
+}
+
+.input-wrapper input:focus + svg,
+.input-wrapper select:focus + svg {
+    fill: #0a84ff;
+    filter: drop-shadow(0 0 5px rgba(10, 132, 255, 0.4));
+}
+
+/* Nota Muat Naik Kod QR */
+.qr-upload-note {
+    margin-top: 8px;
+    color: #64748b;
+    font-size: 11px;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+/* ==========================================================================
+   7. BUTANG PENDAFTARAN (COOL ICE BLUE BUTTON)
+   ========================================================================== */
+.btn-register {
+    width: 100%;
+    padding: 16px;
+    background: #0a84ff;
+    border: none;
+    border-radius: 14px;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    margin-top: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 8px 25px rgba(10, 132, 255, 0.3);
+}
+
+.btn-register:hover {
+    transform: translateY(-2px);
+    background: #0071e3;
+    box-shadow: 0 12px 35px rgba(10, 132, 255, 0.45);
+}
+
+.btn-register:active {
+    transform: translateY(0);
+    box-shadow: 0 6px 15px rgba(10, 132, 255, 0.25);
+}
+
+/* ==========================================================================
+   8. NOTIFIKASI STATUS & ERROR / SUCCESS
+   ========================================================================== */
+.error-msg {
+    color: #ef4444;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 6px;
+    display: none;
+}
+
+.error-msg.show {
+    display: block;
+}
+
+.success-msg {
+    color: #0a84ff;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 6px;
+    display: none;
+}
+
+.success-msg.show {
+    display: block;
+}
+
+/* ==========================================================================
+   9. PAUTAN FOOTER & PEMBAHAGI (DIVIDER)
+   ========================================================================== */
+.footer-text {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 14px;
+    color: #64748b;
+}
+
+.footer-text a {
+    color: #0a84ff;
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+.footer-text a:hover {
+    color: #0071e3;
+    text-decoration: underline;
+}
+
+/* Garis Pembahagi Seksyen */
+.divider {
+    text-align: center;
+    margin: 24px 0;
+    font-size: 12px;
+    color: #94a3b8;
+    position: relative;
+    font-weight: 600;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 35%;
+    height: 1px;
+    background: rgba(226, 232, 240, 0.8);
+}
+
+.divider::before { left: 0; }
+.divider::after { right: 0; }
+
+/* ==========================================================================
+   10. ANIMASI LOADING SPINNER
+   ========================================================================== */
+.loading {
+    display: none;
+    text-align: center;
+    padding: 20px;
+}
+
+.spinner {
+    border: 3px solid rgba(10, 132, 255, 0.15);
+    border-top: 3px solid #0a84ff;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
+   11. LAYOUT RESPONSIF SKRIN KECIL / MOBILE
+   ========================================================================== */
+@media (max-width: 600px) {
+    .register-container {
+        padding: 40px 24px;
+        margin: 20px 10px;
+    }
+
+    .logo-section h2 {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 360px) {
+    body { padding: 12px; }
+    .register-container { padding: 32px 14px; margin: 8px; }
+    .logo-section h2 { font-size: 26px; }
+    .logo-section p { font-size: 12px; }
+    .back-link { left: 14px; top: 14px; font-size: 12px; }
+}

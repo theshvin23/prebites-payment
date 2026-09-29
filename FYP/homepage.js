@@ -115,26 +115,26 @@ function loadHomepageMenu() {
     }
 
     activeMenuList.forEach((item, index) => {
-        let bentoClass = (index === 0 && activeMenuList.length > 2) ? 'menu-card bento-highlight' : 'menu-card';
-        let badgeHtml = item.badge ? `<div class="menu-badge">${item.badge}</div>` : '';
+    let bentoClass = 'menu-card'; // Force semua kad guna class menu-card standard
+    let badgeHtml = item.badge ? `<div class="menu-badge">${item.badge}</div>` : '';
 
-        htmlContent += `
-            <div class="${bentoClass}" data-item-id="${item.id}" data-category="${item.category || 'semua'}">
-                ${badgeHtml}
-                <div class="menu-image-placeholder">
-                    <img src="${item.image}" alt="${item.name}">
-                </div>
-                <div class="menu-info">
-                    <h4>${item.name}</h4>
-                    <p class="description">${item.description || 'Menu istimewa pilihan peniaga.'}</p>
-                    <div class="menu-footer">
-                        <span class="price" data-price="${item.price}">RM ${item.price.toFixed(2)}</span>
-                        <button class="btn-add" onclick="addItemWithShopCheck('${item.id}', '${item.name}', ${item.price}, '${item.store_id}')">+</button>
-                    </div>
+    htmlContent += `
+        <div class="${bentoClass}" data-item-id="${item.id}" data-category="${item.category || 'semua'}">
+            ${badgeHtml}
+            <div class="menu-image-placeholder">
+                <img src="${item.image}" alt="${item.name}">
+            </div>
+            <div class="menu-info">
+                <h4>${item.name}</h4>
+                <p class="description">${item.description || 'Menu istimewa pilihan peniaga.'}</p>
+                <div class="menu-footer">
+                    <span class="price" data-price="${item.price}">RM ${item.price.toFixed(2)}</span>
+                    <button class="btn-add" onclick="addItemWithShopCheck('${item.id}', '${item.name}', ${item.price}, '${item.store_id}')">+</button>
                 </div>
             </div>
-        `;
-    });
+        </div>
+    `;
+});
 
     menuGrid.innerHTML = htmlContent;
     initCategoryFilter(); 
@@ -166,6 +166,137 @@ function getCustomerOrders(user) {
     return [...personalOrders, ...firebaseOrders].filter((order, index, orders) => {
         return orders.findIndex(item => item.id && order.id ? item.id === order.id : item === order) === index;
     });
+}
+
+function getCustomerOrderStatus(order) {
+    const status = order.status || order.orderStatus || 'diterima';
+    return {
+        diterima: 'Pesanan Diterima',
+        baru: 'Pesanan Diterima',
+        pending: 'Pesanan Diterima',
+        preparing: 'Sedang Disediakan',
+        disediakan: 'Sedang Disediakan',
+        ready: 'Makanan Sudah Siap',
+        sudah_siap: 'Makanan Sudah Siap',
+        completed: 'Selesai / Diambil',
+        selesai: 'Selesai / Diambil',
+        cancelled: 'Dibatalkan',
+        dibatalkan: 'Dibatalkan'
+    }[status] || 'Pesanan Diterima';
+}
+
+function getPaymentMethodLabel(order) {
+    const method = String(order.paymentMethod || '').toUpperCase();
+    return {
+        CASH: 'Bayar Tunai',
+        FPX: 'Online Banking',
+        ONLINE: 'Online Banking',
+        QR: 'DuitNow QR'
+    }[method] || 'Kaedah tidak diketahui';
+}
+
+function getOrderTimestamp(order) {
+    const value = order?.createdAt;
+    if (!value) return 0;
+    if (typeof value.toDate === 'function') return value.toDate().getTime() || 0;
+    if (value instanceof Date) return value.getTime() || 0;
+    const timestamp = new Date(value).getTime();
+    return Number.isFinite(timestamp) ? timestamp : 0;
+}
+
+function getHiddenOrderStorageKey(user = getActiveCustomer()) {
+    const identity = user.uid || user.email || user.id || 'guest';
+    return `customer_hidden_orders_${identity}`;
+}
+
+function getHiddenOrderIds(user = getActiveCustomer()) {
+    try {
+        const hiddenIds = JSON.parse(localStorage.getItem(getHiddenOrderStorageKey(user)) || '[]');
+        return new Set(Array.isArray(hiddenIds) ? hiddenIds.map(String) : []);
+    } catch (error) {
+        return new Set();
+    }
+}
+
+function setHiddenOrderIds(orderIds, user = getActiveCustomer()) {
+    localStorage.setItem(getHiddenOrderStorageKey(user), JSON.stringify([...orderIds]));
+}
+
+function getVisibleCustomerOrders(user = getActiveCustomer()) {
+    const visibleStatuses = new Set(['disediakan', 'preparing', 'sudah_siap', 'ready', 'dibatalkan', 'cancelled']);
+    const hiddenOrderIds = getHiddenOrderIds(user);
+    return getCustomerOrders(user)
+        .filter(order => visibleStatuses.has(String(order.status || order.orderStatus || '').toLowerCase()))
+        .filter(order => !hiddenOrderIds.has(String(order.id)))
+        .sort((firstOrder, secondOrder) => getOrderTimestamp(secondOrder) - getOrderTimestamp(firstOrder));
+}
+
+function renderOrdersModal() {
+    const ordersList = document.getElementById('ordersItemsList');
+    if (!ordersList) return;
+
+    const orders = getVisibleCustomerOrders();
+    if (orders.length === 0) {
+        ordersList.innerHTML = '<p class="empty-cart-text">Tiada pesanan aktif buat masa sekarang.</p>';
+        return;
+    }
+
+    ordersList.innerHTML = orders.map(order => {
+        const items = normalizeCustomerItems(order);
+        const itemText = items.map(item => `${escapeHtml(item.name)} x${item.quantity}`).join(', ');
+        const orderId = String(order.id || '').slice(-8).toUpperCase();
+        const status = getCustomerOrderStatus(order);
+        const createdAt = formatOrderDate(order.createdAt);
+        const total = Number(order.totalPrice || order.total || 0).toFixed(2);
+        return `<article class="customer-order-row">
+            <div class="customer-order-heading"><strong>${escapeHtml(itemText || 'Pesanan makanan')}</strong><span>RM ${total}</span></div>
+            <div class="customer-order-meta">Order #${escapeHtml(orderId)} · ${escapeHtml(createdAt)}</div>
+            <div class="customer-order-status"><span>${escapeHtml(status)}</span><small>${escapeHtml(getPaymentMethodLabel(order))}</small></div>
+        </article>`;
+    }).join('');
+}
+
+function showHomepageNotice() {
+    const rawNotice = sessionStorage.getItem('prebites_homepage_notice');
+    if (!rawNotice) return;
+    sessionStorage.removeItem('prebites_homepage_notice');
+
+    try {
+        const notice = JSON.parse(rawNotice);
+        const modal = document.getElementById('customModal');
+        const title = document.getElementById('customModalTitle');
+        const body = document.getElementById('customModalBody');
+        const info = document.getElementById('modalInfoContainer');
+        const confirm = document.getElementById('modalConfirmBtn');
+        const cancel = document.getElementById('modalCancelBtn');
+        if (!modal || !title || !body) return;
+        title.textContent = notice.title;
+        body.textContent = notice.message;
+        if (info) info.style.display = 'none';
+        if (confirm) confirm.style.display = 'none';
+        if (cancel) {
+            cancel.textContent = 'Tutup';
+            cancel.onclick = () => modal.classList.remove('show');
+        }
+        modal.classList.add('show');
+    } catch (error) {
+        console.error('Notifikasi homepage tidak sah:', error);
+    }
+}
+
+function normalizeCustomerItems(order) {
+    const items = Array.isArray(order?.items) ? order.items : [];
+    return items.map(item => ({
+        name: item.name || item.nama || 'Makanan',
+        quantity: Number(item.quantity || item.kuantiti || 1),
+        price: Number(item.price ?? item.harga ?? 0)
+    }));
+}
+
+function formatOrderDate(value) {
+    if (!value) return 'Tarikh belum tersedia';
+    const date = typeof value?.toDate === 'function' ? value.toDate() : new Date(value);
+    return Number.isNaN(date.getTime()) ? 'Tarikh belum tersedia' : date.toLocaleString('ms-MY');
 }
 
 function escapeHtml(value) {
@@ -203,7 +334,7 @@ function renderSidebarPanel(panelName) {
                 <p class="panel-feedback" id="accountNameFeedback"></p>
             </div>
             <div class="panel-detail-list">
-                <div><span>No. Matrik</span><strong>${escapeHtml(user.matrik || 'Belum diisi')}</strong></div>
+                <div><span>No. Matrik</span><strong>${escapeHtml(user.matrikId || user.matrik || 'Belum diisi')}</strong></div>
                 <div><span>Status</span><strong class="status-text">${user.status === 'active' ? 'Aktif' : 'Disahkan'}</strong></div>
             </div>
             <p class="panel-note">Maklumat akaun anda digunakan untuk mengenal pasti pesanan dan akses pelanggan.</p>`;
@@ -283,14 +414,21 @@ function renderSidebarPanel(panelName) {
         return;
     }
 
-    panelBody.innerHTML = `<div class="history-list">${orders.slice().reverse().map(order => {
-        const items = order.items || order.item || [];
-        const itemCount = Array.isArray(items) ? items.reduce((total, item) => total + Number(item.kuantiti || item.quantity || 1), 0) : 1;
+    panelBody.innerHTML = `<div class="history-list">${orders.slice().sort((firstOrder, secondOrder) => getOrderTimestamp(secondOrder) - getOrderTimestamp(firstOrder)).map(order => {
+        const items = normalizeCustomerItems(order);
+        const itemCount = items.reduce((total, item) => total + item.quantity, 0);
         const total = Number(order.totalPrice || order.total || 0).toFixed(2);
-        const status = order.orderStatus || order.status || 'Diproses';
-        return `<div class="history-row"><div><strong>${itemCount} item</strong><small>${order.store_id || 'PreBites'} · ${status}</small></div><b>RM ${total}</b></div>`;
+        const status = order.status === 'selesai' || order.orderStatus === 'completed'
+            ? 'Selesai / Diambil'
+            : order.status === 'dibatalkan' || order.orderStatus === 'cancelled'
+                ? 'Dibatalkan'
+                : 'Sedang diproses';
+        const itemNames = items.map(item => `${item.name} x${item.quantity}`).join(', ');
+        return `<div class="history-row"><div><strong>${escapeHtml(itemNames || `${itemCount} item`)}</strong><small>Order #${escapeHtml(String(order.id || '').slice(-8))} · ${escapeHtml(formatOrderDate(order.completedAt || order.createdAt))} · ${status}</small></div><b>RM ${total}</b></div>`;
     }).join('')}</div>`;
 }
+
+window.renderCustomerSidebarPanel = renderSidebarPanel;
 
 function initSidebarPanels() {
     const overlay = document.getElementById('accountPanelOverlay');
@@ -334,12 +472,12 @@ function initCategoryFilter() {
             categories.forEach(c => c.classList.remove('active'));
             category.classList.add('active');
 
-            const selectedCat = category.getAttribute('data-category');
+            const selectedCat = normalizeCategory(category.getAttribute('data-category'));
 
             cards.forEach(card => {
-                const cardCat = card.getAttribute('data-category') || '';
+                const cardCat = normalizeCategory(card.getAttribute('data-category'));
 
-                if (selectedCat === 'semua' || cardCat.includes(selectedCat)) {
+                if (selectedCat === 'semua' || cardCat === selectedCat) {
                     card.style.display = 'flex';
                     card.style.opacity = '0';
 
@@ -356,19 +494,52 @@ function initCategoryFilter() {
     });
 }
 
+function normalizeCategory(category) {
+    const value = String(category || 'semua').trim().toLowerCase();
+    const aliases = {
+        'nasi & lauk': 'nasi',
+        'nasi dan lauk': 'nasi',
+        'mee': 'mie',
+        'mie & sup': 'mie',
+        'mi & bihun': 'mie',
+        'mi dan bihun': 'mie',
+        'kuih & snek': 'snek',
+        'kuih dan snek': 'snek',
+        'makanan ringan': 'snek',
+        'kuih & dessert': 'snek',
+        'ayam & snek': 'snek',
+        'minuman & air': 'minuman'
+    };
+    return aliases[value] || value;
+}
+
 // ==========================================
 // 4. Logik Tambah Item dengan Validasi Single-Vendor
 // ==========================================
 window.addItemWithShopCheck = function(itemId, itemName, itemPrice, itemStoreId) {
     let currentCartKeys = Object.keys(cart);
     if (currentCartKeys.length > 0 && activeShopId !== itemStoreId) {
-        alert("⚠️ Amaran Sistem (Single-Vendor Cart): Troli anda mengandungi item dari kedai lain. Sila kosongkan troli terlebih dahulu jika ingin menukar kedai.");
+        showCartNotification('Tidak ditambah', 'Troli anda mengandungi makanan dari kedai lain. Kosongkan troli dahulu.');
         return;
     }
 
     activeShopId = itemStoreId;
     changeQty(itemId, itemName, itemPrice, 1);
+    showCartNotification('Berjaya', 'Anda telah tambahkan ke dalam Troli.');
 };
+
+function showCartNotification(title, message) {
+    const notification = document.getElementById('cartNotification');
+    if (!notification) {
+        alert(`${title}\n${message}`);
+        return;
+    }
+
+    notification.textContent = `${title}: ${message}`;
+    notification.classList.add('show');
+    window.clearTimeout(showCartNotification.timeout);
+    showCartNotification.timeout = window.setTimeout(() => notification.classList.remove('show'), 2600);
+}
 
 // ==========================================
 // 5. Sistem Ubah Kuantiti (Fungsi Global)
@@ -582,10 +753,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const ordersOverlay = document.getElementById("ordersOverlay");
     const closeOrdersModal = document.getElementById("closeOrdersModal");
     const closeOrdersBtn = document.getElementById("closeOrdersBtn");
+    const deleteOrdersBtn = document.getElementById("deleteOrdersBtn");
+    const deleteOrdersConfirmation = document.getElementById("deleteOrdersConfirmation");
+    const cancelDeleteOrdersBtn = document.getElementById("cancelDeleteOrdersBtn");
+    const confirmDeleteOrdersBtn = document.getElementById("confirmDeleteOrdersBtn");
 
     if (navOrders) {
         navOrders.addEventListener("click", (e) => {
             e.preventDefault();
+            renderOrdersModal();
             if (ordersOverlay) ordersOverlay.classList.add("active");
         });
     }
@@ -602,6 +778,29 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    if (deleteOrdersBtn) {
+        deleteOrdersBtn.addEventListener("click", () => {
+            if (getVisibleCustomerOrders().length === 0) return;
+            if (deleteOrdersConfirmation) deleteOrdersConfirmation.hidden = false;
+        });
+    }
+
+    if (cancelDeleteOrdersBtn) {
+        cancelDeleteOrdersBtn.addEventListener("click", () => {
+            if (deleteOrdersConfirmation) deleteOrdersConfirmation.hidden = true;
+        });
+    }
+
+    if (confirmDeleteOrdersBtn) {
+        confirmDeleteOrdersBtn.addEventListener("click", () => {
+            const hiddenOrderIds = getHiddenOrderIds();
+            getVisibleCustomerOrders().forEach(order => hiddenOrderIds.add(String(order.id)));
+            setHiddenOrderIds(hiddenOrderIds);
+            if (deleteOrdersConfirmation) deleteOrdersConfirmation.hidden = true;
+            renderOrdersModal();
+        });
+    }
+
     if (ordersOverlay) {
         ordersOverlay.addEventListener("click", (e) => {
             if (e.target === ordersOverlay) {
@@ -609,7 +808,11 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+
+    showHomepageNotice();
 });
+
+window.renderOrdersModal = renderOrdersModal;
 
 // ==========================================
 // 10. Logik Modal Detail Kedai Dinamik & Profil Peniaga

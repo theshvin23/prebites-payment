@@ -1,5 +1,6 @@
-import { collection, onSnapshot } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
-import { db } from './auth.js';
+import { collection, onSnapshot, query, where } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+import { auth, db } from './auth.js';
+import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
 
 function refreshHomepage() {
     if (typeof window.loadHomepageData === 'function') {
@@ -40,4 +41,32 @@ onSnapshot(collection(db, 'shops'), (snapshot) => {
     refreshHomepage();
 }, (error) => {
     console.error('Gagal menyegerakkan kedai ke homepage:', error);
+});
+
+onAuthStateChanged(auth, (user) => {
+    if (!user) return;
+
+    const ordersQuery = query(collection(db, 'orders'), where('customerId', '==', user.uid));
+    onSnapshot(ordersQuery, (snapshot) => {
+        const orders = snapshot.docs.map(orderSnapshot => {
+            const order = orderSnapshot.data();
+            return {
+                id: orderSnapshot.id,
+                ...order,
+                createdAt: order.createdAt?.toDate?.().toISOString() || order.createdAt || null,
+                updatedAt: order.updatedAt?.toDate?.().toISOString() || order.updatedAt || null,
+                preparedAt: order.preparedAt?.toDate?.().toISOString() || order.preparedAt || null,
+                readyAt: order.readyAt?.toDate?.().toISOString() || order.readyAt || null,
+                completedAt: order.completedAt?.toDate?.().toISOString() || order.completedAt || null,
+                cancelledAt: order.cancelledAt?.toDate?.().toISOString() || order.cancelledAt || null
+            };
+        });
+        localStorage.setItem('prebites_orders', JSON.stringify(orders));
+        window.renderOrdersModal?.();
+        if (document.getElementById('accountPanelOverlay')?.classList.contains('active')) {
+            window.renderCustomerSidebarPanel?.('history');
+        }
+    }, (error) => {
+        console.error('Gagal menyegerakkan sejarah customer:', error);
+    });
 });

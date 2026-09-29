@@ -10,9 +10,16 @@
 
 html { scroll-behavior: smooth; }
 
+/* Tetapan utama latar belakang dashboard seller (Gradien + Dot + Liquid) */
 body {
-    background-color: #030305;
-    color: #f2f2f7;
+    /* Background cerah lembut dengan corak dot yang lebih jelas kelihatan */
+    background-image: 
+         radial-gradient(rgba(14, 116, 144, 0.35) 1.5px, transparent 1.5px), 
+         linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 50%, #94a3b8 100%);
+    background-size: 24px 24px, 100% 100%; /* Saiz corak titik halus */
+    background-position: 0 0, 0 0;
+    
+    color: #1e293b; 
     overflow-x: hidden;
     position: relative;
     padding-bottom: 140px;
@@ -22,14 +29,14 @@ body {
 /* CAHAYA LATAR BELAKANG LIQUID REALISTIK */
 body::before {
     content: ""; position: fixed; width: 500px; height: 500px;
-    background: radial-gradient(circle, rgba(10, 132, 255, 0.25) 0%, rgba(88, 86, 214, 0.1) 60%, transparent 80%);
+    background: radial-gradient(circle, rgba(10, 132, 255, 0.2) 0%, rgba(88, 86, 214, 0.08) 60%, transparent 80%);
     top: -100px; left: -100px; filter: blur(100px); pointer-events: none; z-index: -1;
     animation: liquidMove1 18s infinite alternate ease-in-out;
 }
 
 body::after {
     content: ""; position: fixed; width: 450px; height: 450px;
-    background: radial-gradient(circle, rgba(255, 159, 10, 0.2) 0%, rgba(255, 69, 58, 0.1) 60%, transparent 80%);
+    background: radial-gradient(circle, rgba(255, 159, 10, 0.15) 0%, rgba(255, 69, 58, 0.05) 60%, transparent 80%);
     bottom: -100px; right: -100px; filter: blur(110px); pointer-events: none; z-index: -1;
     animation: liquidMove2 20s infinite alternate ease-in-out;
 }
@@ -47,13 +54,16 @@ body::after {
 /* ========================================================
    NAVBAR HEADER (RESPONSIF & KEMAS UNTUK MOBILE)
 ======================================================== */
+/* Tetapan utama navigasi atas (Header Seller) */
 .web-header {
-    background: #000000; /* Hitam OLED Pekat mengikut Gambar 1 */
+    background: rgba(255, 255, 255, 0.85); /* Kesan kaca putih bersih */
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     position: sticky; 
     top: 0; 
     z-index: 100;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.8);
+    border-bottom: 1px solid rgba(0, 122, 255, 0.12); /* Garis sempadan biru cair */
+    box-shadow: 0 4px 25px rgba(0, 122, 255, 0.06);
     padding: 12px 14px;
     display: flex;
     justify-content: space-between;
@@ -63,44 +73,47 @@ body::after {
     overflow: hidden;
 }
 
+/* Kumpulan elemen sebelah kiri header */
 .header-left-group {
     display: flex;
     align-items: center;
     gap: 6px;
-    min-width: 0; /* Membolehkan elemen fleksibel mengecut dengan selamat */
+    min-width: 0;
     flex: 1;
 }
 
-/* Logo PreBites (Gaya Gambar 1) */
+/* Gaya teks logo PreBites */
 .brand-logo {
     font-size: 18px;
     font-weight: 800;
-    color: #ffffff;
+    color: #1e293b; /* Teks gelap profesional */
     letter-spacing: -0.04em;
     display: flex;
     align-items: center;
     flex-shrink: 0;
 }
 
+/* Warna penjenamaan khas untuk teks PreBites */
 .brand-logo span {
-    color: #e67e22; /* Oren khas PreBites */
+    color: #007aff; /* Tukar kepada warna biru korporat */
 }
 
 /* Badge Nama Kedai (No Kedai) - Pill Border Oren */
 .shop-pill-badge {
-    background: rgba(230, 126, 34, 0.08);
-    border: 1px solid rgba(230, 126, 34, 0.4);
+    background: rgba(1, 141, 255, 0.082);
+    border: 1px solid rgba(20, 20, 20, 0.473);
     padding: 4px 10px;
     border-radius: 20px;
     font-size: 11px;
     font-weight: 700;
-    color: #f39c12;
+    color: #0043fd;
     display: flex;
     align-items: center;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 110px;
+    max-width: 150px; /* Besarkan sikit had maksimum dari 110px ke 150px */
+    flex-shrink: 1;    /* Benarkan dia menyusut jika skrin sempit */
 }
 
 /* Badge No. Stall Kedai (Pill Baharu) */
@@ -129,15 +142,17 @@ body::after {
 .shop-status-toggle {
     display: flex; 
     align-items: center; 
-    gap: 4px; 
-    background: rgba(255, 255, 255, 0.04);
-    padding: 4px 8px; 
+    gap: 6px; 
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 4px 10px; 
     border-radius: 20px; 
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 #txt-status { 
-    font-size: 10.5px; 
+    font-size: 11px; 
     font-weight: 700; 
     color: #30d158; 
 }
@@ -145,52 +160,76 @@ body::after {
 .toggle-btn { 
     position: relative; 
     display: inline-block; 
-    width: 34px; 
-    height: 18px; 
+    width: 50px; 
+    height: 30px; 
 }
 
-.toggle-btn input { 
-    opacity: 0; 
-    width: 0; 
-    height: 0; 
+.toggle-btn input.mobileToggle {
+    opacity: 0;
+    position: absolute;
+    width: 0;
+    height: 0;
 }
 
-.slider {
-    position: absolute; 
-    cursor: pointer; 
-    inset: 0; 
-    background-color: rgba(120, 120, 128, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.1); 
-    transition: 0.3s; 
-    border-radius: 24px;
+/* Latar belakang trek asal (Tak aktif / Inactive) */
+.toggle-btn input.mobileToggle + label {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    user-select: none;
+    background-color: #e5e5ea; /* Warna kelabu iOS */
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 30px;
+    transition: 0.4s ease;
 }
 
-.slider:before {
-    position: absolute; 
-    content: ""; 
-    height: 12px; 
-    width: 12px; 
-    left: 2px; 
-    bottom: 2px;
-    background-color: #ffffff; 
-    transition: 0.3s; 
-    border-radius: 50%; 
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+/* Kotak trek hijau yang akan mengembang */
+.toggle-btn input.mobileToggle + label:before {
+    content: "";
+    position: absolute;
+    display: block;
+    height: 28px;
+    width: 48px;
+    top: 0;
+    left: 0;
+    border-radius: 30px;
+    background-color: transparent;
+    transition: 0.2s cubic-bezier(.24, 0, .5, 1);
 }
 
-input:checked + .slider { 
-    background-color: #30d158; 
-    border-color: rgba(48, 209, 88, 0.4); 
+/* Tombol bulat putih di atas */
+.toggle-btn input.mobileToggle + label:after {
+    content: "";
+    position: absolute;
+    display: block;
+    background: #da2d0f;
+    height: 26px;
+    width: 26px;
+    top: 1px;
+    left: 1px;
+    border-radius: 50%;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15), 0 1px 1px rgba(0, 0, 0, 0.06);
+    transition: 0.35s cubic-bezier(.54, 1.60, .5, 1);
 }
 
-input:checked + .slider:before { 
-    transform: translateX(16px); 
+/* Bila BUKA (Checked) */
+.toggle-btn input.mobileToggle:checked + label {
+    background-color: #30d158; /* Warna hijau latar belakang suis */
+}
+
+.toggle-btn input.mobileToggle:checked + label:before {
+    background: #30d158; 
+    transition: width .2s cubic-bezier(0, 0, 0, .1);
+}
+
+.toggle-btn input.mobileToggle:checked + label:after {
+    left: 22px; /* Anjakkan bulat ke kanan dengan kemas */
 }
 
 /* HAMBURGER BUTTON (Aksen Oren) */
 .hamburger-btn {
-    background: rgba(230, 126, 34, 0.12);
-    border: 1px solid rgba(230, 126, 34, 0.35);
+    background: rgba(34, 168, 230, 0.12);
+    border: 1px solid rgba(25, 133, 175, 0.705);
     width: 36px;
     height: 36px;
     border-radius: 10px;
@@ -204,8 +243,8 @@ input:checked + .slider:before {
 }
 
 .hamburger-btn:hover { 
-    background: rgba(230, 126, 34, 0.25); 
-    border-color: #e67e22;
+    background: rgba(34, 191, 230, 0.25); 
+    border-color: #0994d4;
     transform: scale(1.03); 
 }
 
@@ -224,7 +263,7 @@ input:checked + .slider:before {
     display: block; 
     width: 100%; 
     height: 2px; 
-    background-color: #e67e22; /* Garis Oren Gambar 1 */
+    background-color: #22a8e6; /* Garis Oren Gambar 1 */
     border-radius: 2px;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -234,44 +273,130 @@ input:checked + .slider:before {
 .hamburger-btn.active .hamburger-icon-box span:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
 
 /* RIGHT SIDE-PANEL DRAWER */
+/* Panel menu sisi (Light Blue Theme + Gradien & Dot) */
 .side-panel-menu {
-    position: fixed; top: 0; right: -320px; width: 300px; max-width: 85vw; height: 100vh;
-    background: rgba(18, 18, 24, 0.95); backdrop-filter: blur(40px) saturate(200%);
-    -webkit-backdrop-filter: blur(40px) saturate(200%); border-left: 1px solid rgba(255, 255, 255, 0.12);
-    box-shadow: -20px 0 50px rgba(0, 0, 0, 0.7); z-index: 10001; display: flex; flex-direction: column;
+    position: fixed; 
+    top: 0; 
+    right: -320px; 
+    width: 300px; 
+    max-width: 85vw; 
+    height: 100vh;
+    
+    /* Gradien biru yang lebih jelas dan bertenaga */
+    background-image: 
+        radial-gradient(rgba(0, 122, 255, 0.15) 1.5px, transparent 1.5px), 
+        linear-gradient(135deg, rgba(219, 234, 254, 0.92) 0%, rgba(191, 219, 254, 0.92) 50%, rgba(147, 197, 253, 0.92) 100%);
+    background-size: 20px 20px, 100% 100%;
+    
+    backdrop-filter: blur(40px) saturate(200%);
+    -webkit-backdrop-filter: blur(40px) saturate(200%); 
+    
+    border-left: 1px solid rgba(0, 122, 255, 0.2);
+    box-shadow: -20px 0 50px rgba(0, 122, 255, 0.2); 
+    z-index: 10001; 
+    display: flex; 
+    flex-direction: column;
     transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .side-panel-menu.open { right: 0; }
 
+/* Header panel sisi */
 .side-panel-header {
-    padding: 22px 20px; display: flex; justify-content: space-between; align-items: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08); font-size: 16px; font-weight: 800; color: #ffffff;
+    padding: 22px 20px; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 122, 255, 0.1); 
+    font-size: 16px; 
+    font-weight: 800; 
+    color: #1e293b;
 }
+
+/* Butang tutup panel */
 .close-panel-btn {
-    background: rgba(255, 255, 255, 0.08); border: none; color: #fff; width: 30px; height: 30px;
-    border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer;
-    font-size: 13px; transition: background 0.2s;
+    background: rgba(0, 122, 255, 0.08); 
+    border: none; 
+    color: #1e293b; 
+    width: 30px; 
+    height: 30px;
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    cursor: pointer;
+    font-size: 13px; 
+    transition: background 0.2s;
 }
-.close-panel-btn:hover { background: rgba(255, 255, 255, 0.2); }
+.close-panel-btn:hover { background: rgba(0, 122, 255, 0.18); }
 
-.side-panel-body { padding: 16px; flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
+/* Badan kontena senarai menu */
+.side-panel-body { 
+    padding: 16px; 
+    flex: 1; 
+    overflow-y: auto; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 8px; 
+}
 
+/* Garis pemisah */
 .side-divider {
     height: 1px;
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(0, 122, 255, 0.1);
     margin: 12px 0;
 }
 
+/* Kotak item menu (Gaya putih kaca / White Glassmorphism) */
 .side-item {
-    padding: 12px 16px; font-size: 14px; font-weight: 600; color: #d1d1d6; background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05); width: 100%; text-align: left; cursor: pointer; display: flex; align-items: center; gap: 12px;
-    border-radius: 14px; text-decoration: none; transition: all 0.25s ease;
+    padding: 12px 16px; 
+    font-size: 14px; 
+    font-weight: 600; 
+    color: #334155; 
+    
+    /* Kotak putih kaca lembut */
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
+    border: 1px solid rgba(255, 255, 255, 0.9); 
+    width: 100%; 
+    text-align: left; 
+    cursor: pointer; 
+    display: flex; 
+    align-items: center; 
+    gap: 12px;
+    border-radius: 14px; 
+    text-decoration: none; 
+    box-shadow: 0 4px 12px rgba(0, 122, 255, 0.04);
+    transition: all 0.25s ease;
 }
-.side-item:hover { background: rgba(255, 255, 255, 0.08); color: #ffffff; border-color: rgba(255, 255, 255, 0.15); transform: translateX(-3px); }
-.side-icon { font-size: 16px; width: 22px; text-align: center; }
 
-.side-item.logout-item { color: #ff6961; background: rgba(255, 69, 58, 0.08); border-color: rgba(255, 69, 58, 0.2); }
-.side-item.logout-item:hover { background: rgba(255, 69, 58, 0.18); color: #ff453a; transform: none; }
+.side-item:hover { 
+    background: rgba(255, 255, 255, 0.95); 
+    color: #007aff; 
+    border-color: rgba(0, 122, 255, 0.25); 
+    box-shadow: 0 6px 18px rgba(0, 122, 255, 0.1);
+    transform: translateX(-3px); 
+}
+
+.side-icon { 
+    font-size: 16px; 
+    width: 22px; 
+    text-align: center; 
+}
+
+/* Item khusus untuk Log Keluar (Kekal ton merah amaran tapi serasi) */
+.side-item.logout-item { 
+    color: #ff0000; 
+    background: rgba(255, 0, 0, 0.247); /* Tingkatkan kepekatan latar belakang merah */
+    border: 1px solid rgba(239, 68, 68, 0.35); /* Perjelas garis sempadan merah */
+}
+
+.side-item.logout-item:hover { 
+    background: rgba(239, 68, 68, 0.28); /* Lebih pekat saat disentuh/hover */
+    color: #b91c1c; 
+    transform: none; 
+}
 
 /* BACKDROP OVERLAY BLUR */
 .nav-overlay {
@@ -292,10 +417,10 @@ input:checked + .slider:before {
 }
 
 .section-title {
-    color: #ffffff; font-size: 12px; font-weight: 800; text-transform: uppercase;
+    color: #1e293b; font-size: 12px; font-weight: 800; text-transform: uppercase;
     letter-spacing: 0.06em; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
 }
-.section-title::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(255,255,255,0.1), transparent); }
+.section-title::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(0, 122, 255, 0.2), transparent); }
 
 .countdown-alert {
     background: rgba(255, 159, 10, 0.06); border: 1px solid rgba(255, 159, 10, 0.2);
@@ -360,34 +485,43 @@ input:checked + .slider:before {
 .btn-edit-menu { background: rgba(10,132,255,0.15); color: #0a84ff; border: 1px solid rgba(10,132,255,0.3); padding: 5px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; }
 .btn-delete-menu { background: rgba(255,69,58,0.15); color: #ff453a; border: 1px solid rgba(255,69,58,0.3); padding: 5px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; cursor: pointer; }
 
-.menu-details h4 { font-size: 14px; color: #fff; font-weight: 700; margin-bottom: 2px; }
-.menu-details .m-cat { font-size: 11px; color: #0a84ff; font-weight: 700; margin-bottom: 2px; }
-.menu-details .m-price { font-size: 13px; color: #ffb340; font-weight: 800; }
+.menu-details h4 { font-size: 14px; color: #0f172a; font-weight: 700; margin-bottom: 2px; }
+.menu-details .m-cat { font-size: 11px; color: #007aff; font-weight: 700; margin-bottom: 2px; }
+.menu-details .m-price { font-size: 13px; color: #0284c7; font-weight: 800; }
 
 .btn-add {
-    background: rgba(255, 255, 255, 0.9); color: #030305; border: none; padding: 12px; border-radius: 14px;
-    font-size: 13px; font-weight: 800; cursor: pointer; width: 100%; margin-top: 12px;
+    background: rgba(0, 122, 255, 0.1); color: #007aff; border: 1px solid rgba(0, 122, 255, 0.25); 
+    padding: 12px; border-radius: 14px; font-size: 13px; font-weight: 800; cursor: pointer; 
+    width: 100%; margin-top: 12px; transition: all 0.25s ease;
+}
+
+.btn-add:hover {
+    background: rgba(0, 122, 255, 0.18);
 }
 
 /* --- LIQUID GLASS NAVBAR (GAYA DESIGN GOOEY TOGGLE) --- */
+/* NAVBAR BAWAH (TELEGRAM DOCK / LIQUID GLASS) - SELLER THEME */
 .telegram-dock.liquid-glass-navbar {
     position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
     width: calc(100% - 32px); max-width: 440px; height: 68px;
     border-radius: 34px; isolation: isolate;
-    box-shadow: 0px 0px 21px -8px rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(0, 122, 255, 0.15);
+    box-shadow: 0 15px 35px rgba(0, 122, 255, 0.12), inset 0 1px 2px rgba(255, 255, 255, 0.9);
     display: flex; align-items: center; justify-content: center;
     padding: 6px; z-index: 1000; box-sizing: border-box; overflow: hidden;
 }
 
 .telegram-dock.liquid-glass-navbar::before {
     content: ''; position: absolute; inset: 0; z-index: 0; border-radius: 34px;
-    box-shadow: inset 0 0 12px -4px rgba(255, 255, 255, 0.7);
-    background-color: rgba(255, 255, 255, 0); pointer-events: none;
+    box-shadow: inset 0 0 15px -4px rgba(255, 255, 255, 0.8);
+    pointer-events: none;
 }
-
 .telegram-dock.liquid-glass-navbar::after {
     content: ''; position: absolute; inset: 0; z-index: -1; border-radius: 34px;
-    backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
     filter: url(#glass-distortion); -webkit-filter: url(#glass-distortion);
     isolation: isolate; pointer-events: none;
 }
@@ -398,52 +532,82 @@ input:checked + .slider:before {
 }
 
 .dock-item {
-    position: relative; flex: 1; text-align: center; color: #8e8e93; text-decoration: none;
+    position: relative; flex: 1; text-align: center; color: #64748b; text-decoration: none;
     font-size: 11px; font-weight: 700; cursor: pointer; padding: 8px 0; border-radius: 26px;
     display: flex; flex-direction: column; align-items: center; gap: 3px;
     background: transparent; border: 1px solid transparent; transition: all 0.25s ease;
 }
 
 .dock-item:hover {
-    color: #ffffff;
-    background: rgba(255, 255, 255, 0.05);
+    color: #007aff;
+    background: rgba(0, 122, 255, 0.06);
 }
 
 .dock-item.active {
-    color: white;
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), inset 0 0 8px rgba(255, 255, 255, 0.2);
+    color: #007aff;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 122, 255, 0.2);
+    box-shadow: 0 6px 15px rgba(0, 122, 255, 0.12), inset 0 1px 2px rgba(255, 255, 255, 1);
 }
 
 .dock-item svg { width: 18px; height: 18px; fill: currentColor; }
 
 /* TAB BAR */
 .tab-bar {
-    position: relative; display: flex; background: rgba(255, 255, 255, 0.035);
-    border: 1px solid rgba(255, 255, 255, 0.09); padding: 4px; border-radius: 16px; margin-bottom: 20px;
+    position: relative; display: flex; background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(0, 122, 255, 0.12); padding: 4px; border-radius: 16px; margin-bottom: 20px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 122, 255, 0.04);
 }
 .tab-pill {
     position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc(33.333% - 2.66px);
-    background: rgba(255, 255, 255, 0.2); border-radius: 12px; transition: transform 0.4s; pointer-events: none; z-index: 1;
+    background: rgba(3, 106, 240, 0.26); border-radius: 12px; transition: transform 0.4s; pointer-events: none; z-index: 1;
+    box-shadow: 0 2px 8px rgba(0, 122, 255, 0.12);
 }
 .tab-btn {
-    position: relative; background: transparent; border: none; color: #8e8e93; padding: 8px 0;
+    position: relative; background: transparent; border: none; color: #64748b; padding: 8px 0;
     border-radius: 12px; font-size: 11.5px; font-weight: 700; cursor: pointer; z-index: 2; flex: 1; text-align: center;
+    transition: color 0.3s ease;
 }
-.tab-btn.active { color: #ffffff; }
+.tab-btn.active { color: #047cec; }
 
 /* MINI ANALYTICS */
-.mini-analytics { background: rgba(255, 255, 255, 0.035); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 20px; padding: 22px; position: relative; overflow: hidden; }
-.mini-analytics p { font-size: 11.5px; color: #8e8e93; font-weight: 600; text-transform: uppercase; margin-bottom: 4px; }
+.mini-analytics { 
+    background: rgba(255, 255, 255, 0.20); /* Naikkan opacity putih dari 0.035 kepada 0.75 supaya tak terlalu lutsinar */
+    backdrop-filter: blur(16px); /* Tambah dan pekatkan kesan blur kaca */
+    -webkit-backdrop-filter: blur(16px); /* Sokongan untuk Safari/iOS */
+    border: 1px solid rgba(255, 255, 255, 0.6); /* Terangkan sedikit border untuk efek pantulan kaca */
+    border-radius: 20px; 
+    padding: 22px; 
+    position: relative; 
+    overflow: hidden; 
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05); /* Tambah bayang halus supaya kad nampak timbul */
+}
+.mini-analytics p { font-size: 11.5px; color: #f80202; font-weight: 600; text-transform: uppercase; margin-bottom: 4px; }
 .mini-analytics h2 { font-size: 26px; font-weight: 800; color: #ffffff; margin-bottom: 14px; }
-.analytics-grid { display: flex; gap: 8px; border-top: 1px solid rgba(255, 255, 255, 0.06); padding-top: 12px; flex-wrap: wrap; }
-.analytics-grid span { font-size: 11px; font-weight: 700; color: #30d158; background: rgba(48, 209, 88, 0.1); padding: 5px 10px; border-radius: 10px; }
+.analytics-grid { 
+    display: flex; 
+    gap: 8px; 
+    border-top: 1px solid rgba(255, 255, 255, 0.06); 
+    padding-top: 12px; 
+    flex-wrap: wrap; 
+}
+
+.analytics-grid span { 
+    font-size: 11px; 
+    font-weight: 700; 
+    color: #0f172a; /* Tukar jadi hitam gelap/navy supaya nampak tajam */
+    background: rgba(48, 209, 88, 0.25); /* Latar belakang hijau lembut */
+    padding: 5px 10px; 
+    border-radius: 10px; 
+    border: 1px solid rgba(48, 209, 88, 0.4); 
+}
 
 .page-view { display: none; }
 .page-view.active { display: block; animation: fadeIn 0.3s ease; }
+.order-payment-method { margin-top: 8px; padding: 7px 9px; border: 1px solid rgba(255, 179, 64, 0.2); border-radius: 8px; background: rgba(255, 179, 64, 0.07); color: #000000; font-size: 11.5px; }
+.order-payment-method strong { color: #ffb340; }
 
 /* MODAL STYLING */
 .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.65); backdrop-filter: blur(20px); z-index: 10000; justify-content: center; align-items: center; padding: 16px; }
@@ -535,7 +699,7 @@ input:checked + .slider:before {
 .section-title {
     font-size: 16px;
     font-weight: 700;
-    color: #f2f2f7;
+    color: #020202;
     margin: 0 0 16px 0;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -604,7 +768,7 @@ input:checked + .slider:before {
 }
 
 .menu-details h4 {
-    color: #f2f2f7;
+    color: #020202;
     font-size: 14px;
     font-weight: 600;
     margin-bottom: 4px;
@@ -663,13 +827,14 @@ input:checked + .slider:before {
 .toggle-btn {
     position: relative;
     display: inline-flex;
-    width: 44px;
-    height: 24px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
+    align-items: center;
+    width: 50px;
+    height: 28px;
+    background-color: #e5e5ea; /* Warna latar belakang asal (Inactive) */
+    border-radius: 34px;
     cursor: pointer;
-    transition: background 0.3s ease;
-    border: none;
+    transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     padding: 0;
 }
 
@@ -677,23 +842,27 @@ input:checked + .slider:before {
     display: none;
 }
 
-.toggle-btn input:checked + .slider {
-    background: #30d158;
-}
-
 .toggle-btn .slider {
     position: absolute;
     top: 2px;
     left: 2px;
-    width: 20px;
-    height: 20px;
-    background: #f2f2f7;
+    width: 22px;
+    height: 22px;
+    background: #ffffff;
     border-radius: 50%;
-    transition: transform 0.3s ease;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15), 0 1px 1px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.toggle-btn input:checked + .slider {
-    transform: translateX(20px);
+/* Apabila suis diaktifkan (Checked / BUKA) */
+.toggle-btn input:checked ~ .slider {
+    transform: translateX(22px);
+}
+
+/* Warna latar belakang trek bertukar hijau bila di-check */
+.toggle-btn:has(input:checked) {
+    background-color: #30d158;
+    border-color: rgba(48, 209, 88, 0.4);
 }
 
 /* ========================================================
@@ -731,18 +900,19 @@ input:checked + .slider:before {
     left: 0;
     right: 0;
     height: 80px;
-    background: rgba(0, 0, 0, 0.95);
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.85);
+    border-top: 1px solid rgba(0, 122, 255, 0.12);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 50;
     backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
 }
 
 .telegram-dock.liquid-glass-navbar {
-    background: rgba(0, 0, 0, 0.7);
-    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 -4px 20px rgba(0, 122, 255, 0.1);
 }
 
 .dock-items-wrapper {
@@ -761,15 +931,14 @@ input:checked + .slider:before {
     gap: 4px;
     width: 60px;
     height: 60px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(0, 122, 255, 0.08);
     border-radius: 14px;
-    color: #8e8e93;
+    color: #64748b;
     cursor: pointer;
     transition: all 0.3s ease;
     font-size: 11px;
     font-weight: 600;
-    border: none;
     padding: 0;
 }
 
@@ -784,20 +953,20 @@ input:checked + .slider:before {
 }
 
 .dock-item:hover {
-    background: rgba(255, 255, 255, 0.08);
-    color: #f2f2f7;
+    background: rgba(255, 255, 255, 0.9);
+    color: #007aff;
     transform: translateY(-2px);
 }
 
 .dock-item.active {
-    background: linear-gradient(135deg, rgba(230, 126, 34, 0.3), rgba(255, 159, 10, 0.1));
-    border: 1px solid rgba(230, 126, 34, 0.4);
-    color: #f39c12;
-    box-shadow: 0 4px 16px rgba(230, 126, 34, 0.2);
+    background: linear-gradient(135deg, rgba(0, 122, 255, 0.15), rgba(0, 122, 255, 0.05));
+    border: 1px solid rgba(0, 122, 255, 0.3);
+    color: #007aff;
+    box-shadow: 0 4px 16px rgba(0, 122, 255, 0.15);
 }
 
 .dock-item.active:hover {
-    background: linear-gradient(135deg, rgba(230, 126, 34, 0.4), rgba(255, 159, 10, 0.15));
+    background: linear-gradient(135deg, rgba(0, 122, 255, 0.25), rgba(0, 122, 255, 0.1));
 }
 
 /* ========================================================
@@ -894,7 +1063,6 @@ input:checked + .slider:before {
     body { padding-bottom: 100px; }
     .web-header { padding: 10px 12px; }
     .brand-logo { font-size: 16px; }
-    .shop-pill-badge { max-width: 82px; font-size: 10px; padding: 3px 7px; }
     .stall-pill-badge { display: none; }
     .shop-status-toggle { padding: 3px 6px; }
     #txt-status { display: none; }
@@ -983,13 +1151,13 @@ input:checked + .slider:before {
 }
 
 .order-customer {
-    color: #f2f2f7;
+    color: #050505;
     font-size: 13px;
     margin-bottom: 8px;
 }
 
 .order-items {
-    color: #d1d1d6;
+    color: #000000;
     font-size: 12px;
     line-height: 1.6;
     margin-bottom: 8px;
@@ -1086,7 +1254,7 @@ input:checked + .slider:before {
     color: #30d158;
     border: 1px solid rgba(48, 209, 88, 0.3);
 }
-}
+
 
 .profile-qr-preview img, .qr-preview-img, #editShopQRPreview {
     position: absolute !important;
@@ -1114,11 +1282,33 @@ input:checked + .slider:before {
 #modalAccount .modal-footer .btn-save { width: auto; }
 #modalAccount .modal-footer .btn-cancel { width: auto; }
 #modalAccount .modal-box { max-width: 540px; }
+#modalSettings .modal-box { max-width: 360px; }
 #modalAccount .modal-body { padding: 24px; }
 #modalAccount .modal-header { font-size: 17px; }
 #modalAccount .form-group { margin-bottom: 16px; }
 #modalAccount .toggle-row { display: flex; gap: 12px; flex-wrap: wrap; }
 #modalAccount .toggle-row .form-group { flex: 1 1 220px; }
+
+body.light-mode {
+    background: #f3f5f7;
+    color: #20242a;
+}
+
+body.light-mode .modal-box,
+body.light-mode .order-card {
+    background: #ffffff;
+    color: #20242a;
+}
+
+body.light-mode .modal-body,
+body.light-mode .order-items,
+body.light-mode .order-meta {
+    color: #4b5563;
+}
+
+@media (max-width: 520px) {
+    #modalSettings .modal-box { max-width: 100%; }
+}
 
 /* STYLING KATEGORI MAKANAN (GRID PILL BUTTONS) */
 .category-select-container {
@@ -1165,9 +1355,12 @@ input:checked + .slider:before {
     gap: 8px;
     position: relative;
     margin-bottom: 16px;
-    background: rgba(255, 255, 255, 0.02);
-    padding: 8px;
-    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.04); /* Latar belakang lutsinar lembut */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 6px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .tab-btn {
@@ -1180,10 +1373,19 @@ input:checked + .slider:before {
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.06);
 }
 
 .tab-btn.active {
-    color: #f39c12;
+    color: #ffffff;
+    background: rgba(48, 209, 88, 0.2); /* Sentuhan hijau tema gaya iOS */
+    border: 1px solid rgba(48, 209, 88, 0.3);
 }
 
 .account-overview {
@@ -1192,19 +1394,27 @@ input:checked + .slider:before {
 }
 
 .modern-profile-card {
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(255, 255, 255, 0.03); /* Latar belakang kaca */
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     padding: 16px;
-    border-radius: 12px;
+    border-radius: 16px;
     margin-bottom: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .modern-profile-row {
     display: grid;
     grid-template-columns: 120px 1fr;
     gap: 16px;
-    padding: 8px 0;
+    padding: 10px 0;
     align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04); /* Garisan pemisah halus */
+}
+
+.modern-profile-row:last-child {
+    border-bottom: none;
 }
 
 .modern-profile-row span:first-child {
@@ -1214,6 +1424,7 @@ input:checked + .slider:before {
 }
 
 .modern-profile-row span:last-child {
-    color: #d1d1d6;
+    color: #f2f2f7;
     font-size: 13px;
+    font-weight: 500;
 }
