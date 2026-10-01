@@ -70,3 +70,4 @@ node_modules/
 
 # Firebase Admin credentials must remain local
 *firebase-adminsdk*.json
+pre-order-fyp-29a23ae12095.json

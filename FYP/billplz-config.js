@@ -1,0 +1,1 @@
+window.__BILLPLZ_API_BASE_URL__ = 'https://crevice-ninth-sponsor.ngrok-free.dev';

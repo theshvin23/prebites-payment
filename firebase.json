@@ -1,19 +1,10 @@
 {
-  "functions": {
-    "source": "functions"
-  },
   "hosting": {
     "public": "FYP",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "/api/**",
-        "function": "billplzApi"
-      }
     ]
   }
 }

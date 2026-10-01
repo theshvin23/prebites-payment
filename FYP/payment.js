@@ -7,7 +7,7 @@ const BILLPLZ_API_BASE_URL = (() => {
     if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
         return 'http://localhost:3001';
     }
-    return window.location.origin;
+    return '';
 })();
 
 function setHomepageNotice(title, message) {
@@ -154,8 +154,8 @@ document.addEventListener("DOMContentLoaded", async function () {
                 });
 
                 if (!isCashPayment && !isQrPayment) {
-                    if (BILLPLZ_API_BASE_URL.includes('REPLACE-WITH-YOUR-VERCEL-URL')) {
-                        throw new Error('Konfigurasi URL backend pembayaran belum ditetapkan.');
+                    if (!BILLPLZ_API_BASE_URL) {
+                        throw new Error('Tetapkan URL backend Billplz dalam billplz_api_base_url sebelum membuat pembayaran.');
                     }
 
                     const billResponse = await fetch(`${BILLPLZ_API_BASE_URL}/api/create-bill`, {
@@ -166,11 +166,8 @@ document.addEventListener("DOMContentLoaded", async function () {
                             Authorization: `Bearer ${await auth.currentUser.getIdToken()}`
                         },
                         body: JSON.stringify({
-                            email: auth.currentUser.email,
-                            name: auth.currentUser.displayName || 'PreBites Customer',
                             amount: Number(cartTotal),
-                            orderId: orderReference.id,
-                            description: 'PreBites Order Payment'
+                            orderId: orderReference.id
                         })
                     });
                     const billData = await billResponse.json().catch(() => ({}));
@@ -188,7 +185,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     ? 'Anda Telah Membuat Pesanan. Sila tunggu pesanan anda disediakan.'
                     : isQrPayment
                         ? `Pesanan RM ${cartTotal} berjaya dihantar. Sila tunjukkan bukti bayaran QR kepada peniaga jika diperlukan.`
-                    : `Pembayaran RM ${cartTotal} melalui kaedah [${nilaiKaedah}] berjaya! Terima kasih.`;
+                        : `Pesanan RM ${cartTotal} berjaya dihantar.`;
                 setHomepageNotice(
                     isCashPayment ? 'Anda Telah Membuat Pesanan' : 'Pesanan Diterima',
                     confirmation
@@ -198,9 +195,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 localStorage.removeItem('active_checkout_shop');
                 window.location.replace('homepage.html');
             } catch (error) {
-                const message = error instanceof TypeError && error.message === 'Failed to fetch'
-                    ? 'Server pembayaran tidak dapat dicapai. Pastikan Firebase Functions sudah dideploy dan cuba lagi.'
-                    : (error.message || firebaseErrorMessage(error));
+                const message = error.message || firebaseErrorMessage(error);
                 alert(message);
                 butangBayarTeks.disabled = false;
             }
@@ -216,7 +211,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     const labelCash = document.getElementById('label-cash');
     const qrExpandContainer = document.getElementById('qr-expand-container');
     const submitBtn = document.getElementById('butang-bayar-teks');
-
     function updateUI(method) {
         [labelQr, labelFpx, labelCash].forEach(label => label?.classList.remove('active-method'));
 
@@ -230,11 +224,15 @@ document.addEventListener("DOMContentLoaded", async function () {
             qrExpandContainer.classList.remove('expanded');
             submitBtn.classList.remove('hidden-btn');
             submitBtn.innerText = `Hantar Pesanan RM ${cartTotal}`;
-        } else {
+        } else if (method === 'fpx') {
             labelFpx.classList.add('active-method');
             qrExpandContainer.classList.remove('expanded');
             submitBtn.classList.remove('hidden-btn');
             submitBtn.innerText = `Bayar RM ${cartTotal} Sekarang`;
+        } else {
+            qrExpandContainer.classList.remove('expanded');
+            submitBtn.classList.remove('hidden-btn');
+            submitBtn.innerText = `Hantar Pesanan RM ${cartTotal}`;
         }
     }
 
@@ -259,6 +257,8 @@ document.addEventListener("DOMContentLoaded", async function () {
             updateUI('cash');
         });
     }
+
+    updateUI(radioFpx?.checked ? 'fpx' : 'cash');
 
     // 6. Logik Kawalan Custom Modal Pengesahan Batal (Cancel Payment)
     const btnCancelPayment = document.getElementById('btn-cancel-payment');
